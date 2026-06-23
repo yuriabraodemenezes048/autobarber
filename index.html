@@ -234,6 +234,73 @@ input:checked+.toggle-slider:before{transform:translateX(18px)}
   .mobile-menu-btn{display:flex!important}
 }
 .mobile-menu-btn{display:none;align-items:center;justify-content:center;background:var(--bg3);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:8px;font-size:18px;cursor:pointer;position:fixed;top:14px;left:14px;z-index:60}
+
+/* ─── BG PARTICLES ─── */
+.bg-particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.bg-particle{position:absolute;opacity:0;animation:float-particle linear infinite;user-select:none;filter:blur(0.3px)}
+@keyframes float-particle{0%{transform:translateY(105vh) rotate(0deg);opacity:0}8%{opacity:.06}88%{opacity:.06}100%{transform:translateY(-20vh) rotate(360deg);opacity:0}}
+
+/* ─── MODE TOGGLE ─── */
+#mode-toggle{position:fixed;bottom:20px;right:20px;z-index:9998;background:var(--bg3);border:1px solid var(--border);color:var(--text);width:46px;height:46px;border-radius:50%;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--sh);transition:.2s}
+#mode-toggle:hover{border-color:var(--gold);background:var(--bg4)}
+
+/* ─── MOBILE MODE ─── */
+body.mobile-mode .modal{max-width:100%!important;border-radius:20px 20px 0 0!important;position:fixed!important;bottom:0!important;left:0!important;right:0!important;max-height:90vh!important}
+body.mobile-mode .modal-overlay{align-items:flex-end!important;padding:0!important}
+body.mobile-mode .btn{min-height:46px!important}
+body.mobile-mode .slot{padding:12px 4px!important;font-size:14px!important}
+body.mobile-mode .cal-day{padding:10px 2px!important;font-size:13px!important}
+body.mobile-mode .stats-grid{grid-template-columns:1fr 1fr!important}
+body.mobile-mode .form-row{grid-template-columns:1fr!important}
+body.mobile-mode table{font-size:12px!important}
+body.mobile-mode td,body.mobile-mode th{padding:8px 8px!important}
+body.mobile-mode .admin-main{padding:12px!important}
+body.mobile-mode .page-head{flex-direction:column;align-items:flex-start;gap:10px}
+body.mobile-mode .pick-grid{grid-template-columns:1fr 1fr!important}
+body.mobile-mode .section{padding:32px 14px!important}
+body.mobile-mode .hero{padding:28px 16px!important}
+body.mobile-mode .hero h1{font-size:2rem!important}
+body.mobile-mode .filters{flex-direction:column}
+body.mobile-mode .filters input,.filters select{max-width:100%!important}
+body.mobile-mode .nav-actions .btn-outline{display:none}
+
+/* ─── PRO PHOTO ─── */
+.pro-photo{width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 12px;display:block}
+.pro-photo-sm{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.pro-photo-pick{width:52px;height:52px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 8px}
+.photo-upload-box{width:60px;height:60px;border-radius:50%;background:var(--bg4);border:2px solid var(--border);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;flex-shrink:0;transition:.2s}
+.photo-upload-box:hover{border-color:var(--gold)}
+
+/* ─── LOGO NAV ─── */
+#nav-logo-img{height:36px;max-width:120px;object-fit:contain;border-radius:4px;display:none}
+.nav-logo-wrap{display:flex;align-items:center;gap:8px}
+
+/* ─── PAYMENT OPTIONS ─── */
+.pay-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+.pay-opt{background:var(--bg3);border:2px solid var(--border);border-radius:var(--r);padding:16px 12px;cursor:pointer;text-align:center;transition:.2s}
+.pay-opt:hover{border-color:var(--gold)}
+.pay-opt.selected{border-color:var(--gold);background:rgba(212,160,23,.08)}
+.pay-opt .poi{font-size:28px;margin-bottom:6px}
+.pay-opt .pon{font-weight:700;font-size:14px}
+.pay-opt .pos{font-size:11px;color:var(--text2);margin-top:2px}
+
+/* ─── SYNC ─── */
+.sync-code-box{font-family:monospace;font-size:13px;color:var(--gold);background:var(--bg4);padding:12px;border-radius:8px;border:1px solid var(--border);word-break:break-all;letter-spacing:.5px}
+
+/* ─── LOGO SETTINGS ─── */
+.logo-preview-box{width:80px;height:80px;background:var(--bg4);border-radius:10px;border:1px solid var(--border);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0}
+.logo-preview-box img{width:100%;height:100%;object-fit:contain}
+
+/* ─── MOBILE RESPONSIVE ─── */
+@media(max-width:600px){
+  .hero h1{font-size:1.9rem}
+  .services-grid{grid-template-columns:1fr}
+  .pros-grid{grid-template-columns:1fr 1fr}
+  .nav{padding:0 14px;height:58px}
+  .section{padding:32px 14px}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .pay-opts{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
 <body>
@@ -259,10 +326,12 @@ input:checked+.toggle-slider:before{transform:translateX(18px)}
      CLIENT SIDE
 ═══════════════════════════════════════════ -->
 <div id="view-home" class="view active fade">
+<div class="bg-particles" id="bg-particles"></div>
+<button id="mode-toggle" onclick="toggleViewMode()" title="Alternar Mobile/Desktop">📱</button>
 
   <!-- NAV -->
   <nav class="nav">
-    <div class="nav-logo" id="nav-logo">Auto<span>Barber</span></div>
+    <div class="nav-logo-wrap"><img id="nav-logo-img" src="" alt=""><div class="nav-logo" id="nav-logo">Auto<span>Barber</span></div></div>
     <div class="nav-actions">
       <button class="btn btn-gold" onclick="openBooking()">✂️ Agendar Agora</button>
       <button class="btn btn-outline btn-sm" onclick="showView('view-admin-login')">Admin</button>
@@ -400,21 +469,46 @@ input:checked+.toggle-slider:before{transform:translateX(18px)}
         </div>
       </div>
 
-      <!-- STEP 5: PIX PAYMENT -->
+      <!-- STEP 5: PAYMENT -->
       <div id="bs5" style="display:none">
         <div class="step-label">Passo 5 de 5</div>
-        <div class="step-title">Pagamento via PIX</div>
-        <div class="pix-box">
-          <div class="pix-amount"><span>R$</span> <span id="pix-val"></span></div>
-          <div style="font-size:13px;color:var(--text2);margin-bottom:4px">Escaneie o QR Code ou copie o código</div>
-          <div id="qrcode"></div>
-          <div class="pix-code-box" id="pix-code-text"></div>
-          <button class="copy-btn" onclick="copyPix()">📋 Copiar código PIX</button>
-          <div class="pix-note">⏳ Após realizar o pagamento, clique no botão abaixo para confirmar seu agendamento.</div>
+        <div class="step-title">Como deseja pagar?</div>
+        <div class="pay-opts">
+          <div class="pay-opt selected" id="pay-opt-pix" onclick="selectPayMethod('pix')">
+            <div class="poi">💳</div>
+            <div class="pon">PIX Online</div>
+            <div class="pos">Pague agora</div>
+          </div>
+          <div class="pay-opt" id="pay-opt-local" onclick="selectPayMethod('local')">
+            <div class="poi">🏪</div>
+            <div class="pon">No Estabelecimento</div>
+            <div class="pos">Cartão / dinheiro / PIX</div>
+          </div>
+        </div>
+        <!-- PIX -->
+        <div id="pix-pay-section">
+          <div class="pix-box">
+            <div class="pix-amount"><span>R$</span> <span id="pix-val"></span></div>
+            <div style="font-size:13px;color:var(--text2);margin-bottom:4px">Escaneie o QR Code ou copie o código</div>
+            <div id="qrcode"></div>
+            <div class="pix-code-box" id="pix-code-text"></div>
+            <button class="copy-btn" onclick="copyPix()">📋 Copiar código PIX</button>
+            <div class="pix-note">⏳ Após realizar o pagamento, clique em Confirmar abaixo.</div>
+          </div>
+        </div>
+        <!-- Local -->
+        <div id="local-pay-section" style="display:none">
+          <div style="text-align:center;padding:20px 10px">
+            <div style="font-size:52px;margin-bottom:12px">🏪</div>
+            <div style="font-size:17px;font-weight:700;margin-bottom:8px">Pague no estabelecimento</div>
+            <div style="color:var(--text2);font-size:13px;margin-bottom:16px">Aceitamos dinheiro, cartão de débito/crédito e PIX no local</div>
+            <div class="pix-amount"><span>R$</span> <span id="pix-val-local"></span></div>
+            <div style="font-size:12px;color:var(--text2);margin-top:4px">Valor a pagar presencialmente</div>
+          </div>
         </div>
         <div style="display:flex;justify-content:space-between;margin-top:16px">
           <button class="btn btn-outline" onclick="bookingNext(4)">← Voltar</button>
-          <button class="btn btn-ok btn-full" style="margin-left:10px" onclick="confirmBooking()">✅ Confirmei o Pagamento</button>
+          <button class="btn btn-ok btn-full" style="margin-left:10px" id="confirm-pay-btn" onclick="confirmBooking()">✅ Confirmei o Pagamento</button>
         </div>
       </div>
 
@@ -607,6 +701,18 @@ input:checked+.toggle-slider:before{transform:translateX(18px)}
               </div>
             </div>
             <div class="form-group">
+              <label>Foto de Perfil</label>
+              <div style="display:flex;align-items:center;gap:14px;margin-top:6px">
+                <div class="photo-upload-box" id="pro-photo-preview" onclick="document.getElementById('pro-photo-file').click()">👤</div>
+                <div>
+                  <input type="file" id="pro-photo-file" accept="image/*" style="display:none" onchange="handleProPhoto(event)">
+                  <button class="btn btn-outline btn-sm" type="button" onclick="document.getElementById('pro-photo-file').click()">📷 Carregar Foto</button>
+                  <button class="btn btn-err btn-sm" type="button" id="remove-pro-photo-btn" onclick="removeProPhoto()" style="display:none;margin-left:6px">✕ Remover</button>
+                  <div style="font-size:11px;color:var(--text2);margin-top:4px">JPG ou PNG — máx 300KB</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
               <label>Login (usuário para acesso ao painel)</label>
               <input id="pf-login" placeholder="Deixe em branco para não criar acesso">
             </div>
@@ -721,6 +827,68 @@ input:checked+.toggle-slider:before{transform:translateX(18px)}
             </div>
           </div>
         </div>
+        <!-- LOGO -->
+        <div class="panel-form">
+          <h3>🎨 Logo da Barbearia</h3>
+          <div style="display:flex;align-items:center;gap:16px;margin-top:8px">
+            <div class="logo-preview-box" id="settings-logo-preview"><span style="font-size:32px">💈</span></div>
+            <div>
+              <input type="file" id="logo-file-input" accept="image/*" style="display:none" onchange="handleLogoUpload(event)">
+              <button class="btn btn-outline btn-sm" type="button" onclick="document.getElementById('logo-file-input').click()">📷 Carregar Logo</button>
+              <button class="btn btn-err btn-sm" type="button" id="remove-logo-btn" onclick="removeLogo()" style="display:none;margin-left:6px">✕ Remover</button>
+              <div style="font-size:11px;color:var(--text2);margin-top:6px">PNG, JPG — máx 500KB. Aparece na navbar e página inicial.</div>
+            </div>
+          </div>
+        </div>
+        <!-- NOTIFY TEMPLATE -->
+        <div class="panel-form">
+          <h3>📲 Template da Mensagem de Confirmação</h3>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:10px;line-height:1.8">
+            Use as variáveis:
+            <code style="color:var(--gold)">{nome}</code>
+            <code style="color:var(--gold)">{servico}</code>
+            <code style="color:var(--gold)">{profissional}</code>
+            <code style="color:var(--gold)">{data}</code>
+            <code style="color:var(--gold)">{hora}</code>
+            <code style="color:var(--gold)">{valor}</code>
+            <code style="color:var(--gold)">{codigo}</code>
+            <code style="color:var(--gold)">{obs}</code>
+            <code style="color:var(--gold)">{loja}</code>
+            <code style="color:var(--gold)">{telefone_loja}</code>
+          </div>
+          <textarea id="set-notify-template" rows="9" placeholder="Deixe em branco para usar o template padrão"></textarea>
+          <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+            <button class="btn btn-outline btn-sm" onclick="resetNotifyTemplate()">↩️ Restaurar padrão</button>
+            <button class="btn btn-outline btn-sm" onclick="previewNotifyTemplate()">👁 Prévia</button>
+          </div>
+          <div id="template-preview" style="display:none;margin-top:12px;background:var(--bg4);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;white-space:pre-wrap;line-height:1.7;color:var(--text)"></div>
+        </div>
+        <!-- CLOUD SYNC -->
+        <div class="panel-form">
+          <h3>☁️ Sincronização em Nuvem</h3>
+          <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">
+            Compartilhe dados (profissionais, serviços, agendamentos) entre dispositivos. Crie um código da sua loja e envie para sua equipe.
+          </div>
+          <div id="sync-connected-panel" style="display:none">
+            <div style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Código da sua loja</div>
+            <div class="sync-code-box" id="sync-code-display">—</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+              <button class="btn btn-outline btn-sm" onclick="copySyncCode()">📋 Copiar</button>
+              <button class="btn btn-gold btn-sm" onclick="pushSync()">⬆️ Enviar dados</button>
+              <button class="btn btn-outline btn-sm" onclick="pullSync()">⬇️ Baixar dados</button>
+              <button class="btn btn-err btn-sm" onclick="disconnectSync()">✕ Desconectar</button>
+            </div>
+            <div id="sync-status" style="margin-top:10px;font-size:12px;color:var(--text2)"></div>
+          </div>
+          <div id="sync-disconnected-panel">
+            <div style="display:grid;grid-template-columns:1fr auto;gap:8px;margin-bottom:10px">
+              <input id="sync-code-input" placeholder="Cole o código da loja aqui..." style="font-family:monospace;font-size:13px">
+              <button class="btn btn-gold" onclick="connectSync()">Conectar</button>
+            </div>
+            <div style="text-align:center;color:var(--text2);font-size:13px;padding:4px 0">— ou —</div>
+            <button class="btn btn-outline btn-sm btn-full" style="margin-top:8px" onclick="createSync()">✨ Criar código da minha loja</button>
+          </div>
+        </div>
         <button class="btn btn-gold" onclick="saveSettings()">💾 Salvar Configurações</button>
       </div>
 
@@ -795,7 +963,7 @@ input:checked+.toggle-slider:before{transform:translateX(18px)}
 <script>
 // ─── DATA ────────────────────────────────────────
 const DEFAULT = {
-  settings:{name:'AutoBarber',tagline:'Estilo e Precisão',phone:'(11) 99999-9999',address:'Rua das Tesouras, 123 – São Paulo',openTime:'09:00',closeTime:'20:00',pixKey:'',pixKeyType:'aleatoria',pixName:'AUTOBARBER LTDA',pixCity:'SAO PAULO'},
+  settings:{name:'AutoBarber',tagline:'Estilo e Precisão',phone:'(11) 99999-9999',address:'Rua das Tesouras, 123 – São Paulo',openTime:'09:00',closeTime:'20:00',pixKey:'',pixKeyType:'aleatoria',pixName:'AUTOBARBER LTDA',pixCity:'SAO PAULO',notifyTemplate:''},
   professionals:[
     {id:'p1',name:'Carlos Silva',specialty:'Especialista em Degradê',active:true,workDays:[1,2,3,4,5,6],workStart:'09:00',workEnd:'19:00',color:'#d4a017'},
     {id:'p2',name:'Marcus Oliveira',specialty:'Barba & Acabamento',active:true,workDays:[1,2,3,4,5,6],workStart:'10:00',workEnd:'20:00',color:'#3b82f6'},
@@ -851,28 +1019,26 @@ function closeConfirm(){document.getElementById('confirm-modal').classList.remov
 document.getElementById('confirm-ok-btn').onclick=()=>{if(confirmCb)confirmCb();closeConfirm();}
 
 // ─── AUTH ────────────────────────────────────────
-function doLogin(){
+async function doLogin(){
+  // Pull from cloud before authenticating (so accounts are up-to-date)
+  const syncId=load('syncBlobId');
+  if(syncId){try{await pullSyncById(syncId);}catch(e){/* offline ok */}}
   const u=document.getElementById('login-user').value.trim();
   const p=document.getElementById('login-pass').value;
   const admins=getData('admins');
   const pros=getData('professionals');
-  // check admins
   let found=admins.find(a=>a.username===u&&a.password===p);
   if(!found){
-    // check professionals with login
     const pFound=pros.find(pr=>pr.login===u&&pr.passHash===p&&pr.active);
     if(pFound) found={id:'pro_'+pFound.id,username:u,password:p,role:'professional',name:pFound.name,professionalId:pFound.id};
   }
   if(!found){toast('Usuário ou senha incorretos','err');return;}
   currentUser=found;
-  // restrict professional
-  if(found.role==='professional'){
-    document.getElementById('nav-admins-wrap').style.display='none';
-    document.getElementById('nav-settings').style.display='none';
-  } else {
-    document.getElementById('nav-admins-wrap').style.display='';
-    document.getElementById('nav-settings').style.display='';
-  }
+  const isPro=found.role==='professional';
+  document.getElementById('nav-admins-wrap').style.display=isPro?'none':'';
+  document.getElementById('nav-settings').style.display=isPro?'none':'';
+  const navPros=document.getElementById('nav-professionals');
+  if(navPros)navPros.style.display=isPro?'none':'';
   document.getElementById('sb-user-name').textContent=found.name||found.username;
   document.getElementById('sb-user-role').textContent=found.role==='owner'?'Proprietário':'Profissional';
   const s=getSettings();
@@ -908,7 +1074,10 @@ function renderDashboard(){
   const today=fmtDate(new Date());
   document.getElementById('dash-date').textContent='Hoje: '+new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
   const appts=getData('appointments');
-  const todayAppts=appts.filter(a=>a.date===today);
+  let todayAppts=appts.filter(a=>a.date===today);
+  if(currentUser&&currentUser.role==='professional'&&currentUser.professionalId){
+    todayAppts=todayAppts.filter(a=>a.professionalId===currentUser.professionalId);
+  }
   const confirmed=todayAppts.filter(a=>a.status==='confirmed'||a.status==='done');
   const revenue=confirmed.reduce((s,a)=>s+a.amount,0);
   const pending=todayAppts.filter(a=>a.status==='pending');
@@ -950,6 +1119,9 @@ function renderAppointments(){
   const fProV=pf.value;
   const fSearch=document.getElementById('filter-search').value.toLowerCase();
   let list=appts;
+  if(currentUser&&currentUser.role==='professional'&&currentUser.professionalId){
+    list=list.filter(a=>a.professionalId===currentUser.professionalId);
+  }
   if(fDate)list=list.filter(a=>a.date===fDate);
   if(fStatus)list=list.filter(a=>a.status===fStatus);
   if(fProV)list=list.filter(a=>a.professionalId===fProV);
@@ -1028,6 +1200,21 @@ function confirmApptWithNotify(id){
 
 function buildNotifyMsg(a,pro,svc,s){
   const shopName=s.name||'AutoBarber';
+  const tpl=s.notifyTemplate||(s.notifyTemplate===undefined?'':'');
+  if(tpl&&tpl.trim()){
+    return tpl
+      .replace(/{nome}/g,a.clientName.split(' ')[0])
+      .replace(/{nome_completo}/g,a.clientName)
+      .replace(/{servico}/g,svc.name)
+      .replace(/{profissional}/g,pro.name)
+      .replace(/{data}/g,fmtDateBr(a.date))
+      .replace(/{hora}/g,a.time)
+      .replace(/{valor}/g,'R$ '+a.amount.toFixed(2).replace('.',','))
+      .replace(/{codigo}/g,a.bookingCode)
+      .replace(/{obs}/g,a.obs||'')
+      .replace(/{loja}/g,shopName)
+      .replace(/{telefone_loja}/g,s.phone||'');
+  }
   const phone=s.phone?'\n📞 '+s.phone:'';
   return `Olá, ${a.clientName.split(' ')[0]}! 😊
 
@@ -1165,6 +1352,9 @@ function openProForm(){
   document.getElementById('pf-login').value='';
   document.getElementById('pf-pass').value='';
   document.querySelectorAll('.wd').forEach(c=>{c.checked=[1,2,3,4,5,6].includes(parseInt(c.value));});
+  _proPhotoData=null;
+  document.getElementById('pro-photo-preview').innerHTML='👤';
+  document.getElementById('remove-pro-photo-btn').style.display='none';
   selectedProColor='#d4a017';
   document.querySelectorAll('.color-opt').forEach(o=>{o.classList.toggle('selected',o.dataset.c===selectedProColor)});
   document.getElementById('pro-form-title').textContent='Novo Profissional';
@@ -1184,6 +1374,11 @@ function editPro(id){
   document.querySelectorAll('.color-opt').forEach(o=>{o.classList.toggle('selected',o.dataset.c===selectedProColor)});
   document.getElementById('pro-form-title').textContent='Editar Profissional';
   document.getElementById('pro-form-wrap').scrollIntoView({behavior:'smooth'});
+  _proPhotoData=null;
+  const ppv=document.getElementById('pro-photo-preview');
+  const rpb=document.getElementById('remove-pro-photo-btn');
+  if(p.photo){ppv.innerHTML=`<img src="${p.photo}" style="width:100%;height:100%;object-fit:cover">`;rpb.style.display='';}
+  else{ppv.innerHTML='👤';rpb.style.display='none';}
 }
 document.getElementById('pro-colors').addEventListener('click',e=>{
   const o=e.target.closest('.color-opt');if(!o)return;
@@ -1201,12 +1396,12 @@ function savePro(){
   if(id){
     const i=pros.findIndex(p=>p.id===id);
     if(i>=0){
-      pros[i]={...pros[i],name,specialty:document.getElementById('pf-spec').value,workStart:document.getElementById('pf-start').value,workEnd:document.getElementById('pf-end').value,workDays,color:selectedProColor};
+      const photoVal=_proPhotoData!==null?_proPhotoData:pros[i].photo;pros[i]={...pros[i],name,specialty:document.getElementById('pf-spec').value,workStart:document.getElementById('pf-start').value,workEnd:document.getElementById('pf-end').value,workDays,color:selectedProColor,photo:photoVal};
       if(login)pros[i].login=login;
       if(pass)pros[i].passHash=pass;
     }
   } else {
-    const newP={id:'p'+Date.now(),name,specialty:document.getElementById('pf-spec').value,workStart:document.getElementById('pf-start').value,workEnd:document.getElementById('pf-end').value,workDays,color:selectedProColor,active:true};
+    const newP={id:'p'+Date.now(),name,specialty:document.getElementById('pf-spec').value,workStart:document.getElementById('pf-start').value,workEnd:document.getElementById('pf-end').value,workDays,color:selectedProColor,active:true,photo:_proPhotoData||''};
     if(login){newP.login=login;if(pass)newP.passHash=pass;}
     pros.push(newP);
   }
@@ -1231,6 +1426,12 @@ function initSchedule(){
   const sel=document.getElementById('sch-pro');
   const cur=sel.value;
   sel.innerHTML='<option value="">Selecione profissional</option>'+pros.filter(p=>p.active).map(p=>`<option value="${p.id}"${p.id===cur?' selected':''}>${p.name}</option>`).join('');
+  if(currentUser&&currentUser.role==='professional'&&currentUser.professionalId){
+    sel.value=currentUser.professionalId;
+    sel.disabled=true;
+  } else {
+    sel.disabled=false;
+  }
   if(!schedWeekBase)schedWeekBase=new Date();
   // set week input to monday of current week
   const d=new Date(schedWeekBase);
@@ -1319,7 +1520,10 @@ function initReports(){
 function renderReports(){
   const from=document.getElementById('rep-from').value;
   const to=document.getElementById('rep-to').value;
-  const appts=getData('appointments').filter(a=>a.status!=='cancelled'&&(!from||a.date>=from)&&(!to||a.date<=to));
+  let appts=getData('appointments').filter(a=>a.status!=='cancelled'&&(!from||a.date>=from)&&(!to||a.date<=to));
+  if(currentUser&&currentUser.role==='professional'&&currentUser.professionalId){
+    appts=appts.filter(a=>a.professionalId===currentUser.professionalId);
+  }
   const pros=getData('professionals');
   const svcs=getData('services');
   const revenue=appts.reduce((s,a)=>s+a.amount,0);
@@ -1361,7 +1565,13 @@ function loadSettings(){
   document.getElementById('set-pix-key').value=s.pixKey||'';
   document.getElementById('set-pix-name').value=s.pixName||'';
   document.getElementById('set-pix-city').value=s.pixCity||'';
+  document.getElementById('set-notify-template').value=s.notifyTemplate||'';
   updatePixPlaceholder();
+  // Logo
+  applyLogo(load('logoImage'));
+  updateSettingsLogoPreview(load('logoImage'));
+  // Sync
+  initSyncUI();
 }
 function saveSettings(){
   const s={
@@ -1375,6 +1585,7 @@ function saveSettings(){
     pixKey:document.getElementById('set-pix-key').value.trim(),
     pixName:document.getElementById('set-pix-name').value.trim().toUpperCase(),
     pixCity:document.getElementById('set-pix-city').value.trim().toUpperCase(),
+    notifyTemplate:document.getElementById('set-notify-template').value,
   };
   save('settings',s);
   toast('Configurações salvas!','ok');
@@ -1487,11 +1698,12 @@ function renderBookingPros(){
     <div class="pick-name">Qualquer profissional</div>
     <div class="pick-sub">Primeiro disponível</div>
   </div>`;
-  html+=pros.map(p=>`<div class="pick-card${booking.professional===p.id?' selected':''}" onclick="selectPro('${p.id}')">
-    <div class="pro-avatar" style="background:${p.color};margin:0 auto 8px;width:48px;height:48px;font-size:18px">${initials(p.name)}</div>
-    <div class="pick-name">${esc(p.name)}</div>
-    <div class="pick-sub">${esc(p.specialty||'')}</div>
-  </div>`).join('');
+  html+=pros.map(p=>{
+    const av=p.photo
+      ?`<img src="${p.photo}" class="pro-photo-pick">`
+      :`<div class="pro-avatar" style="background:${p.color};margin:0 auto 8px;width:52px;height:52px;font-size:20px">${initials(p.name)}</div>`;
+    return `<div class="pick-card${booking.professional===p.id?' selected':''}" onclick="selectPro('${p.id}')">${av}<div class="pick-name">${esc(p.name)}</div><div class="pick-sub">${esc(p.specialty||'')}</div></div>`;
+  }).join('');
   document.getElementById('booking-pros').innerHTML=html;
 }
 function selectPro(id){booking.professional=id;renderBookingPros();}
@@ -1602,6 +1814,8 @@ function renderBookingSummary(){
 function renderPixStep(){
   const svc=getData('services').find(s=>s.id===booking.service)||{name:'Serviço',price:0};
   document.getElementById('pix-val').textContent=svc.price.toFixed(2).replace('.',',');
+  const localVal=document.getElementById('pix-val-local');
+  if(localVal)localVal.textContent=svc.price.toFixed(2).replace('.',',');
   const s=getSettings();
   const txId='AB'+Date.now().toString(36).toUpperCase().slice(-8);
   let payload='';
@@ -1644,6 +1858,7 @@ function confirmBooking(){
     if(available.length)assignedProId=available[Math.floor(Math.random()*available.length)].id;
     else{toast('Nenhum profissional disponível','err');return;}
   }
+  const payMethod=selectedPayMethod||'pix';
   const code='AB'+Math.random().toString(36).substr(2,6).toUpperCase();
   const appt={
     id:'apt'+Date.now(),
@@ -1658,11 +1873,13 @@ function confirmBooking(){
     time:booking.time,
     amount:booking._amount||svc.price,
     status:'pending',
+    paymentMethod:payMethod,
     createdAt:new Date().toISOString(),
   };
   const appts=getData('appointments');
   appts.push(appt);
   saveData('appointments',appts);
+  pushSyncSilent();
   // show confirmation
   const pro=pros.find(p=>p.id===assignedProId)||{name:'—'};
   document.getElementById('confirm-booking-code').textContent=code;
@@ -1738,12 +1955,17 @@ function initHome(){
     </div>`).join('');
   // pros
   const pros=getData('professionals').filter(p=>p.active);
-  document.getElementById('home-pros').innerHTML=pros.map(p=>`
-    <div class="pro-card">
-      <div class="pro-avatar" style="background:${p.color}">${initials(p.name)}</div>
-      <div class="pro-name">${esc(p.name)}</div>
-      <div class="pro-spec">${esc(p.specialty||'')}</div>
-    </div>`).join('');
+  document.getElementById('home-pros').innerHTML=pros.map(p=>{
+    const av=p.photo?`<img src="${p.photo}" class="pro-photo">`:`<div class="pro-avatar" style="background:${p.color}">${initials(p.name)}</div>`;
+    return `<div class="pro-card">${av}<div class="pro-name">${esc(p.name)}</div><div class="pro-spec">${esc(p.specialty||'')}</div></div>`;
+  }).join('');
+  // Logo
+  const logoUrl=load('logoImage');
+  applyLogo(logoUrl);
+  // Background particles
+  initBgParticles();
+  // View mode
+  applyViewMode();
   // login logo
   document.getElementById('login-logo-name').textContent=s.name;
 }
@@ -1795,8 +2017,295 @@ function pixLivePreview(){
   }
 }
 
+
+// ─── PAYMENT METHOD ─────────────────────────────────────
+let selectedPayMethod='pix';
+function selectPayMethod(m){
+  selectedPayMethod=m;
+  document.getElementById('pay-opt-pix').classList.toggle('selected',m==='pix');
+  document.getElementById('pay-opt-local').classList.toggle('selected',m==='local');
+  document.getElementById('pix-pay-section').style.display=m==='pix'?'':'none';
+  document.getElementById('local-pay-section').style.display=m==='local'?'':'none';
+  const btn=document.getElementById('confirm-pay-btn');
+  if(btn)btn.textContent=m==='pix'?'✅ Confirmei o Pagamento':'✅ Confirmar Agendamento';
+}
+
+// ─── LOGO ───────────────────────────────────────────────
+function applyLogo(url){
+  const img=document.getElementById('nav-logo-img');
+  const txt=document.getElementById('nav-logo');
+  const sidebar=document.getElementById('sidebar-logo-img');
+  if(url){
+    if(img){img.src=url;img.style.display='';}
+    if(txt)txt.style.display='none';
+    if(sidebar){sidebar.src=url;sidebar.style.display='';}
+  } else {
+    if(img)img.style.display='none';
+    if(txt)txt.style.display='';
+    if(sidebar)sidebar.style.display='none';
+  }
+}
+function updateSettingsLogoPreview(url){
+  const box=document.getElementById('settings-logo-preview');
+  const rmBtn=document.getElementById('remove-logo-btn');
+  if(!box)return;
+  if(url){
+    box.innerHTML=`<img src="${url}" style="width:100%;height:100%;object-fit:contain">`;
+    if(rmBtn)rmBtn.style.display='';
+  } else {
+    box.innerHTML='<span style="font-size:32px">💈</span>';
+    if(rmBtn)rmBtn.style.display='none';
+  }
+}
+function handleLogoUpload(e){
+  const file=e.target.files[0];if(!file)return;
+  if(file.size>512*1024){toast('Imagem muito grande (máx 500KB)','err');return;}
+  const r=new FileReader();
+  r.onload=ev=>{
+    const url=ev.target.result;
+    save('logoImage',url);
+    applyLogo(url);
+    updateSettingsLogoPreview(url);
+    toast('Logo carregado!','ok');
+  };
+  r.readAsDataURL(file);
+}
+function removeLogo(){
+  save('logoImage',null);
+  applyLogo(null);
+  updateSettingsLogoPreview(null);
+  document.getElementById('logo-file-input').value='';
+  toast('Logo removido','ok');
+}
+
+// ─── PRO PHOTO ─────────────────────────────────────────
+let _proPhotoData=null;
+function handleProPhoto(e){
+  const file=e.target.files[0];if(!file)return;
+  if(file.size>300*1024){toast('Foto muito grande (máx 300KB)','err');return;}
+  const r=new FileReader();
+  r.onload=ev=>{
+    _proPhotoData=ev.target.result;
+    const pv=document.getElementById('pro-photo-preview');
+    pv.innerHTML=`<img src="${_proPhotoData}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+    document.getElementById('remove-pro-photo-btn').style.display='';
+  };
+  r.readAsDataURL(file);
+}
+function removeProPhoto(){
+  _proPhotoData='';
+  document.getElementById('pro-photo-preview').innerHTML='👤';
+  document.getElementById('remove-pro-photo-btn').style.display='none';
+  document.getElementById('pro-photo-file').value='';
+}
+
+// ─── MOBILE TOGGLE ─────────────────────────────────────
+let isMobileMode=false;
+function applyViewMode(){
+  document.body.classList.toggle('mobile-mode',isMobileMode);
+  const btn=document.getElementById('mode-toggle');
+  if(btn)btn.textContent=isMobileMode?'💻':'📱';
+}
+function toggleViewMode(){
+  isMobileMode=!isMobileMode;
+  save('mobileMode',isMobileMode);
+  applyViewMode();
+  toast(isMobileMode?'Modo Mobile ativado':'Modo Desktop ativado','info');
+}
+
+// ─── BG PARTICLES ─────────────────────────────────────
+function initBgParticles(){
+  const c=document.getElementById('bg-particles');
+  if(!c||c.children.length)return;
+  const syms=['✂️','🪒','💈','🔧','⭐','✨'];
+  for(let i=0;i<18;i++){
+    const el=document.createElement('div');
+    el.className='bg-particle';
+    el.textContent=syms[Math.floor(Math.random()*syms.length)];
+    el.style.left=Math.random()*100+'%';
+    el.style.fontSize=(14+Math.random()*28)+'px';
+    el.style.animationDuration=(10+Math.random()*14)+'s';
+    el.style.animationDelay=(-Math.random()*24)+'s';
+    c.appendChild(el);
+  }
+}
+
+// ─── NOTIFY TEMPLATE ─────────────────────────────────────
+const DEFAULT_NOTIFY_TPL=`Olá, {nome}! 😊
+
+Seu agendamento na *{loja}* foi *CONFIRMADO*! ✅
+
+✂️ *Serviço:* {servico}
+👤 *Profissional:* {profissional}
+📅 *Data:* {data}
+⏰ *Horário:* {hora}
+💰 *Valor:* {valor}
+🔑 *Código:* {codigo}
+
+Te esperamos! Em caso de imprevisto, avise com antecedência.{telefone_loja}
+
+_{loja}_ 💈`;
+function resetNotifyTemplate(){
+  document.getElementById('set-notify-template').value='';
+  document.getElementById('template-preview').style.display='none';
+  toast('Template restaurado para o padrão','ok');
+}
+function previewNotifyTemplate(){
+  const tpl=document.getElementById('set-notify-template').value||DEFAULT_NOTIFY_TPL;
+  const s=getSettings();
+  const preview=tpl
+    .replace(/{nome}/g,'João')
+    .replace(/{nome_completo}/g,'João Silva')
+    .replace(/{servico}/g,'Corte Masculino')
+    .replace(/{profissional}/g,'Carlos Silva')
+    .replace(/{data}/g,'25/12/2025')
+    .replace(/{hora}/g,'14:00')
+    .replace(/{valor}/g,'R$ 45,00')
+    .replace(/{codigo}/g,'AB1X2Y3Z')
+    .replace(/{obs}/g,'Sem observações')
+    .replace(/{loja}/g,s.name||'AutoBarber')
+    .replace(/{telefone_loja}/g,s.phone?'\n📞 '+s.phone:'');
+  const box=document.getElementById('template-preview');
+  box.textContent=preview;
+  box.style.display='';
+}
+
+// ─── CLOUD SYNC ─────────────────────────────────────────
+const SYNC_API='https://jsonblob.com/api/jsonBlob';
+function getSyncData(){
+  return {
+    settings:getSettings(),
+    professionals:getData('professionals'),
+    services:getData('services'),
+    admins:getData('admins'),
+    appointments:getData('appointments'),
+    blockedSlots:getData('blockedSlots'),
+  };
+}
+async function pullSyncById(blobId){
+  const resp=await fetch(SYNC_API+'/'+blobId,{headers:{Accept:'application/json'}});
+  if(!resp.ok)throw new Error('HTTP '+resp.status);
+  const data=await resp.json();
+  if(data.settings)save('settings',data.settings);
+  if(data.professionals)save('professionals',data.professionals);
+  if(data.services)save('services',data.services);
+  if(data.admins)save('admins',data.admins);
+  if(data.appointments)save('appointments',data.appointments);
+  if(data.blockedSlots)save('blockedSlots',data.blockedSlots);
+}
+async function createSync(){
+  const btn=event.currentTarget;
+  const orig=btn.textContent;btn.textContent='Criando...';btn.disabled=true;
+  try{
+    const resp=await fetch(SYNC_API,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(getSyncData())
+    });
+    if(!resp.ok)throw new Error('HTTP '+resp.status);
+    const loc=resp.headers.get('Location')||'';
+    const blobId=loc.split('/').pop();
+    if(!blobId)throw new Error('Sem ID');
+    save('syncBlobId',blobId);
+    showSyncConnected(blobId);
+    toast('Código criado! Compartilhe com sua equipe.','ok');
+  }catch(e){
+    toast('Erro ao criar sync: verifique a conexão','err');
+    console.error(e);
+  }finally{btn.textContent=orig;btn.disabled=false;}
+}
+async function connectSync(){
+  const code=document.getElementById('sync-code-input').value.trim();
+  if(!code){toast('Cole o código da loja','err');return;}
+  const btn=event.currentTarget;
+  const orig=btn.textContent;btn.textContent='Conectando...';btn.disabled=true;
+  try{
+    await pullSyncById(code);
+    save('syncBlobId',code);
+    showSyncConnected(code);
+    initHome();
+    toast('Conectado! Dados carregados.','ok');
+  }catch(e){
+    toast('Código inválido ou sem conexão','err');
+  }finally{btn.textContent=orig;btn.disabled=false;}
+}
+async function pushSync(){
+  const blobId=load('syncBlobId');if(!blobId)return;
+  const st=document.getElementById('sync-status');if(st)st.textContent='Enviando dados...';
+  try{
+    const resp=await fetch(SYNC_API+'/'+blobId,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(getSyncData())
+    });
+    if(!resp.ok)throw new Error('HTTP '+resp.status);
+    if(st)st.textContent='✅ Enviado às '+new Date().toLocaleTimeString('pt-BR');
+    toast('Dados sincronizados!','ok');
+  }catch(e){
+    if(st)st.textContent='❌ Erro: '+e.message;
+    toast('Falha ao sincronizar','err');
+  }
+}
+async function pullSync(){
+  const blobId=load('syncBlobId');if(!blobId)return;
+  const st=document.getElementById('sync-status');if(st)st.textContent='Baixando dados...';
+  try{
+    await pullSyncById(blobId);
+    if(st)st.textContent='✅ Atualizado às '+new Date().toLocaleTimeString('pt-BR');
+    toast('Dados atualizados!','ok');
+    loadSettings();renderDashboard();
+  }catch(e){
+    if(st)st.textContent='❌ Erro: '+e.message;
+    toast('Falha ao baixar dados','err');
+  }
+}
+async function pushSyncSilent(){
+  const blobId=load('syncBlobId');if(!blobId)return;
+  try{
+    await fetch(SYNC_API+'/'+blobId,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(getSyncData())
+    });
+  }catch(e){/* silent */}
+}
+function copySyncCode(){
+  const code=document.getElementById('sync-code-display').textContent;
+  navigator.clipboard.writeText(code).then(()=>toast('Código copiado!','ok')).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast('Código copiado!','ok');
+  });
+}
+function disconnectSync(){
+  showConfirm('Desconectar da nuvem','Remover a conexão com a nuvem deste dispositivo?',()=>{
+    save('syncBlobId',null);
+    initSyncUI();
+    toast('Desconectado','ok');
+  },'Desconectar','btn-err');
+}
+function showSyncConnected(blobId){
+  const cp=document.getElementById('sync-connected-panel');
+  const dp=document.getElementById('sync-disconnected-panel');
+  const cd=document.getElementById('sync-code-display');
+  if(cp)cp.style.display='';
+  if(dp)dp.style.display='none';
+  if(cd)cd.textContent=blobId;
+}
+function initSyncUI(){
+  const blobId=load('syncBlobId');
+  const cp=document.getElementById('sync-connected-panel');
+  const dp=document.getElementById('sync-disconnected-panel');
+  if(blobId){
+    showSyncConnected(blobId);
+  } else {
+    if(cp)cp.style.display='none';
+    if(dp)dp.style.display='';
+  }
+}
+
 // ─── INIT ────────────────────────────────────────
 
+// Restore mobile mode from storage
+isMobileMode=!!(load('mobileMode'));
 initHome();
 // Set today's date in filters
 document.getElementById('filter-date').value=fmtDate(new Date());
