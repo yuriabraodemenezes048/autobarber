@@ -301,6 +301,20 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
   .stats-grid{grid-template-columns:1fr 1fr}
   .pay-opts{grid-template-columns:1fr 1fr}
 }
+
+/* ─── PASSWORD TOGGLE ─── */
+.pass-wrap{position:relative;display:flex;align-items:center}
+.pass-wrap input{flex:1;padding-right:40px!important}
+.pass-toggle{position:absolute;right:10px;background:none;border:none;cursor:pointer;color:var(--text2);font-size:16px;padding:4px;line-height:1;transition:.15s}
+.pass-toggle:hover{color:var(--gold)}
+
+/* ─── SHOP URL BOX ─── */
+.shop-url-box{background:var(--bg4);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-family:monospace;font-size:12px;color:var(--gold);word-break:break-all;line-height:1.6}
+
+/* ─── LOGIN SYNC CODE ─── */
+.login-sync-row{margin-top:6px;position:relative}
+.login-sync-row input{font-size:12px;font-family:monospace;color:var(--text2)}
+.sync-hint{font-size:11px;color:var(--text2);margin-top:4px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -534,12 +548,24 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
   <div class="login-wrap">
     <div class="login-box">
       <div class="login-logo">
+        <img id="login-logo-img" src="" alt="" style="display:none;max-height:64px;max-width:160px;object-fit:contain;margin:0 auto 10px;border-radius:8px">
         <h1 id="login-logo-name">AutoBarber</h1>
         <p>Painel Administrativo</p>
       </div>
       <div class="card">
         <div class="form-group"><label>Usuário</label><input id="login-user" type="text" placeholder="admin"></div>
-        <div class="form-group"><label>Senha</label><input id="login-pass" type="password" placeholder="••••••••"></div>
+        <div class="form-group">
+          <label>Senha</label>
+          <div class="pass-wrap">
+            <input id="login-pass" type="password" placeholder="••••••••">
+            <button class="pass-toggle" type="button" onclick="togglePass('login-pass',this)" tabindex="-1">👁</button>
+          </div>
+        </div>
+        <div class="form-group login-sync-row">
+          <label style="font-size:12px;color:var(--text2)">Código da loja <span style="font-weight:400;opacity:.7">(opcional — para logar de outro dispositivo)</span></label>
+          <input id="login-sync-code" type="text" placeholder="Cole o código da loja aqui" style="font-family:monospace;font-size:12px">
+          <div class="sync-hint">💡 Peça ao administrador o código da loja para sincronizar os dados neste dispositivo.</div>
+        </div>
         <button class="btn btn-gold btn-full" onclick="doLogin()">Entrar →</button>
         <div style="margin-top:16px;text-align:center">
           <a href="#" onclick="showView('view-home')" style="font-size:13px">← Voltar ao site</a>
@@ -718,7 +744,10 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
             </div>
             <div class="form-group">
               <label>Senha</label>
-              <input id="pf-pass" type="password" placeholder="Mínimo 6 caracteres">
+              <div class="pass-wrap">
+                <input id="pf-pass" type="password" placeholder="Mínimo 6 caracteres">
+                <button class="pass-toggle" type="button" onclick="togglePass('pf-pass',this)" tabindex="-1">👁</button>
+              </div>
             </div>
             <div style="display:flex;gap:10px">
               <button class="btn btn-gold" onclick="savePro()">Salvar</button>
@@ -889,6 +918,38 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
             <button class="btn btn-outline btn-sm btn-full" style="margin-top:8px" onclick="createSync()">✨ Criar código da minha loja</button>
           </div>
         </div>
+        <!-- DOMÍNIO PERSONALIZADO -->
+        <div class="panel-form">
+          <h3>🌐 Link e Domínio da Loja</h3>
+          <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">
+            Defina um nome único para a sua loja. O sistema gerará um link exclusivo para seus clientes acessarem diretamente a <em>sua</em> barbearia.
+          </div>
+          <div class="form-group">
+            <label>Slug da loja <span style="font-weight:400;color:var(--text2)">(apenas letras, números e hífen)</span></label>
+            <div style="display:flex;gap:8px;align-items:center">
+              <input id="set-slug" placeholder="ex: yuricortes" style="max-width:200px" oninput="previewSlug()">
+              <button class="btn btn-gold btn-sm" onclick="applySlug()">✅ Definir</button>
+            </div>
+          </div>
+          <div id="slug-url-section" style="display:none;margin-top:12px">
+            <div style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Link da sua loja</div>
+            <div class="shop-url-box" id="slug-url-display">—</div>
+            <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+              <button class="btn btn-outline btn-sm" onclick="copyShopUrl()">📋 Copiar link</button>
+              <button class="btn btn-outline btn-sm" onclick="openShopUrl()">🔗 Abrir</button>
+              <button class="btn btn-err btn-sm" onclick="clearSlug()">✕ Remover slug</button>
+            </div>
+            <div style="margin-top:12px;padding:12px;background:var(--bg4);border-radius:8px;border-left:3px solid var(--gold)">
+              <div style="font-size:12px;font-weight:700;margin-bottom:6px">💡 Como funciona</div>
+              <div style="font-size:11px;color:var(--text2);line-height:1.7">
+                • Compartilhe o link acima com seus clientes<br>
+                • Ao acessar o link, os dados da sua barbearia carregam automaticamente<br>
+                • Funciona em qualquer dispositivo, sem precisar configurar nada<br>
+                • Para domínio próprio (ex: yuricortes.com.br), configure o redirecionamento para este link
+              </div>
+            </div>
+          </div>
+        </div>
         <button class="btn btn-gold" onclick="saveSettings()">💾 Salvar Configurações</button>
       </div>
 
@@ -904,7 +965,12 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
               <div class="form-group"><label>Usuário</label><input id="af-user" placeholder="Login"></div>
             </div>
             <div class="form-row">
-              <div class="form-group"><label>Senha</label><input id="af-pass" type="password" placeholder="Senha"></div>
+              <div class="form-group"><label>Senha</label>
+                <div class="pass-wrap">
+                  <input id="af-pass" type="password" placeholder="Senha">
+                  <button class="pass-toggle" type="button" onclick="togglePass('af-pass',this)" tabindex="-1">👁</button>
+                </div>
+              </div>
               <div class="form-group"><label>Perfil</label>
                 <select id="af-role"><option value="owner">Proprietário</option><option value="professional">Profissional</option></select>
               </div>
@@ -1020,9 +1086,17 @@ document.getElementById('confirm-ok-btn').onclick=()=>{if(confirmCb)confirmCb();
 
 // ─── AUTH ────────────────────────────────────────
 async function doLogin(){
-  // Pull from cloud before authenticating (so accounts are up-to-date)
-  const syncId=load('syncBlobId');
-  if(syncId){try{await pullSyncById(syncId);}catch(e){/* offline ok */}}
+  // Use sync code from login field or from saved ID
+  const loginCode=document.getElementById('login-sync-code')?.value?.trim();
+  const syncId=loginCode||load('syncBlobId');
+  if(syncId){
+    try{
+      await pullSyncById(syncId);
+      if(loginCode){save('syncBlobId',loginCode);initSyncUI();}
+    }catch(e){
+      if(loginCode){toast('Código da loja inválido ou sem conexão','err');return;}
+    }
+  }
   const u=document.getElementById('login-user').value.trim();
   const p=document.getElementById('login-pass').value;
   const admins=getData('admins');
@@ -1572,6 +1646,10 @@ function loadSettings(){
   updateSettingsLogoPreview(load('logoImage'));
   // Sync
   initSyncUI();
+  // Slug/domain
+  const slug=s.shopSlug||'';
+  document.getElementById('set-slug').value=slug;
+  updateSlugDisplay(slug);
 }
 function saveSettings(){
   const s={
@@ -1586,6 +1664,7 @@ function saveSettings(){
     pixName:document.getElementById('set-pix-name').value.trim().toUpperCase(),
     pixCity:document.getElementById('set-pix-city').value.trim().toUpperCase(),
     notifyTemplate:document.getElementById('set-notify-template').value,
+    shopSlug:(document.getElementById('set-slug')?.value||'').trim().toLowerCase().replace(/[^a-z0-9-]/g,''),
   };
   save('settings',s);
   toast('Configurações salvas!','ok');
@@ -1959,15 +2038,16 @@ function initHome(){
     const av=p.photo?`<img src="${p.photo}" class="pro-photo">`:`<div class="pro-avatar" style="background:${p.color}">${initials(p.name)}</div>`;
     return `<div class="pro-card">${av}<div class="pro-name">${esc(p.name)}</div><div class="pro-spec">${esc(p.specialty||'')}</div></div>`;
   }).join('');
-  // Logo
+  // Logo + brand
   const logoUrl=load('logoImage');
   applyLogo(logoUrl);
+  document.getElementById('login-logo-name').textContent=s.name;
   // Background particles
   initBgParticles();
   // View mode
   applyViewMode();
-  // login logo
-  document.getElementById('login-logo-name').textContent=s.name;
+  // Auto-load shop from URL ?shop= parameter
+  autoLoadShopFromUrl();
 }
 
 // ─── UTILS ────────────────────────────────────────
@@ -2035,14 +2115,17 @@ function applyLogo(url){
   const img=document.getElementById('nav-logo-img');
   const txt=document.getElementById('nav-logo');
   const sidebar=document.getElementById('sidebar-logo-img');
+  const loginLogo=document.getElementById('login-logo-img');
   if(url){
-    if(img){img.src=url;img.style.display='';}
+    if(img){img.src=url;img.style.display='block';}
     if(txt)txt.style.display='none';
-    if(sidebar){sidebar.src=url;sidebar.style.display='';}
+    if(sidebar){sidebar.src=url;sidebar.style.display='block';}
+    if(loginLogo){loginLogo.src=url;loginLogo.style.display='block';}
   } else {
     if(img)img.style.display='none';
-    if(txt)txt.style.display='';
+    if(txt)txt.style.display='block';
     if(sidebar)sidebar.style.display='none';
+    if(loginLogo)loginLogo.style.display='none';
   }
 }
 function updateSettingsLogoPreview(url){
@@ -2299,6 +2382,125 @@ function initSyncUI(){
   } else {
     if(cp)cp.style.display='none';
     if(dp)dp.style.display='';
+  }
+}
+
+
+// ─── PASSWORD TOGGLE ─────────────────────────────────────
+function togglePass(id, btn){
+  const inp=document.getElementById(id);
+  if(!inp)return;
+  const show=inp.type==='password';
+  inp.type=show?'text':'password';
+  btn.textContent=show?'🙈':'👁';
+}
+
+// ─── SLUG / DOMAIN ─────────────────────────────────────
+function getShopBaseUrl(){
+  return window.location.origin+window.location.pathname;
+}
+function buildShopUrl(slug,blobId){
+  const base=getShopBaseUrl();
+  const params=new URLSearchParams();
+  if(blobId)params.set('shop',blobId);
+  if(slug)params.set('slug',slug);
+  return base+'?'+params.toString();
+}
+function updateSlugDisplay(slug){
+  const sec=document.getElementById('slug-url-section');
+  const urlEl=document.getElementById('slug-url-display');
+  if(!sec||!urlEl)return;
+  if(slug){
+    const blobId=load('syncBlobId')||'';
+    const url=buildShopUrl(slug,blobId);
+    urlEl.textContent=url;
+    sec.style.display='';
+  } else {
+    sec.style.display='none';
+  }
+}
+function previewSlug(){
+  const raw=document.getElementById('set-slug').value;
+  const clean=raw.toLowerCase().replace(/[^a-z0-9-]/g,'');
+  if(raw!==clean)document.getElementById('set-slug').value=clean;
+}
+function applySlug(){
+  const slug=document.getElementById('set-slug').value.trim().toLowerCase().replace(/[^a-z0-9-]/g,'');
+  if(!slug){toast('Digite um slug válido','err');return;}
+  // Confirm need sync blob for sharing
+  const blobId=load('syncBlobId');
+  if(!blobId){
+    toast('Ative a Sincronização em Nuvem primeiro para gerar o link!','err');return;
+  }
+  // Save to settings
+  const s=getSettings();s.shopSlug=slug;save('settings',s);
+  document.getElementById('set-slug').value=slug;
+  updateSlugDisplay(slug);
+  toast('Link da loja gerado!','ok');
+}
+function copyShopUrl(){
+  const url=document.getElementById('slug-url-display')?.textContent;
+  if(!url||url==='—')return;
+  navigator.clipboard.writeText(url).then(()=>toast('Link copiado!','ok')).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=url;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast('Link copiado!','ok');
+  });
+}
+function openShopUrl(){
+  const url=document.getElementById('slug-url-display')?.textContent;
+  if(url&&url!=='—')window.open(url,'_blank');
+}
+function clearSlug(){
+  const s=getSettings();s.shopSlug='';save('settings',s);
+  document.getElementById('set-slug').value='';
+  updateSlugDisplay('');
+  toast('Slug removido','ok');
+}
+async function autoLoadShopFromUrl(){
+  const params=new URLSearchParams(window.location.search);
+  const shopCode=params.get('shop');
+  if(!shopCode)return;
+  const storedCode=load('syncBlobId');
+  if(storedCode===shopCode)return; // already loaded
+  try{
+    await pullSyncById(shopCode);
+    save('syncBlobId',shopCode);
+    // Re-render with new data
+    const s=getSettings();
+    document.title=s.name+' – Agendamento Online';
+    (function setLogo(name){
+      const el=document.getElementById('nav-logo');if(!el)return;
+      const sp=name.indexOf(' ');
+      if(sp>0){el.innerHTML=name.slice(0,sp)+'<span>'+name.slice(sp+1)+'</span>';return;}
+      const m=name.match(/^([A-Z][a-z]+)([A-Z]\w+)$/);
+      if(m){el.innerHTML=m[1]+'<span>'+m[2]+'</span>';return;}
+      el.textContent=name;
+    })(s.name);
+    applyLogo(load('logoImage'));
+    document.getElementById('home-address').textContent=s.address||'—';
+    document.getElementById('home-phone').textContent=s.phone||'—';
+    document.getElementById('home-hours').textContent=s.openTime&&s.closeTime?`${s.openTime} às ${s.closeTime}`:'—';
+    document.getElementById('footer-name').textContent=s.name;
+    document.getElementById('login-logo-name').textContent=s.name;
+    // Re-render services and pros
+    const svcs=getData('services').filter(x=>x.active);
+    document.getElementById('home-services').innerHTML=svcs.map(sv=>`
+      <div class="service-card" onclick="openBooking()">
+        <div class="service-icon">${sv.icon||'✂️'}</div>
+        <div class="service-name">${esc(sv.name)}</div>
+        <div class="service-desc">${esc(sv.description||'')}</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:auto">
+          <div class="service-price">R$ ${sv.price.toFixed(2).replace('.',',')}</div>
+          <div class="service-time">${sv.duration} min</div>
+        </div>
+      </div>`).join('');
+    const pros=getData('professionals').filter(p=>p.active);
+    document.getElementById('home-pros').innerHTML=pros.map(p=>{
+      const av=p.photo?`<img src="${p.photo}" class="pro-photo">`:`<div class="pro-avatar" style="background:${p.color}">${initials(p.name)}</div>`;
+      return `<div class="pro-card">${av}<div class="pro-name">${esc(p.name)}</div><div class="pro-spec">${esc(p.specialty||'')}</div></div>`;
+    }).join('');
+    toast('Dados da loja carregados!','ok');
+  }catch(e){
+    console.warn('autoLoadShopFromUrl failed:',e);
   }
 }
 
