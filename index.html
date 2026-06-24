@@ -2017,12 +2017,13 @@ function savePro(){
     pros.push(newP);
   }
   saveData('professionals',pros);
+  pushSyncSilent();
   document.getElementById('pro-form-wrap').style.display='none';
   renderPros();toast('Profissional salvo','ok');
 }
 function togglePro(id){
   const pros=getData('professionals');const i=pros.findIndex(p=>p.id===id);
-  if(i>=0){pros[i].active=!pros[i].active;saveData('professionals',pros);renderPros();}
+  if(i>=0){pros[i].active=!pros[i].active;saveData('professionals',pros);pushSyncSilent();renderPros();}
 }
 function deletePro(id){
   showConfirm('Excluir profissional','Deseja excluir este profissional?',()=>{
