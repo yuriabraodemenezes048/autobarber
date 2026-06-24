@@ -428,6 +428,38 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
 .emp-status-inactive{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.2)}
 @media(max-width:600px){.emp-sidebar{display:none}.emp-section{padding:16px}.emp-stat-grid{grid-template-columns:1fr 1fr}}
 
+
+/* ── COMMISSION SYSTEM ── */
+.comm-tabs{display:flex;gap:0;margin-bottom:20px;border:1px solid var(--border);border-radius:8px;overflow:hidden;width:fit-content}
+.comm-tab{padding:9px 18px;font-size:13px;cursor:pointer;background:var(--bg3);color:var(--text2);border-right:1px solid var(--border);transition:.15s;white-space:nowrap}
+.comm-tab:last-child{border-right:none}
+.comm-tab.active{background:var(--gold);color:#000;font-weight:700}
+.comm-sub{display:none}.comm-sub.active{display:block}
+.comm-rule-row{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;flex-wrap:wrap}
+.comm-rule-svc{font-weight:600;font-size:14px;flex:1;min-width:120px}
+.comm-rule-price{font-size:12px;color:var(--text2)}
+.comm-progress-wrap{background:var(--bg3);border-radius:20px;height:10px;overflow:hidden;margin:6px 0}
+.comm-progress-bar{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--gold),#f59e0b);transition:.4s}
+.comm-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px}
+.comm-stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:20px}
+.comm-stat-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+.comm-stat-val{font-size:24px;font-weight:800;color:var(--gold)}
+.comm-stat-lbl{font-size:11px;color:var(--text2);margin-top:4px}
+.comm-hist-row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--border);font-size:13px}
+.comm-hist-row:last-child{border-bottom:none}
+.comm-hist-date{color:var(--text2);min-width:80px;font-size:12px}
+.comm-hist-svc{flex:1;font-weight:500}
+.comm-hist-amount{color:var(--text2)}
+.comm-hist-earned{color:var(--gold);font-weight:700;min-width:70px;text-align:right}
+.rank-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border)}
+.rank-medal{font-size:20px;width:28px;text-align:center}
+.rank-name{font-weight:600;flex:1}
+.rank-val{font-weight:700;color:var(--gold)}
+.closing-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border);flex-wrap:wrap;font-size:13px}
+.badge-paid{background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.3);padding:2px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.badge-pending-comm{background:rgba(212,160,23,.15);color:var(--gold);border:1px solid rgba(212,160,23,.3);padding:2px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.pro-override-row{display:flex;align-items:center;gap:8px;padding:8px;background:var(--bg3);border-radius:8px;margin-bottom:6px;font-size:13px}
+
 </style>
 </head>
 <body>
@@ -917,6 +949,7 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
         <div class="nav-item" onclick="showSection('services')" id="nav-services"><span class="icon">✂️</span> Serviços</div>
         <div class="nav-item" onclick="showSection('professionals')" id="nav-professionals"><span class="icon">👤</span> Profissionais</div>
         <div class="nav-item" onclick="showSection('employees')" id="nav-employees" style="display:none"><span class="icon">👥</span> Funcionários</div>
+        <div class="nav-item" onclick="showSection('commissions')" id="nav-commissions" style="display:none"><span class="icon">💰</span> Comissões</div>
         <div class="nav-item" onclick="showSection('schedule')" id="nav-schedule"><span class="icon">🗓️</span> Agenda</div>
         <div class="nav-item" onclick="showSection('reports')" id="nav-reports"><span class="icon">📈</span> Relatórios</div>
         <div class="nav-item" onclick="showSection('settings')" id="nav-settings"><span class="icon">⚙️</span> Configurações</div>
@@ -1392,6 +1425,79 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
         </div>
       </div>
 
+    
+      <!-- ═══ COMMISSIONS ═══ -->
+      <div id="section-commissions" class="admin-section">
+        <div class="page-head"><h2>💰 Comissões</h2></div>
+        <div class="comm-tabs">
+          <div class="comm-tab active" onclick="commTab('rules')" id="ctab-rules">📋 Regras</div>
+          <div class="comm-tab" onclick="commTab('goals')" id="ctab-goals">🎯 Metas & Bônus</div>
+          <div class="comm-tab" onclick="commTab('closing')" id="ctab-closing">📅 Fechamento</div>
+          <div class="comm-tab" onclick="commTab('comm-reports')" id="ctab-comm-reports">📊 Relatórios</div>
+        </div>
+
+        <!-- RULES TAB -->
+        <div class="comm-sub active" id="comm-sub-rules">
+          <div style="font-size:13px;color:var(--text2);margin-bottom:16px">
+            Configure o percentual ou valor fixo de comissão por serviço. Você pode criar regras personalizadas por funcionário.
+          </div>
+          <div id="comm-rules-list"></div>
+        </div>
+
+        <!-- GOALS TAB -->
+        <div class="comm-sub" id="comm-sub-goals">
+          <div style="margin-bottom:16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <select id="goal-pro-sel" onchange="renderCommGoals()" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text)">
+              <option value="">Selecione funcionário</option>
+            </select>
+            <select id="goal-month-sel" onchange="renderCommGoals()" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text)">
+            </select>
+          </div>
+          <div id="comm-goals-content"></div>
+        </div>
+
+        <!-- CLOSING TAB -->
+        <div class="comm-sub" id="comm-sub-closing">
+          <div style="margin-bottom:16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <select id="closing-month-sel" onchange="renderCommClosing()" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text)">
+            </select>
+            <button class="btn btn-gold btn-sm" onclick="generateClosing()">⚡ Gerar Fechamento</button>
+          </div>
+          <div id="comm-closing-list"></div>
+        </div>
+
+        <!-- REPORTS TAB -->
+        <div class="comm-sub" id="comm-sub-comm-reports">
+          <div style="margin-bottom:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            <select id="crep-pro" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text)">
+              <option value="">Todos os funcionários</option>
+            </select>
+            <select id="crep-month" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text)">
+            </select>
+            <button class="btn btn-gold btn-sm" onclick="renderCommReports()">Gerar</button>
+            <button class="btn btn-outline btn-sm" onclick="exportCommCSV()">⬇ Exportar CSV</button>
+          </div>
+          <div class="comm-stat-grid" id="crep-stats"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:4px">
+            <div>
+              <div style="font-weight:700;margin-bottom:10px">🏆 Ranking Faturamento</div>
+              <div class="card" style="padding:0;overflow:hidden" id="crep-rank-revenue"></div>
+            </div>
+            <div>
+              <div style="font-weight:700;margin-bottom:10px">💰 Ranking Comissão</div>
+              <div class="card" style="padding:0;overflow:hidden" id="crep-rank-comm"></div>
+            </div>
+          </div>
+          <div style="margin-top:20px">
+            <div style="font-weight:700;margin-bottom:10px">📋 Histórico de Comissões</div>
+            <div class="tbl-wrap">
+              <table class="table"><thead><tr><th>Data</th><th>Funcionário</th><th>Cliente</th><th>Serviço</th><th>Valor</th><th>%/Fixo</th><th>Comissão</th><th>Status</th></tr></thead>
+              <tbody id="crep-table"></tbody></table>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </main>
   </div>
 </div>
@@ -1449,6 +1555,10 @@ const DEFAULT = {
   admins:[{id:'a1',username:'admin',password:'admin123',role:'owner',name:'Proprietário'}],
   appointments:[],
   blockedSlots:[],
+  commissionRules:[],
+  commissions:[],
+  commGoals:[],
+  commClosings:[],
 };
 
 function load(k){try{return JSON.parse(localStorage.getItem('ab_'+k))||null}catch{return null}}
@@ -1518,6 +1628,8 @@ async function doLogin(){
   if(navPros)navPros.style.display=isPro?'none':'';
   const navEmp=document.getElementById('nav-employees');
   if(navEmp)navEmp.style.display=(found.role==='owner')?'':'none';
+  const navComm=document.getElementById('nav-commissions');
+  if(navComm)navComm.style.display=(found.role==='owner')?'':'none';
   document.getElementById('sb-user-name').textContent=found.name||found.username;
   document.getElementById('sb-user-role').textContent=found.role==='owner'?'Proprietário':'Profissional';
   const s=getSettings();
@@ -1541,6 +1653,7 @@ function showSection(sec){
   else if(sec==='services')renderServices();
   else if(sec==='professionals')renderPros();
   else if(sec==='employees')renderEmployees();
+  else if(sec==='commissions')renderCommissions();
   else if(sec==='schedule')initSchedule();
   else if(sec==='reports')initReports();
   else if(sec==='settings')loadSettings();
@@ -1644,6 +1757,7 @@ function setApptStatus(id,status){
     a.status=status;
     saveData('appointments',appts);
     if(status==='done'&&a.clientId)updateClientLastVisit(a.clientId,a.date);
+    if(status==='done')recordCommission(a);
     renderDashboard();renderAppointments();toast('Status atualizado','ok');
     pushSyncSilent();
   }
@@ -3436,6 +3550,542 @@ function exportClientsCSV(){
 }
 
 
+
+// ══════════════════════════════════════════════════════
+// COMMISSION SYSTEM
+// ══════════════════════════════════════════════════════
+
+// ─── CORE CALCULATION ────────────────────────────────
+function getCommRule(serviceId, proId){
+  const rules=getData('commissionRules');
+  const rule=rules.find(r=>r.serviceId===serviceId);
+  if(!rule)return null;
+  if(proId&&rule.proOverrides){
+    const over=rule.proOverrides.find(o=>o.proId===proId);
+    if(over)return{type:over.type,value:over.value};
+  }
+  return{type:rule.type,value:rule.value};
+}
+
+function calcCommission(appt){
+  const rule=getCommRule(appt.service,appt.professional);
+  if(!rule||!rule.value)return{type:'none',value:0,earned:0};
+  const amount=appt.amount||0;
+  const earned=rule.type==='percent'?(amount*rule.value/100):rule.value;
+  return{type:rule.type,value:rule.value,earned:Math.round(earned*100)/100};
+}
+
+function recordCommission(appt){
+  // Don't double-record
+  const comms=getData('commissions');
+  if(comms.find(c=>c.apptId===appt.id))return;
+  const calc=calcCommission(appt);
+  if(calc.earned<=0)return;
+  const svcs=getData('services');const svc=svcs.find(s=>s.id===appt.service);
+  const clients=getData('clients');const cli=clients.find(c=>c.id===appt.clientId);
+  comms.push({
+    id:'com'+Date.now(),
+    apptId:appt.id,
+    proId:appt.professional||'',
+    clientId:appt.clientId||'',
+    clientName:cli?cli.name:(appt.name||'—'),
+    serviceId:appt.service||'',
+    serviceName:svc?svc.name:appt.service||'—',
+    amount:appt.amount||0,
+    commType:calc.type,
+    commValue:calc.value,
+    commEarned:calc.earned,
+    date:appt.date,
+    closingId:null
+  });
+  saveData('commissions',comms);
+  pushSyncSilent();
+}
+
+function getProCommStats(proId,fromDate,toDate){
+  let comms=getData('commissions').filter(c=>c.proId===proId&&c.date>=fromDate&&c.date<=toDate);
+  const revenue=comms.reduce((s,c)=>s+c.amount,0);
+  const earned=comms.reduce((s,c)=>s+c.commEarned,0);
+  const clients=new Set(comms.filter(c=>c.clientId).map(c=>c.clientId)).size;
+  const avgTicket=comms.length?revenue/comms.length:0;
+  return{count:comms.length,revenue,earned,clients,avgTicket,records:comms};
+}
+
+// ─── ADMIN COMMISSION TABS ────────────────────────────
+function commTab(tab){
+  ['rules','goals','closing','comm-reports'].forEach(t=>{
+    document.getElementById('comm-sub-'+t)?.classList.toggle('active',t===tab);
+    document.getElementById('ctab-'+t)?.classList.toggle('active',t===tab);
+  });
+  if(tab==='rules')renderCommRules();
+  else if(tab==='goals')renderCommGoals();
+  else if(tab==='closing')renderCommClosing();
+  else if(tab==='comm-reports')renderCommReports();
+}
+
+function renderCommissions(){
+  commTab('rules');
+  // Populate pro selects
+  const pros=getData('professionals').filter(p=>p.active);
+  const opts='<option value="">Todos</option>'+pros.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('');
+  ['goal-pro-sel','crep-pro'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&el.id!=='crep-pro')el.innerHTML='<option value="">Selecione funcionário</option>'+pros.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('');
+    if(el&&el.id==='crep-pro')el.innerHTML=opts;
+  });
+  // Populate month selects
+  const months=[];
+  const now=new Date();
+  for(let i=0;i<12;i++){
+    const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    const val=d.getFullYear()+'-'+(d.getMonth()+1+'').padStart(2,'0');
+    const lbl=d.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+    months.push(`<option value="${val}">${lbl}</option>`);
+  }
+  ['goal-month-sel','closing-month-sel','crep-month'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.innerHTML=months.join('');
+  });
+}
+
+// ─── RULES TAB ────────────────────────────────────────
+function renderCommRules(){
+  const svcs=getData('services').filter(s=>s.active);
+  const rules=getData('commissionRules');
+  const pros=getData('professionals').filter(p=>p.active);
+  const el=document.getElementById('comm-rules-list');
+  if(!el)return;
+  el.innerHTML=svcs.map(s=>{
+    const rule=rules.find(r=>r.serviceId===s.id)||{type:'percent',value:0,proOverrides:[]};
+    const overrides=(rule.proOverrides||[]).map(o=>{
+      const p=pros.find(x=>x.id===o.proId);
+      return`<div class="pro-override-row">
+        <span style="flex:1">${p?esc(p.name):'?'}</span>
+        <select onchange="updateProOverride('${s.id}','${o.proId}','type',this.value)" style="background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-size:12px">
+          <option value="percent"${o.type==='percent'?' selected':''}>%</option>
+          <option value="fixed"${o.type==='fixed'?' selected':''}>R$</option>
+        </select>
+        <input type="number" value="${o.value}" min="0" step="0.01" style="width:70px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-size:12px" onchange="updateProOverride('${s.id}','${o.proId}','value',this.value)">
+        <button onclick="removeProOverride('${s.id}','${o.proId}')" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:14px">✕</button>
+      </div>`;
+    }).join('');
+    const addSel=pros.filter(p=>!(rule.proOverrides||[]).find(o=>o.proId===p.id)).map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('');
+    return`<div class="comm-rule-row">
+      <div style="flex:1;min-width:180px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <span class="comm-rule-svc">${s.icon||'✂️'} ${esc(s.name)}</span>
+          <span class="comm-rule-price">R$${s.price}</span>
+        </div>
+        ${overrides?`<div style="margin-top:8px">${overrides}</div>`:''}
+        ${addSel?`<div style="margin-top:8px">
+          <select id="addpro-${s.id}" style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-size:12px">
+            <option value="">+ Regra por funcionário</option>${addSel}
+          </select>
+          <button onclick="addProOverride('${s.id}')" class="btn btn-outline btn-sm" style="margin-left:6px">Adicionar</button>
+        </div>`:''}
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <select id="crtype-${s.id}" onchange="saveCommRule('${s.id}')" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text)">
+          <option value="percent"${rule.type==='percent'?' selected':''}>Percentual %</option>
+          <option value="fixed"${rule.type==='fixed'?' selected':''}>Valor Fixo R$</option>
+        </select>
+        <input type="number" id="crval-${s.id}" value="${rule.value}" min="0" step="0.01" style="width:80px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-size:14px" onchange="saveCommRule('${s.id}')">
+        <span style="font-size:12px;color:var(--text2)" id="crprev-${s.id}">=R$${rule.type==='percent'?(s.price*rule.value/100).toFixed(2):rule.value.toFixed(2)}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function saveCommRule(serviceId){
+  const rules=getData('commissionRules');
+  const type=document.getElementById('crtype-'+serviceId)?.value||'percent';
+  const value=parseFloat(document.getElementById('crval-'+serviceId)?.value)||0;
+  const i=rules.findIndex(r=>r.serviceId===serviceId);
+  const svcs=getData('services');const svc=svcs.find(s=>s.id===serviceId);
+  const preview=document.getElementById('crprev-'+serviceId);
+  if(preview&&svc){
+    const earned=type==='percent'?(svc.price*value/100):value;
+    preview.textContent='=R$'+earned.toFixed(2);
+  }
+  if(i>=0){rules[i].type=type;rules[i].value=value;}
+  else rules.push({serviceId,type,value,proOverrides:[]});
+  saveData('commissionRules',rules);
+  pushSyncSilent();
+  toast('Regra salva','ok');
+}
+
+function addProOverride(serviceId){
+  const proId=document.getElementById('addpro-'+serviceId)?.value;
+  if(!proId)return;
+  const rules=getData('commissionRules');
+  const i=rules.findIndex(r=>r.serviceId===serviceId);
+  const baseRule=i>=0?rules[i]:{serviceId,type:'percent',value:0,proOverrides:[]};
+  if(i<0)rules.push(baseRule);
+  if(!baseRule.proOverrides)baseRule.proOverrides=[];
+  if(!baseRule.proOverrides.find(o=>o.proId===proId))
+    baseRule.proOverrides.push({proId,type:baseRule.type,value:baseRule.value});
+  saveData('commissionRules',rules);
+  renderCommRules();
+}
+
+function updateProOverride(serviceId,proId,field,val){
+  const rules=getData('commissionRules');
+  const rule=rules.find(r=>r.serviceId===serviceId);if(!rule)return;
+  const over=rule.proOverrides?.find(o=>o.proId===proId);if(!over)return;
+  over[field]=field==='value'?parseFloat(val)||0:val;
+  saveData('commissionRules',rules);
+  pushSyncSilent();
+}
+
+function removeProOverride(serviceId,proId){
+  const rules=getData('commissionRules');
+  const rule=rules.find(r=>r.serviceId===serviceId);if(!rule)return;
+  rule.proOverrides=(rule.proOverrides||[]).filter(o=>o.proId!==proId);
+  saveData('commissionRules',rules);
+  renderCommRules();
+}
+
+// ─── GOALS & BONUSES TAB ──────────────────────────────
+function renderCommGoals(){
+  const proId=document.getElementById('goal-pro-sel')?.value||'';
+  const month=document.getElementById('goal-month-sel')?.value||fmtDate(new Date()).slice(0,7);
+  const el=document.getElementById('comm-goals-content');if(!el)return;
+  if(!proId){el.innerHTML='<div style="color:var(--text2)">Selecione um funcionário para configurar metas.</div>';return;}
+  const goals=getData('commGoals');
+  const goal=goals.find(g=>g.proId===proId&&g.month===month)||{proId,month,revenueTarget:0,bonuses:[]};
+  const pros=getData('professionals');const pro=pros.find(p=>p.id===proId);
+  // Calculate current progress
+  const [y,m]=month.split('-').map(Number);
+  const from=month+'-01';
+  const lastDay=new Date(y,m,0).getDate();
+  const to=month+'-'+lastDay.toString().padStart(2,'0');
+  const stats=getProCommStats(proId,from,to);
+  const pct=goal.revenueTarget>0?Math.min(100,stats.revenue/goal.revenueTarget*100):0;
+  el.innerHTML=`
+    <div class="comm-card">
+      <div style="font-weight:700;margin-bottom:12px">🎯 Meta de Faturamento — ${pro?esc(pro.name):''}</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Meta mensal (R$)</label>
+          <input type="number" id="goal-target" value="${goal.revenueTarget}" min="0" placeholder="Ex: 8000">
+        </div>
+        <div class="form-group">
+          <label>Progresso atual</label>
+          <input value="R$ ${stats.revenue.toFixed(2)}" readonly style="opacity:.7">
+        </div>
+      </div>
+      <div class="comm-progress-wrap" style="height:14px;margin:8px 0">
+        <div class="comm-progress-bar" style="width:${pct.toFixed(1)}%"></div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:16px">${pct.toFixed(1)}% da meta atingida</div>
+      <button class="btn btn-gold btn-sm" onclick="saveCommGoal('${proId}','${month}')">Salvar Meta</button>
+    </div>
+    <div class="comm-card" style="margin-top:12px">
+      <div style="font-weight:700;margin-bottom:12px">⭐ Bônus Automáticos</div>
+      <div id="bonus-list">
+        ${(goal.bonuses||[]).map((b,i)=>`
+          <div style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg3);border-radius:8px;margin-bottom:8px;flex-wrap:wrap">
+            <span style="flex:1;font-size:13px">${esc(b.desc||'')}</span>
+            <select onchange="updateBonus('${proId}','${month}',${i},'type',this.value)" style="background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text);font-size:12px">
+              <option value="revenue"${b.type==='revenue'?' selected':''}>Faturamento</option>
+              <option value="clients"${b.type==='clients'?' selected':''}>Nº clientes</option>
+            </select>
+            <span style="font-size:12px">≥</span>
+            <input type="number" value="${b.threshold}" style="width:80px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text);font-size:12px" onchange="updateBonus('${proId}','${month}',${i},'threshold',this.value)">
+            <span style="font-size:12px">→ Bônus R$</span>
+            <input type="number" value="${b.amount}" style="width:70px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text);font-size:12px" onchange="updateBonus('${proId}','${month}',${i},'amount',this.value)">
+            <button onclick="removeBonus('${proId}','${month}',${i})" style="background:none;border:none;color:#ef4444;cursor:pointer">✕</button>
+          </div>`).join('')}
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="addBonus('${proId}','${month}')">+ Adicionar Bônus</button>
+    </div>`;
+}
+
+function saveCommGoal(proId,month){
+  const target=parseFloat(document.getElementById('goal-target')?.value)||0;
+  const goals=getData('commGoals');
+  const i=goals.findIndex(g=>g.proId===proId&&g.month===month);
+  if(i>=0)goals[i].revenueTarget=target;
+  else goals.push({proId,month,revenueTarget:target,bonuses:[]});
+  saveData('commGoals',goals);
+  pushSyncSilent();
+  toast('Meta salva','ok');
+  renderCommGoals();
+}
+
+function addBonus(proId,month){
+  const goals=getData('commGoals');
+  let g=goals.find(x=>x.proId===proId&&x.month===month);
+  if(!g){g={proId,month,revenueTarget:0,bonuses:[]};goals.push(g);}
+  if(!g.bonuses)g.bonuses=[];
+  g.bonuses.push({type:'revenue',threshold:10000,amount:500,desc:'Bônus de desempenho'});
+  saveData('commGoals',goals);
+  renderCommGoals();
+}
+
+function updateBonus(proId,month,idx,field,val){
+  const goals=getData('commGoals');
+  const g=goals.find(x=>x.proId===proId&&x.month===month);if(!g||!g.bonuses[idx])return;
+  g.bonuses[idx][field]=field==='threshold'||field==='amount'?parseFloat(val)||0:val;
+  saveData('commGoals',goals);
+  pushSyncSilent();
+}
+
+function removeBonus(proId,month,idx){
+  const goals=getData('commGoals');
+  const g=goals.find(x=>x.proId===proId&&x.month===month);if(!g)return;
+  g.bonuses.splice(idx,1);
+  saveData('commGoals',goals);
+  renderCommGoals();
+}
+
+// ─── CLOSING TAB ──────────────────────────────────────
+function getMonthRange(ym){
+  const [y,m]=ym.split('-').map(Number);
+  const from=ym+'-01';
+  const lastDay=new Date(y,m,0).getDate();
+  const to=ym+'-'+lastDay.toString().padStart(2,'0');
+  return{from,to};
+}
+
+function calcBonuses(proId,month,revenue,clientCount){
+  const goals=getData('commGoals');
+  const goal=goals.find(g=>g.proId===proId&&g.month===month);
+  if(!goal||!goal.bonuses)return 0;
+  let total=0;
+  goal.bonuses.forEach(b=>{
+    const val=b.type==='revenue'?revenue:clientCount;
+    if(val>=b.threshold)total+=b.amount||0;
+  });
+  return total;
+}
+
+function generateClosing(){
+  const month=document.getElementById('closing-month-sel')?.value;if(!month)return;
+  const {from,to}=getMonthRange(month);
+  const pros=getData('professionals').filter(p=>p.active&&getData('commissions').find(c=>c.proId===p.id&&c.date>=from&&c.date<=to));
+  if(!pros.length){toast('Nenhuma comissão neste período','err');return;}
+  const closings=getData('commClosings');
+  pros.forEach(p=>{
+    if(closings.find(c=>c.proId===p.id&&c.month===month))return; // already exists
+    const stats=getProCommStats(p.id,from,to);
+    const bonus=calcBonuses(p.id,month,stats.revenue,stats.clients);
+    closings.push({
+      id:'clos'+Date.now()+Math.random().toString(36).slice(2,5),
+      proId:p.id,month,
+      totalComm:stats.earned,totalBonus:bonus,discounts:0,
+      totalPayable:stats.earned+bonus,
+      status:'pending',paidAt:null,paidBy:null,notes:''
+    });
+  });
+  saveData('commClosings',closings);
+  pushSyncSilent();
+  renderCommClosing();
+  toast('Fechamento gerado!','ok');
+}
+
+function renderCommClosing(){
+  const month=document.getElementById('closing-month-sel')?.value;if(!month)return;
+  const closings=getData('commClosings').filter(c=>c.month===month);
+  const pros=getData('professionals');
+  const el=document.getElementById('comm-closing-list');if(!el)return;
+  if(!closings.length){el.innerHTML='<div style="color:var(--text2);padding:20px">Nenhum fechamento para este período. Clique em "Gerar Fechamento".</div>';return;}
+  el.innerHTML=`<div class="card" style="padding:0;overflow:hidden">
+    ${closings.map(c=>{
+    const p=pros.find(x=>x.id===c.proId);
+    return`<div class="closing-row">
+      <div class="pro-avatar" style="background:${p?.color||'#888'};width:36px;height:36px;font-size:13px;flex-shrink:0">${initials(p?.name||'?')}</div>
+      <div style="flex:1;min-width:100px"><div style="font-weight:600">${esc(p?.name||'?')}</div><div style="font-size:11px;color:var(--text2)">${esc(p?.cargo||'Funcionário')}</div></div>
+      <div style="text-align:right;min-width:80px"><div style="font-size:12px;color:var(--text2)">Comissão</div><div style="font-weight:700;color:var(--gold)">R$${c.totalComm.toFixed(2)}</div></div>
+      ${c.totalBonus?`<div style="text-align:right;min-width:70px"><div style="font-size:12px;color:var(--text2)">Bônus</div><div style="font-weight:700;color:#22c55e">+R$${c.totalBonus.toFixed(2)}</div></div>`:''}
+      <div style="text-align:right;min-width:90px"><div style="font-size:12px;color:var(--text2)">Total</div><div style="font-size:18px;font-weight:800">R$${c.totalPayable.toFixed(2)}</div></div>
+      <div>${c.status==='paid'?`<span class="badge-paid">✓ Pago</span>`:`<span class="badge-pending-comm">Pendente</span>`}</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        ${c.status==='pending'?`<button class="btn btn-ok btn-sm" onclick="markClosingPaid('${c.id}')">✓ Marcar Pago</button>`:''}
+        <button class="btn btn-err btn-sm" onclick="deleteClosing('${c.id}')">🗑</button>
+      </div>
+    </div>`;
+  }).join('')}
+  </div>
+  <div style="margin-top:14px;padding:14px;background:var(--bg2);border-radius:10px;display:flex;gap:24px;flex-wrap:wrap">
+    <div><div style="font-size:12px;color:var(--text2)">Total a pagar</div><div style="font-size:20px;font-weight:800;color:var(--gold)">R$${closings.reduce((s,c)=>s+c.totalPayable,0).toFixed(2)}</div></div>
+    <div><div style="font-size:12px;color:var(--text2)">Pago</div><div style="font-size:18px;font-weight:700;color:#22c55e">R$${closings.filter(c=>c.status==='paid').reduce((s,c)=>s+c.totalPayable,0).toFixed(2)}</div></div>
+    <div><div style="font-size:12px;color:var(--text2)">Pendente</div><div style="font-size:18px;font-weight:700;color:var(--gold)">R$${closings.filter(c=>c.status==='pending').reduce((s,c)=>s+c.totalPayable,0).toFixed(2)}</div></div>
+  </div>`;
+}
+
+function markClosingPaid(id){
+  const closings=getData('commClosings');
+  const c=closings.find(x=>x.id===id);if(!c)return;
+  c.status='paid';c.paidAt=new Date().toISOString();
+  c.paidBy=currentUser?.name||currentUser?.username||'Admin';
+  // Mark commission records as closed
+  const comms=getData('commissions');
+  const {from,to}=getMonthRange(c.month);
+  comms.filter(x=>x.proId===c.proId&&x.date>=from&&x.date<=to).forEach(x=>x.closingId=id);
+  saveData('commissions',comms);
+  saveData('commClosings',closings);
+  pushSyncSilent();
+  renderCommClosing();
+  toast('Pagamento registrado','ok');
+}
+
+function deleteClosing(id){
+  showConfirm('Excluir fechamento','Deseja remover este fechamento?',()=>{
+    saveData('commClosings',getData('commClosings').filter(c=>c.id!==id));
+    renderCommClosing();
+    toast('Removido','ok');
+  });
+}
+
+// ─── REPORTS TAB ──────────────────────────────────────
+function renderCommReports(){
+  const proId=document.getElementById('crep-pro')?.value||'';
+  const month=document.getElementById('crep-month')?.value||fmtDate(new Date()).slice(0,7);
+  const {from,to}=getMonthRange(month);
+  let comms=getData('commissions').filter(c=>c.date>=from&&c.date<=to);
+  if(proId)comms=comms.filter(c=>c.proId===proId);
+  const totalRev=comms.reduce((s,c)=>s+c.amount,0);
+  const totalComm=comms.reduce((s,c)=>s+c.commEarned,0);
+  const uniquePros=new Set(comms.map(c=>c.proId)).size;
+  const el=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  const statsEl=document.getElementById('crep-stats');
+  if(statsEl)statsEl.innerHTML=`
+    <div class="stat-card"><div class="stat-val">R$${totalRev.toFixed(2).replace('.',',')}</div><div class="stat-label">Faturamento total</div></div>
+    <div class="stat-card"><div class="stat-val">R$${totalComm.toFixed(2).replace('.',',')}</div><div class="stat-label">Total em comissões</div></div>
+    <div class="stat-card"><div class="stat-val">${comms.length}</div><div class="stat-label">Atendimentos comissionados</div></div>
+    <div class="stat-card"><div class="stat-val">R$${(totalRev-totalComm).toFixed(2).replace('.',',')}</div><div class="stat-label">Lucro líquido</div></div>`;
+  // Ranking by revenue
+  const pros=getData('professionals');
+  const byPro={};
+  comms.forEach(c=>{
+    if(!byPro[c.proId])byPro[c.proId]={revenue:0,comm:0,count:0};
+    byPro[c.proId].revenue+=c.amount;byPro[c.proId].comm+=c.commEarned;byPro[c.proId].count++;
+  });
+  const medals=['🥇','🥈','🥉','4️⃣','5️⃣'];
+  const rankRevEl=document.getElementById('crep-rank-revenue');
+  const rankCommEl=document.getElementById('crep-rank-comm');
+  const sorted=Object.entries(byPro).sort((a,b)=>b[1].revenue-a[1].revenue);
+  if(rankRevEl)rankRevEl.innerHTML=sorted.length?sorted.map(([pid,d],i)=>{
+    const p=pros.find(x=>x.id===pid);
+    return`<div class="rank-row"><span class="rank-medal">${medals[i]||'•'}</span><span class="rank-name">${esc(p?.name||pid)}</span><span class="rank-val">R$${d.revenue.toFixed(0)}</span><span style="font-size:11px;color:var(--text2);margin-left:6px">${d.count} atend.</span></div>`;
+  }).join(''):'<div style="padding:16px;color:var(--text2)">Sem dados</div>';
+  const sortedComm=[...sorted].sort((a,b)=>b[1].comm-a[1].comm);
+  if(rankCommEl)rankCommEl.innerHTML=sortedComm.length?sortedComm.map(([pid,d],i)=>{
+    const p=pros.find(x=>x.id===pid);
+    return`<div class="rank-row"><span class="rank-medal">${medals[i]||'•'}</span><span class="rank-name">${esc(p?.name||pid)}</span><span class="rank-val">R$${d.comm.toFixed(0)}</span></div>`;
+  }).join(''):'<div style="padding:16px;color:var(--text2)">Sem dados</div>';
+  // Table
+  const tb=document.getElementById('crep-table');
+  const clients=getData('clients');
+  const closings=getData('commClosings');
+  if(tb)tb.innerHTML=comms.sort((a,b)=>b.date.localeCompare(a.date)).map(c=>{
+    const p=pros.find(x=>x.id===c.proId);
+    const cl=clients.find(x=>x.id===c.clientId);
+    const closing=closings.find(x=>x.id===c.closingId);
+    const status=closing?.status==='paid'?`<span class="badge-paid">Pago</span>`:`<span class="badge-pending-comm">Pendente</span>`;
+    return`<tr>
+      <td>${c.date}</td>
+      <td>${esc(p?.name||'?')}</td>
+      <td>${esc(cl?.name||c.clientName||'—')}</td>
+      <td>${esc(c.serviceName)}</td>
+      <td>R$${c.amount.toFixed(2)}</td>
+      <td>${c.commType==='percent'?c.commValue+'%':'R$'+c.commValue}</td>
+      <td style="color:var(--gold);font-weight:700">R$${c.commEarned.toFixed(2)}</td>
+      <td>${status}</td>
+    </tr>`;
+  }).join('')||'<tr><td colspan="8" style="text-align:center;color:var(--text2);padding:20px">Nenhuma comissão no período</td></tr>';
+}
+
+function exportCommCSV(){
+  const comms=getData('commissions');
+  const pros=getData('professionals');const clients=getData('clients');
+  const rows=[['Data','Funcionário','Cliente','Serviço','Valor Serviço','Tipo','Valor Regra','Comissão']];
+  comms.forEach(c=>{
+    const p=pros.find(x=>x.id===c.proId);const cl=clients.find(x=>x.id===c.clientId);
+    rows.push([c.date,p?.name||'?',cl?.name||c.clientName||'—',c.serviceName,c.amount.toFixed(2),c.commType==='percent'?'Percentual':'Fixo',c.commValue,c.commEarned.toFixed(2)]);
+  });
+  const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='comissoes.csv';a.click();
+}
+
+// ─── EMPLOYEE COMMISSIONS PORTAL ──────────────────────
+function renderEmpCommissions(){
+  if(!currentEmployee)return;
+  const filter=document.getElementById('emp-comm-filter')?.value||'month';
+  const today=fmtDate(new Date());
+  const now=new Date();
+  let from,to;
+  if(filter==='today'){from=today;to=today;}
+  else if(filter==='week'){
+    const d=new Date(now);const dow=d.getDay();d.setDate(d.getDate()-dow);
+    from=fmtDate(d);const d2=new Date(d);d2.setDate(d.getDate()+6);to=fmtDate(d2);
+  }else if(filter==='month'){
+    from=today.slice(0,7)+'-01';
+    const ld=new Date(now.getFullYear(),now.getMonth()+1,0);to=fmtDate(ld);
+  }else{// last3
+    const d=new Date(now.getFullYear(),now.getMonth()-2,1);from=fmtDate(d);to=today;
+  }
+  const stats=getProCommStats(currentEmployee.id,from,to);
+  const el2=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  el2('ec-total-revenue','R$'+stats.revenue.toFixed(2).replace('.',','));
+  el2('ec-total-comm','R$'+stats.earned.toFixed(2).replace('.',','));
+  el2('ec-total-appts',stats.count);
+  el2('ec-avg-ticket','R$'+stats.avgTicket.toFixed(0));
+  // Goal (current month only)
+  const month=today.slice(0,7);
+  const {from:mFrom,to:mTo}=getMonthRange(month);
+  const mStats=getProCommStats(currentEmployee.id,mFrom,mTo);
+  const goals=getData('commGoals');
+  const goal=goals.find(g=>g.proId===currentEmployee.id&&g.month===month);
+  const goalSec=document.getElementById('emp-goal-section');
+  if(goal&&goal.revenueTarget>0&&goalSec){
+    goalSec.style.display='';
+    const pct=Math.min(100,mStats.revenue/goal.revenueTarget*100);
+    const label=document.getElementById('emp-goal-label');
+    if(label)label.textContent='Meta: R$'+goal.revenueTarget.toLocaleString('pt-BR');
+    const bar=document.getElementById('emp-goal-bar');if(bar)bar.style.width=pct.toFixed(1)+'%';
+    const pctEl=document.getElementById('emp-goal-pct');if(pctEl)pctEl.textContent=pct.toFixed(1)+'%';
+    const status=document.getElementById('emp-goal-status');
+    if(status){
+      const rem=goal.revenueTarget-mStats.revenue;
+      status.textContent=rem>0?`Faltam R$${rem.toFixed(2)} para atingir a meta`:'✅ Meta atingida!';
+    }
+  }else if(goalSec){goalSec.style.display='none';}
+  // Bonuses
+  const bonusSec=document.getElementById('emp-bonus-section');
+  const bonusList=document.getElementById('emp-bonus-list');
+  if(goal&&goal.bonuses&&goal.bonuses.length&&bonusSec&&bonusList){
+    bonusSec.style.display='';
+    bonusList.innerHTML=goal.bonuses.map(b=>{
+      const cur=b.type==='revenue'?mStats.revenue:mStats.clients;
+      const reached=cur>=b.threshold;
+      return`<div class="comm-card" style="display:flex;align-items:center;gap:12px;padding:12px 16px">
+        <span style="font-size:20px">${reached?'⭐':'🎯'}</span>
+        <div style="flex:1"><div style="font-weight:600;font-size:13px">${esc(b.desc||'Bônus')}</div>
+          <div style="font-size:12px;color:var(--text2)">${b.type==='revenue'?'Faturamento':'Clientes'} ≥ ${b.type==='revenue'?'R$'+b.threshold:b.threshold}</div>
+          <div class="comm-progress-wrap" style="margin-top:6px"><div class="comm-progress-bar" style="width:${Math.min(100,cur/b.threshold*100).toFixed(0)}%;background:${reached?'#22c55e':''}"></div></div>
+        </div>
+        <div style="text-align:right"><div style="font-size:18px;font-weight:800;color:${reached?'#22c55e':'var(--text2)'}">R$${b.amount}</div><div style="font-size:11px;color:var(--text2)">${reached?'Conquistado!':'Pendente'}</div></div>
+      </div>`;
+    }).join('');
+  }else if(bonusSec){bonusSec.style.display='none';}
+  // History
+  const histEl=document.getElementById('emp-comm-history');
+  if(histEl){
+    const recs=stats.records.sort((a,b)=>b.date.localeCompare(a.date));
+    histEl.innerHTML=recs.length?recs.map(c=>`<div class="comm-hist-row">
+      <span class="comm-hist-date">${c.date}</span>
+      <span class="comm-hist-svc">${esc(c.serviceName)}</span>
+      <span class="comm-hist-amount">R$${c.amount.toFixed(2)}</span>
+      <span style="font-size:11px;color:var(--text2)">${c.commType==='percent'?c.commValue+'%':'fixo'}</span>
+      <span class="comm-hist-earned">R$${c.commEarned.toFixed(2)}</span>
+    </div>`).join(''):'<div style="padding:20px;color:var(--text2);text-align:center">Nenhuma comissão no período</div>';
+  }
+}
+
+
 // ─── EMPLOYEE LOGIN TAB SWITCH ────────────────────────────────
 function switchLoginTab(tab){
   document.getElementById('login-admin-form').style.display=tab==='admin'?'':'none';
@@ -3497,6 +4147,7 @@ function empShowSection(sec){
   if(sec==='dashboard')renderEmpDashboard();
   else if(sec==='agenda'){document.getElementById('emp-agenda-date').value=fmtDate(new Date());renderEmpAgenda();}
   else if(sec==='clients')renderEmpClients();
+  else if(sec==='commissions')renderEmpCommissions();
   else if(sec==='profile')renderEmpProfile();
 }
 
@@ -3601,6 +4252,7 @@ function empMarkDone(id){
   if(i<0)return;
   appts[i].status='done';
   if(appts[i].clientId)updateClientLastVisit(appts[i].clientId,appts[i].date);
+  recordCommission(appts[i]);
   saveData('appointments',appts);
   pushSyncSilent();
   renderEmpDashboard();
@@ -3922,6 +4574,7 @@ document.getElementById('sch-week').value=fmtDate(new Date());
         <div class="emp-nav-item active" id="emp-nav-dashboard" onclick="empShowSection('dashboard')"><span class="icon">📊</span> Dashboard</div>
         <div class="emp-nav-item" id="emp-nav-agenda" onclick="empShowSection('agenda')"><span class="icon">📅</span> Minha Agenda</div>
         <div class="emp-nav-item" id="emp-nav-clients" onclick="empShowSection('clients')"><span class="icon">👥</span> Meus Clientes</div>
+        <div class="emp-nav-item" id="emp-nav-commissions" onclick="empShowSection('commissions')"><span class="icon">💰</span> Minhas Comissões</div>
         <div class="emp-nav-item" id="emp-nav-profile" onclick="empShowSection('profile')"><span class="icon">👤</span> Meu Perfil</div>
       </nav>
       <div class="emp-sidebar-footer">
@@ -3998,6 +4651,54 @@ document.getElementById('sch-week').value=fmtDate(new Date());
           <div id="emp-freq-clients"></div>
           <div class="emp-section-title">Todos os meus clientes</div>
           <div id="emp-clients-list"></div>
+        </div>
+      </div>
+
+      <!-- ─── COMMISSIONS ─── -->
+      <div id="emp-section-commissions" class="emp-section">
+        <div class="emp-topbar">
+          <div class="emp-topbar-title">💰 Minhas Comissões</div>
+          <select id="emp-comm-filter" onchange="renderEmpCommissions()" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:13px">
+            <option value="month">Este mês</option>
+            <option value="week">Esta semana</option>
+            <option value="today">Hoje</option>
+            <option value="last3">Últimos 3 meses</option>
+          </select>
+        </div>
+        <div style="padding:24px">
+          <div class="comm-stat-grid">
+            <div class="comm-stat-box"><div class="comm-stat-val" id="ec-total-revenue">R$0</div><div class="comm-stat-lbl">Faturamento gerado</div></div>
+            <div class="comm-stat-box"><div class="comm-stat-val" id="ec-total-comm">R$0</div><div class="comm-stat-lbl">Comissão acumulada</div></div>
+            <div class="comm-stat-box"><div class="comm-stat-val" id="ec-total-appts">0</div><div class="comm-stat-lbl">Atendimentos</div></div>
+            <div class="comm-stat-box"><div class="comm-stat-val" id="ec-avg-ticket">R$0</div><div class="comm-stat-lbl">Ticket médio</div></div>
+          </div>
+
+          <!-- GOAL PROGRESS -->
+          <div id="emp-goal-section" style="display:none">
+            <div class="emp-section-title">🎯 Meta do Mês</div>
+            <div class="comm-card">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                <span style="font-weight:600" id="emp-goal-label">Meta: R$0</span>
+                <span style="font-size:13px;color:var(--text2)" id="emp-goal-pct">0%</span>
+              </div>
+              <div class="comm-progress-wrap">
+                <div class="comm-progress-bar" id="emp-goal-bar" style="width:0%"></div>
+              </div>
+              <div style="font-size:12px;color:var(--text2);margin-top:6px" id="emp-goal-status">—</div>
+            </div>
+          </div>
+
+          <!-- BONUSES -->
+          <div id="emp-bonus-section" style="display:none">
+            <div class="emp-section-title">⭐ Bônus</div>
+            <div id="emp-bonus-list"></div>
+          </div>
+
+          <!-- HISTORY -->
+          <div class="emp-section-title">📋 Histórico de Comissões</div>
+          <div class="card" style="padding:0;overflow:hidden">
+            <div id="emp-comm-history"></div>
+          </div>
         </div>
       </div>
 
