@@ -461,6 +461,41 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
 .badge-pending-comm{background:rgba(212,160,23,.15);color:var(--gold);border:1px solid rgba(212,160,23,.3);padding:2px 10px;border-radius:20px;font-size:11px;font-weight:600}
 .pro-override-row{display:flex;align-items:center;gap:8px;padding:8px;background:var(--bg3);border-radius:8px;margin-bottom:6px;font-size:13px}
 
+
+/* ── SAAS SUBSCRIPTION SYSTEM ── */
+.plans-page{min-height:100vh;background:var(--bg);padding:40px 16px}
+.plans-hero{text-align:center;margin-bottom:48px}
+.plans-hero h1{font-size:36px;font-weight:900;color:var(--gold);margin-bottom:12px}
+.plans-hero p{font-size:16px;color:var(--text2);max-width:520px;margin:0 auto}
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:960px;margin:0 auto}
+.plan-card{background:var(--bg2);border:2px solid var(--border);border-radius:20px;padding:32px 28px;position:relative;transition:.2s}
+.plan-card.featured{border-color:var(--gold);background:linear-gradient(135deg,var(--bg2) 80%,rgba(212,160,23,.08))}
+.plan-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.plan-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:11px;font-weight:800;padding:4px 16px;border-radius:20px;white-space:nowrap;letter-spacing:.5px}
+.plan-badge.discount{background:#22c55e;color:#fff}
+.plan-name{font-size:18px;font-weight:800;margin-bottom:8px}
+.plan-price{font-size:42px;font-weight:900;color:var(--gold);line-height:1}
+.plan-price span{font-size:16px;font-weight:500;color:var(--text2)}
+.plan-savings{font-size:13px;color:#22c55e;font-weight:600;margin:8px 0 20px}
+.plan-features{list-style:none;padding:0;margin:0 0 28px;font-size:14px;color:var(--text2)}
+.plan-features li{padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.plan-features li:last-child{border-bottom:none}
+.trial-banner{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;font-weight:600}
+.trial-banner-days{font-size:20px;font-weight:900}
+.paywall-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
+.paywall-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:40px 32px;max-width:480px;width:100%;text-align:center}
+.paywall-icon{font-size:48px;margin-bottom:16px}
+.paywall-title{font-size:24px;font-weight:900;color:var(--gold);margin-bottom:8px}
+.paywall-sub{font-size:14px;color:var(--text2);margin-bottom:28px;line-height:1.7}
+.sub-badge-trial{background:rgba(212,160,23,.15);color:var(--gold);border:1px solid rgba(212,160,23,.3);padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700}
+.sub-badge-active{background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.3);padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700}
+.sub-badge-pending,.sub-badge-expired,.sub-badge-cancelled{background:rgba(239,68,68,.15);color:#ef4444;border:1px solid rgba(239,68,68,.3);padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700}
+.pay-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;flex-wrap:wrap}
+.pay-row:last-child{border-bottom:none}
+.saas-metric{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.saas-metric-val{font-size:28px;font-weight:900;color:var(--gold)}
+.saas-metric-lbl{font-size:12px;color:var(--text2);margin-top:4px}
+
 </style>
 </head>
 <body>
@@ -496,6 +531,7 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
       <div id="client-nav-area">
         <span class="client-nav-name" id="client-nav-name" style="display:none"></span>
         <button class="btn btn-outline btn-sm" id="client-profile-btn" style="display:none" onclick="showView('view-client-profile');renderClientProfile()">👤 Minha Conta</button>
+        <button class="btn btn-outline btn-sm" onclick="showView('view-plans');renderPlans()" style="margin-right:4px">💎 Planos</button>
         <button class="btn btn-outline btn-sm" id="client-register-nav-btn" onclick="openClientAuth(null,'register')">Criar conta</button>
         <button class="btn btn-gold btn-sm" id="client-login-nav-btn" onclick="openClientAuth(null,'login')">Entrar</button>
       </div>
@@ -866,6 +902,56 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
 <!-- ═══════════════════════════════════════════
      ADMIN LOGIN
 ═══════════════════════════════════════════ -->
+<!-- PLANS PAGE -->
+<div id="view-plans" class="view fade">
+  <div class="plans-page">
+    <div style="max-width:960px;margin:0 auto">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px">
+        <button class="btn btn-outline btn-sm" onclick="showView('view-home')">← Voltar</button>
+        <div style="font-size:13px;color:var(--text2)">Já tem conta? <a href="#" onclick="showView('view-admin-login')" style="color:var(--gold)">Entrar</a></div>
+      </div>
+      <div class="plans-hero">
+        <div style="font-size:13px;color:var(--gold);font-weight:700;letter-spacing:1px;margin-bottom:8px">AutoBarber SaaS</div>
+        <h1>Escolha o plano ideal para sua barbearia</h1>
+        <p>7 dias grátis para testar. Sem cartão de crédito. Cancele quando quiser.</p>
+      </div>
+      <div class="plans-grid" id="plans-grid"></div>
+      <div id="plan-checkout-form" style="display:none;max-width:440px;margin:40px auto 0">
+        <div class="card" style="padding:28px">
+          <h3 style="margin-bottom:4px">Iniciar teste gratuito</h3>
+          <div style="font-size:13px;color:var(--text2);margin-bottom:20px" id="plan-selected-label">—</div>
+          <div class="form-group"><label>Nome da barbearia *</label><input id="plan-shop-name" placeholder="Ex: Barbearia do João"></div>
+          <div class="form-group"><label>Seu e-mail *</label><input id="plan-email" type="email" placeholder="seu@email.com"><div style="font-size:11px;color:var(--text2);margin-top:4px">Será seu login no sistema</div></div>
+          <div class="form-group"><label>Senha *</label><div class="pass-wrap"><input id="plan-pass" type="password" placeholder="Mínimo 6 caracteres"><button class="pass-toggle" type="button" onclick="togglePass('plan-pass',this)" tabindex="-1">👁</button></div></div>
+          <button class="btn btn-gold btn-full" onclick="startFreeTrial()" id="plan-start-btn">🚀 Iniciar 7 dias grátis</button>
+          <div style="font-size:11px;color:var(--text2);text-align:center;margin-top:12px">Sem cobrança até o fim do período de teste</div>
+          <div id="plan-checkout-after" style="display:none;margin-top:16px;padding:14px;background:var(--bg3);border-radius:10px;text-align:center">
+            <div style="font-weight:700;margin-bottom:8px">✅ Conta criada!</div>
+            <div style="font-size:13px;color:var(--text2);margin-bottom:16px">Clique abaixo para assinar agora ou use o período de teste primeiro.</div>
+            <button class="btn btn-gold" onclick="goToCheckout()">💳 Ir para o Checkout</button>
+            <div style="margin-top:10px"><a href="#" onclick="showView('view-admin-login')" style="font-size:13px;color:var(--text2)">Usar período gratuito primeiro →</a></div>
+          </div>
+          <button class="btn btn-outline btn-sm btn-full" style="margin-top:10px" onclick="document.getElementById('plan-checkout-form').style.display='none';document.getElementById('plans-grid').style.display=''">← Voltar aos planos</button>
+        </div>
+      </div>
+      <div id="plans-subscribed-banner" style="display:none;max-width:440px;margin:40px auto 0">
+        <div class="card" style="padding:32px;text-align:center">
+          <div style="font-size:48px;margin-bottom:16px">🎉</div>
+          <h3 style="color:var(--gold)">Pagamento confirmado!</h3>
+          <p style="color:var(--text2);margin:12px 0 24px">Seu plano foi ativado. Faça login para acessar o sistema.</p>
+          <button class="btn btn-gold btn-full" onclick="showView('view-admin-login')">Entrar no sistema →</button>
+        </div>
+      </div>
+      <div style="max-width:640px;margin:56px auto 0;padding-bottom:60px">
+        <h3 style="text-align:center;margin-bottom:24px">Dúvidas frequentes</h3>
+        <div class="comm-card" style="margin-bottom:12px"><div style="font-weight:700;margin-bottom:6px">Preciso de cartão de crédito?</div><div style="font-size:13px;color:var(--text2)">Não. O período de 7 dias não exige nenhum dado de pagamento.</div></div>
+        <div class="comm-card" style="margin-bottom:12px"><div style="font-weight:700;margin-bottom:6px">Posso cancelar a qualquer momento?</div><div style="font-size:13px;color:var(--text2)">Sim. Cancele quando quiser, sem multa ou burocracia.</div></div>
+        <div class="comm-card"><div style="font-weight:700;margin-bottom:6px">Quantas barbearias posso gerenciar?</div><div style="font-size:13px;color:var(--text2)">Cada conta gerencia uma barbearia. Para múltiplas unidades, entre em contato.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="view-admin-login" class="view fade">
   <div class="login-wrap">
     <div class="login-box">
@@ -946,6 +1032,7 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
         <div class="nav-item" onclick="showSection('schedule')" id="nav-schedule"><span class="icon">🗓️</span> Agenda</div>
         <div class="nav-item" onclick="showSection('reports')" id="nav-reports"><span class="icon">📈</span> Relatórios</div>
         <div class="nav-item" onclick="showSection('settings')" id="nav-settings"><span class="icon">⚙️</span> Configurações</div>
+        <div class="nav-item" onclick="showSection('subscription')" id="nav-subscription"><span class="icon">💎</span> Minha Assinatura</div>
         <div id="nav-admins-wrap">
           <div class="nav-item" onclick="showSection('admins')" id="nav-admins"><span class="icon">🔐</span> Usuários Admin</div>
         </div>
@@ -957,6 +1044,12 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
       </div>
     </aside>
 
+    <div id="trial-banner-wrap" style="display:none">
+      <div class="trial-banner">
+        <div>⏳ Período de teste — <span id="trial-days-left" class="trial-banner-days">7</span> dias restantes</div>
+        <button class="btn btn-sm" style="background:#000;color:var(--gold);border:none" onclick="showView('view-plans');renderPlans()">Assinar agora</button>
+      </div>
+    </div>
     <main class="admin-main">
 
       <!-- ── DASHBOARD ── -->
@@ -1483,6 +1576,24 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
         </div>
       </div>
 
+
+      <!-- MINHA ASSINATURA -->
+      <div id="section-subscription" class="admin-section">
+        <div class="page-head"><h2>💎 Minha Assinatura</h2></div>
+        <div id="sub-status-card" style="margin-bottom:20px"></div>
+        <div style="font-weight:700;margin-bottom:12px">📋 Histórico de Pagamentos</div>
+        <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+          <button class="comm-tab active" id="pay-filter-30" onclick="setPayFilter(30)">30 dias</button>
+          <button class="comm-tab" id="pay-filter-90" onclick="setPayFilter(90)">90 dias</button>
+          <button class="comm-tab" id="pay-filter-365" onclick="setPayFilter(365)">12 meses</button>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden" id="payment-history-list"></div>
+        <div id="saas-admin-section" style="display:none;margin-top:32px">
+          <div style="font-weight:700;margin-bottom:16px;font-size:18px">🏢 Métricas da Plataforma</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px" id="saas-metrics-grid"></div>
+        </div>
+      </div>
+
     </main>
   </div>
 </div>
@@ -1608,6 +1719,7 @@ async function doLogin(){'use strict';
   document.getElementById('sb-user-role').textContent=found.role==='owner'?'Proprietário':'Profissional';
   const s=getSettings();
   document.getElementById('sb-shop-name').textContent=s.name;
+  await checkSubscriptionAccess(found.email||found.username||'');
   showView('view-admin');
   showSection('dashboard');
   renderDashboard();
@@ -1628,6 +1740,7 @@ function showSection(sec){
   else if(sec==='professionals')renderPros();
   else if(sec==='employees')renderEmployees();
   else if(sec==='commissions')renderCommissions();
+  else if(sec==='subscription'){renderMySubscription();}
   else if(sec==='schedule')initSchedule();
   else if(sec==='reports')initReports();
   else if(sec==='settings')loadSettings();
@@ -4100,6 +4213,206 @@ function renderEmpCommissions(){
 }
 
 
+
+// ════════════════════════════════════════════════════
+// SAAS SUBSCRIPTION SYSTEM — Build 8
+// ════════════════════════════════════════════════════
+const CAKTO_CONFIG={
+  plans:{
+    monthly:{id:'monthly',name:'Plano Mensal',price:57.90,period:'mês',savings:null,checkoutUrl:'COLE_AQUI_URL_CHECKOUT_MENSAL'},
+    quarterly:{id:'quarterly',name:'Plano Trimestral',price:147.90,period:'trimestre',savings:'Economia de 15%',checkoutUrl:'COLE_AQUI_URL_CHECKOUT_TRIMESTRAL'},
+    annual:{id:'annual',name:'Plano Anual',price:497.90,period:'ano',savings:'Economia de 30%',featured:true,checkoutUrl:'COLE_AQUI_URL_CHECKOUT_ANUAL'},
+  },
+  trialDays:7,
+  returnUrl:'https://autobarber-app.vercel.app/?subscribed=true',
+  superAdminEmail:'yuriabraodemenezes@gmail.com',
+};
+let _shopSub=null,_selectedPlan=null;
+
+async function loadShopSubscription(email){
+  if(!_sb||!email)return null;
+  try{const{data}=await _sb.from('shop_subscriptions').select('*').eq('email',email).maybeSingle();_shopSub=data||null;return _shopSub;}
+  catch(e){console.warn('loadSub',e);return null;}
+}
+async function createTrial(email,shopName){
+  if(!_sb)return null;
+  const trialEnd=new Date(Date.now()+CAKTO_CONFIG.trialDays*24*60*60*1000).toISOString();
+  const{data,error}=await _sb.from('shop_subscriptions').upsert({email,shop_name:shopName||email,status:'trial',trial_start:new Date().toISOString(),trial_end:trialEnd,updated_at:new Date().toISOString()},{onConflict:'email'}).select().single();
+  if(error)console.warn('createTrial',error);
+  _shopSub=data;return _shopSub;
+}
+function subStatusLabel(s){return{trial:'Teste Gratuito',active:'Ativa',pending:'Pendente',cancelled:'Cancelada',expired:'Expirada'}[s]||s;}
+function subBadgeClass(s){return{trial:'sub-badge-trial',active:'sub-badge-active',pending:'sub-badge-pending',cancelled:'sub-badge-expired',expired:'sub-badge-expired'}[s]||'sub-badge-expired';}
+
+async function checkSubscriptionAccess(email){
+  if(!email||!_sb)return true;
+  if(email===CAKTO_CONFIG.superAdminEmail)return true;
+  let sub=await loadShopSubscription(email);
+  if(!sub){const s=getSettings();sub=await createTrial(email,s.name||email);}
+  if(!sub)return true;
+  const now=new Date();
+  if(sub.status==='trial'){
+    const end=new Date(sub.trial_end);
+    if(now>end){showPaywall('expired_trial');return false;}
+    showTrialBanner(Math.max(0,Math.ceil((end-now)/864e5)));return true;
+  }
+  if(sub.status==='active'){hidePaywall();hideTrialBanner();return true;}
+  showPaywall(sub.status);return false;
+}
+function showPaywall(reason){
+  const el=document.getElementById('paywall-overlay');if(!el)return;
+  const map={
+    expired_trial:{icon:'\u23F0',title:'Per\u00EDodo de teste encerrado',sub:'Seu per\u00EDodo de teste gratuito chegou ao fim. Escolha um plano para continuar.'},
+    pending:{icon:'\u26A0\uFE0F',title:'Pagamento pendente',sub:'H\u00E1 um problema com seu pagamento. Atualize sua forma de pagamento.'},
+    cancelled:{icon:'\uD83D\uDD12',title:'Assinatura cancelada',sub:'Sua assinatura foi cancelada. Escolha um novo plano para reativar.'},
+    expired:{icon:'\uD83D\uDD12',title:'Assinatura expirada',sub:'Sua assinatura expirou. Renove para continuar.'},
+  };
+  const m=map[reason]||{icon:'\uD83D\uDD12',title:'Acesso bloqueado',sub:'Escolha um plano para continuar.'};
+  document.getElementById('paywall-icon').textContent=m.icon;
+  document.getElementById('paywall-title').textContent=m.title;
+  document.getElementById('paywall-sub').textContent=m.sub;
+  el.style.display='flex';
+}
+function hidePaywall(){const e=document.getElementById('paywall-overlay');if(e)e.style.display='none';}
+function showTrialBanner(days){const w=document.getElementById('trial-banner-wrap');if(w)w.style.display='';const d=document.getElementById('trial-days-left');if(d)d.textContent=days;}
+function hideTrialBanner(){const w=document.getElementById('trial-banner-wrap');if(w)w.style.display='none';}
+
+function renderPlans(){
+  if(new URLSearchParams(location.search).get('subscribed')==='true'){
+    document.getElementById('plans-subscribed-banner').style.display='';
+    const g=document.getElementById('plans-grid');if(g)g.style.display='none';
+    history.replaceState({},'',location.pathname);return;
+  }
+  const g=document.getElementById('plans-grid');if(!g)return;
+  g.style.display='';
+  document.getElementById('plan-checkout-form').style.display='none';
+  document.getElementById('plans-subscribed-banner').style.display='none';
+  g.innerHTML=Object.values(CAKTO_CONFIG.plans).map(function(p){
+    return '<div class="plan-card'+(p.featured?' featured':'')+'">'+
+      (p.featured?'<div class="plan-badge">\u2B50 MELHOR ESCOLHA</div>':'')+
+      (p.savings&&!p.featured?'<div class="plan-badge discount">'+p.savings.toUpperCase()+'</div>':'')+
+      '<div class="plan-name">'+esc(p.name)+'</div>'+
+      '<div class="plan-price">R$'+p.price.toFixed(2).replace('.',',')+' <span>/ '+p.period+'</span></div>'+
+      (p.savings?'<div class="plan-savings">\u2713 '+p.savings+'</div>':'<div style="margin-bottom:20px"></div>')+
+      '<ul class="plan-features">'+
+      '<li>\u2705 Acesso completo ao sistema</li>'+
+      '<li>\u2705 Agendamentos ilimitados</li>'+
+      '<li>\u2705 Gest\u00E3o de clientes e funcion\u00E1rios</li>'+
+      '<li>\u2705 Controle de comiss\u00F5es</li>'+
+      '<li>\u2705 Dashboard e relat\u00F3rios</li>'+
+      (p.featured?'<li>\u2B50 Suporte priorit\u00E1rio</li>':'')+
+      '</ul>'+
+      '<button class="btn btn-gold btn-full" onclick="selectPlan(\'' +p.id+ '\')">Assinar Agora</button>'+
+      '</div>';
+  }).join('');
+}
+function selectPlan(id){
+  _selectedPlan=CAKTO_CONFIG.plans[id];if(!_selectedPlan)return;
+  document.getElementById('plans-grid').style.display='none';
+  document.getElementById('plan-checkout-form').style.display='';
+  document.getElementById('plan-selected-label').textContent=_selectedPlan.name+' \u2014 R$'+_selectedPlan.price.toFixed(2).replace('.',',')+'/'+_selectedPlan.period;
+  document.getElementById('plan-checkout-after').style.display='none';
+}
+async function startFreeTrial(){
+  const shopName=document.getElementById('plan-shop-name').value.trim();
+  const email=document.getElementById('plan-email').value.trim().toLowerCase();
+  const pass=document.getElementById('plan-pass').value;
+  if(!shopName||!email||!pass){toast('Preencha todos os campos','err');return;}
+  if(pass.length<6){toast('Senha m\u00EDnima de 6 caracteres','err');return;}
+  const btn=document.getElementById('plan-start-btn');btn.textContent='Criando conta...';btn.disabled=true;
+  try{
+    const admins=getData('admins');
+    if(admins.find(function(a){return a.username===email;})){toast('E-mail j\u00E1 cadastrado. Fa\u00E7a login.','err');btn.textContent='\uD83D\uDE80 Iniciar 7 dias gr\u00E1tis';btn.disabled=false;return;}
+    admins.push({id:'a'+Date.now(),username:email,passHash:pass,name:shopName,role:'owner',active:true});
+    saveData('admins',admins);
+    await createTrial(email,shopName);
+    toast('Conta criada! \uD83C\uDF89','ok');
+    document.getElementById('plan-checkout-after').style.display='';
+    btn.textContent='\u2705 Conta criada!';
+  }catch(e){toast('Erro: '+e.message,'err');btn.textContent='\uD83D\uDE80 Iniciar 7 dias gr\u00E1tis';btn.disabled=false;}
+}
+function goToCheckout(){
+  if(!_selectedPlan)return;
+  var url=_selectedPlan.checkoutUrl;
+  if(url.indexOf('COLE_AQUI')>=0){toast('Configure a URL de checkout da Cakto primeiro.','err');return;}
+  var email=(document.getElementById('plan-email')||{}).value||'';
+  var name=(document.getElementById('plan-shop-name')||{}).value||'';
+  window.open(url+'?email='+encodeURIComponent(email)+'&name='+encodeURIComponent(name)+'&return='+encodeURIComponent(CAKTO_CONFIG.returnUrl),'_blank');
+}
+
+async function renderMySubscription(){
+  var card=document.getElementById('sub-status-card');if(!card)return;
+  var email=(currentUser&&(currentUser.email||currentUser.username))||'';
+  var sub=_shopSub;
+  if(!sub&&email)sub=await loadShopSubscription(email);
+  if(!sub){card.innerHTML='<div style="color:var(--text2);padding:20px">Nenhuma assinatura encontrada.</div>';return;}
+  function fmt(d){return d?new Date(d).toLocaleDateString('pt-BR'):'\u2014';}
+  var daysLeft=sub.trial_end?Math.max(0,Math.ceil((new Date(sub.trial_end)-new Date())/864e5)):0;
+  card.innerHTML='<div class="comm-card">'
+    +'<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px">'
+    +'<div style="flex:1"><div style="font-size:18px;font-weight:800">'+(sub.plan_name||'Teste Gratuito')+'</div>'
+    +'<div style="font-size:13px;color:var(--text2);margin-top:4px">'+esc(sub.email)+'</div></div>'
+    +'<span class="'+subBadgeClass(sub.status)+'">'+subStatusLabel(sub.status)+'</span></div>'
+    +'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:16px">'
+    +(sub.price?'<div><div style="font-size:11px;color:var(--text2)">Valor</div><div style="font-weight:700">R$'+Number(sub.price).toFixed(2).replace('.',',')+'</div></div>':'')
+    +(sub.status==='trial'?'<div><div style="font-size:11px;color:var(--text2)">Fim do teste</div><div style="font-weight:700;color:var(--gold)">'+fmt(sub.trial_end)+' ('+daysLeft+' dias)</div></div>':'')
+    +(sub.next_billing?'<div><div style="font-size:11px;color:var(--text2)">Pr\u00F3xima cobran\u00E7a</div><div style="font-weight:700">'+fmt(sub.next_billing)+'</div></div>':'')
+    +(sub.cakto_sub_id?'<div><div style="font-size:11px;color:var(--text2)">ID Cakto</div><div style="font-size:12px;font-family:monospace">'+esc(sub.cakto_sub_id)+'</div></div>':'')
+    +'</div><div style="display:flex;gap:8px;flex-wrap:wrap">'
+    +((sub.status==='trial'||sub.status==='expired'||sub.status==='cancelled')?'<button class="btn btn-gold btn-sm" onclick="showView(\'view-plans\');renderPlans()">'+'\uD83D\uDC8E Assinar agora</button>':'')
+    +(sub.status==='active'?'<button class="btn btn-err btn-sm" onclick="cancelSubConfirm()">Cancelar assinatura</button>':'')
+    +'</div></div>';
+  if(email===CAKTO_CONFIG.superAdminEmail){document.getElementById('saas-admin-section').style.display='';renderSaaSMetrics();}
+  setPayFilter(30);
+}
+function cancelSubConfirm(){
+  showConfirm('Cancelar assinatura','Deseja realmente cancelar?',async function(){
+    if(!_sb||!_shopSub)return;
+    await _sb.from('shop_subscriptions').update({status:'cancelled',updated_at:new Date().toISOString()}).eq('id',_shopSub.id);
+    _shopSub=null;toast('Assinatura cancelada','ok');renderMySubscription();
+  },'Cancelar','btn-err');
+}
+var _payFilterDays=30;
+function setPayFilter(days){
+  _payFilterDays=days;
+  [30,90,365].forEach(function(d){var b=document.getElementById('pay-filter-'+d);if(b)b.classList.toggle('active',d===days);});
+  renderPaymentHistory();
+}
+async function renderPaymentHistory(){
+  var el=document.getElementById('payment-history-list');if(!el)return;
+  var email=(currentUser&&(currentUser.email||currentUser.username))||'';
+  if(!_sb||!email){el.innerHTML='<div style="padding:16px;color:var(--text2)">Sem conex\u00E3o</div>';return;}
+  var from=new Date(Date.now()-_payFilterDays*864e5).toISOString();
+  var res=await _sb.from('shop_payments').select('*').eq('email',email).gte('created_at',from).order('created_at',{ascending:false});
+  var data=res.data;
+  if(!data||!data.length){el.innerHTML='<div style="padding:16px;color:var(--text2);text-align:center">Nenhum pagamento no per\u00EDodo</div>';return;}
+  var stl={approved:'\u2705 Aprovado',refused:'\u274C Recusado',refunded:'\u21A9 Reembolsado',chargeback:'\u26A0 Chargeback'};
+  el.innerHTML=data.map(function(p){return '<div class="pay-row"><div style="min-width:80px;font-size:12px;color:var(--text2)">'+new Date(p.created_at).toLocaleDateString('pt-BR')+'</div><div style="flex:1">'+esc(p.plan_id||'\u2014')+'</div><div style="color:var(--text2);font-size:12px">'+esc(p.payment_method||'\u2014')+'</div><div style="font-weight:700;color:var(--gold)">R$'+Number(p.amount||0).toFixed(2).replace('.',',')+'</div><div>'+(stl[p.status]||p.status||'\u2014')+'</div></div>';}).join('');
+}
+async function renderSaaSMetrics(){
+  var el=document.getElementById('saas-metrics-grid');if(!el)return;
+  if(!_sb){el.innerHTML='<div>Sem conex\u00E3o</div>';return;}
+  var r1=await _sb.from('shop_subscriptions').select('*');
+  var r2=await _sb.from('shop_payments').select('amount,created_at,status').eq('status','approved');
+  var subs=r1.data||[];var pays=r2.data||[];
+  var ym=new Date().toISOString().slice(0,7);
+  var active=subs.filter(function(s){return s.status==='active';}).length;
+  var trial=subs.filter(function(s){return s.status==='trial';}).length;
+  var cancelled=subs.filter(function(s){return s.status==='cancelled'||s.status==='expired';}).length;
+  var mrr=subs.filter(function(s){return s.status==='active'&&s.price;}).reduce(function(a,s){var p=Number(s.price)||0;return a+(s.plan_id==='monthly'?p:s.plan_id==='quarterly'?p/3:s.plan_id==='annual'?p/12:p);},0);
+  var convRate=subs.length?Math.round(active/subs.length*100):0;
+  var churn=subs.length?Math.round(cancelled/subs.length*100):0;
+  var mRev=pays.filter(function(p){return p.created_at&&p.created_at.startsWith(ym);}).reduce(function(s,p){return s+Number(p.amount||0);},0);
+  el.innerHTML=[
+    {v:active,l:'Assinaturas Ativas'},{v:trial,l:'Em Teste Gratuito'},{v:cancelled,l:'Canceladas/Expiradas'},
+    {v:'R$'+mrr.toFixed(0),l:'MRR'},{v:'R$'+(mrr*12).toFixed(0),l:'ARR'},{v:'R$'+mRev.toFixed(0),l:'Receita Este M\u00EAs'},
+    {v:convRate+'%',l:'Convers\u00E3o Trial\u2192Pago'},{v:churn+'%',l:'Taxa de Churn'},
+  ].map(function(m){return '<div class="saas-metric"><div class="saas-metric-val">'+m.v+'</div><div class="saas-metric-lbl">'+m.l+'</div></div>';}).join('');
+}
+function checkPlansSubscribedParam(){
+  if(new URLSearchParams(location.search).get('subscribed')==='true'){showView('view-plans');renderPlans();}
+}
+
 // ─── EMPLOYEE LOGIN TAB SWITCH ────────────────────────────────
 function switchLoginTab(tab){
   document.getElementById('login-admin-form').style.display=tab==='admin'?'':'none';
@@ -4574,6 +4887,7 @@ function generateSlots(pro,dateStr){
   }
   isMobileMode=!!(load('mobileMode'));
   restoreEmployeeSession();
+  checkPlansSubscribedParam();
   initHome();
 })();
 // Set today's date in filters
@@ -4780,5 +5094,15 @@ document.getElementById('sch-week').value=fmtDate(new Date());
   </div>
 </div>
 
+
+<div id="paywall-overlay" class="paywall-overlay" style="display:none">
+  <div class="paywall-box">
+    <div class="paywall-icon" id="paywall-icon">🔒</div>
+    <div class="paywall-title" id="paywall-title">Período de teste encerrado</div>
+    <div class="paywall-sub" id="paywall-sub">Seu período de teste gratuito chegou ao fim.</div>
+    <button class="btn btn-gold btn-full" onclick="document.getElementById('paywall-overlay').style.display='none';showView('view-plans');renderPlans()" style="margin-bottom:10px">💎 Ver planos e assinar</button>
+    <button class="btn btn-outline btn-sm btn-full" onclick="doLogout()">Sair</button>
+  </div>
+</div>
 </body>
 </html>

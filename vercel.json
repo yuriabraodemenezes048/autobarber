@@ -1,14 +1,16 @@
 {
   "version": 2,
   "rewrites": [
-    {"source": "/(.*)", "destination": "/index.html"}
+    {"source": "/((?!api/).*)", "destination": "/index.html"}
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        {"key": "Content-Security-Policy",
-         "value": "default-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdn.jsdelivr.net data:; img-src 'self' data: blob:; connect-src 'self' https://ucuvvfacbeeiagoumrbw.supabase.co"}
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdn.jsdelivr.net data:; img-src 'self' data: blob:; connect-src 'self' https://ucuvvfacbeeiagoumrbw.supabase.co https://api.cakto.com.br"
+        }
       ]
     }
   ]
