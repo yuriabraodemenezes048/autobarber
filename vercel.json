@@ -2,6 +2,10 @@
   "version": 2,
   "rewrites": [
     {
+      "source": "/api/jsonblob",
+      "destination": "https://jsonblob.com/api/jsonBlob"
+    },
+    {
       "source": "/api/jsonblob/:path*",
       "destination": "https://jsonblob.com/api/jsonBlob/:path*"
     },
