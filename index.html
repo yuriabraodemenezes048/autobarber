@@ -2689,7 +2689,7 @@ function previewNotifyTemplate(){
 }
 
 // ─── CLOUD SYNC ─────────────────────────────────────────
-const SYNC_API='https://jsonblob.com/api/jsonBlob';
+const SYNC_API='/api/sync'; // Proxied through Vercel serverless → JSONBlob (avoids CORS)
 function getSyncData(){
   return {
     settings:getSettings(),
@@ -2702,7 +2702,7 @@ function getSyncData(){
   };
 }
 async function pullSyncById(blobId){
-  const resp=await fetch(SYNC_API+'/'+blobId,{headers:{Accept:'application/json'}});
+  const resp=await fetch(SYNC_API+'?id='+blobId,{headers:{Accept:'application/json'}});
   if(!resp.ok)throw new Error('HTTP '+resp.status);
   const data=await resp.json();
   if(data.settings)save('settings',data.settings);
@@ -2723,8 +2723,8 @@ async function createSync(){
       body:JSON.stringify(getSyncData())
     });
     if(!resp.ok)throw new Error('HTTP '+resp.status);
-    const loc=resp.headers.get('Location')||'';
-    const blobId=loc.split('/').pop();
+    // Proxy passes blob ID via X-Blob-Id header (Location from JSONBlob)
+    const blobId=resp.headers.get('X-Blob-Id')||'';
     if(!blobId)throw new Error('Sem ID');
     save('syncBlobId',blobId);
     showSyncConnected(blobId);
@@ -2753,7 +2753,7 @@ async function pushSync(){
   const blobId=load('syncBlobId');if(!blobId)return;
   const st=document.getElementById('sync-status');if(st)st.textContent='Enviando dados...';
   try{
-    const resp=await fetch(SYNC_API+'/'+blobId,{
+    const resp=await fetch(SYNC_API+'?id='+blobId,{
       method:'PUT',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body:JSON.stringify(getSyncData())
@@ -2782,7 +2782,7 @@ async function pullSync(){
 async function pushSyncSilent(){
   const blobId=load('syncBlobId');if(!blobId)return;
   try{
-    await fetch(SYNC_API+'/'+blobId,{
+    await fetch(SYNC_API+'?id='+blobId,{
       method:'PUT',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(getSyncData())

@@ -1,6 +1,7 @@
 {
   "version": 2,
   "routes": [
+    { "src": "/api/sync", "dest": "/api/sync.js" },
     { "src": "/(.*)", "dest": "/index.html" }
   ],
   "headers": [
@@ -9,7 +10,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' https://jsonblob.com"
+          "value": "default-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self'"
         }
       ]
     }
