@@ -315,6 +315,63 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
 .login-sync-row{margin-top:6px;position:relative}
 .login-sync-row input{font-size:12px;font-family:monospace;color:var(--text2)}
 .sync-hint{font-size:11px;color:var(--text2);margin-top:4px;line-height:1.5}
+
+/* ─── CLIENT AUTH MODAL ─── */
+.client-tab-bar{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:20px}
+.client-tab-btn{flex:1;padding:10px;background:none;border:none;color:var(--text2);cursor:pointer;font-size:14px;font-weight:600;border-bottom:2px solid transparent;transition:.2s;margin-bottom:-1px}
+.client-tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* ─── CLIENT PROFILE VIEW ─── */
+#view-client-profile .profile-hero{background:linear-gradient(135deg,var(--bg2) 0%,var(--bg3) 100%);padding:32px 24px;text-align:center;border-bottom:1px solid var(--border)}
+.profile-avatar{width:80px;height:80px;border-radius:50%;background:var(--gold);color:#000;font-size:28px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.profile-name{font-size:22px;font-weight:800;margin-bottom:4px}
+.profile-meta{font-size:13px;color:var(--text2)}
+.profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:20px 16px;border-bottom:1px solid var(--border)}
+.pstat{text-align:center;padding:10px;background:var(--bg3);border-radius:10px}
+.pstat-val{font-size:20px;font-weight:800;color:var(--gold)}
+.pstat-lbl{font-size:11px;color:var(--text2);margin-top:2px}
+.profile-nav{display:flex;gap:8px;padding:12px 16px;border-bottom:1px solid var(--border);overflow-x:auto}
+.profile-tab{padding:8px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:.2s;color:var(--text2)}
+.profile-tab.active,.profile-tab:hover{background:var(--gold);color:#000;border-color:var(--gold)}
+.profile-section{padding:16px;display:none}
+.profile-section.active{display:block}
+.appt-history-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px}
+.appt-history-card .ah-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.appt-history-card .ah-svc{font-weight:700;font-size:15px}
+.appt-history-card .ah-date{font-size:12px;color:var(--text2)}
+.appt-history-card .ah-meta{display:flex;gap:12px;font-size:12px;color:var(--text2)}
+
+/* ─── CLIENT SECTION (ADMIN) ─── */
+.client-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:14px}
+.client-card:hover{border-color:var(--gold);background:var(--bg4)}
+.client-avatar-sm{width:46px;height:46px;border-radius:50%;background:var(--gold);color:#000;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.client-info{flex:1;min-width:0}
+.client-name{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.client-contact{font-size:12px;color:var(--text2);margin-top:2px}
+.client-badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.cbadge{font-size:11px;padding:2px 8px;border-radius:20px;background:var(--bg4);color:var(--text2);border:1px solid var(--border)}
+.cbadge.gold{background:rgba(212,160,23,.12);color:var(--gold);border-color:var(--gold)}
+.client-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:12px}
+@media(max-width:600px){.client-grid{grid-template-columns:1fr}}
+
+/* ─── CLIENT DETAIL DRAWER ─── */
+#client-detail-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;display:none;align-items:stretch;justify-content:flex-end}
+#client-detail-overlay.open{display:flex}
+.client-drawer{width:min(520px,100vw);background:var(--bg2);overflow-y:auto;display:flex;flex-direction:column;animation:slideIn .25s ease}
+@keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+.drawer-head{padding:20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;position:sticky;top:0;background:var(--bg2);z-index:1}
+.drawer-body{padding:16px;flex:1}
+.detail-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px}
+.detail-row:last-child{border-bottom:none}
+.detail-label{color:var(--text2)}
+.detail-val{font-weight:600;text-align:right}
+
+/* ─── CLIENT NAV BUTTON ─── */
+#client-nav-area{display:flex;align-items:center;gap:8px}
+.client-nav-name{font-size:13px;color:var(--text2);max-width:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ─── DASHBOARD CLIENT METRICS ─── */
+.dash-section-title{font-weight:700;font-size:14px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin:20px 0 10px}
 </style>
 </head>
 <body>
@@ -347,7 +404,12 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
   <nav class="nav">
     <div class="nav-logo-wrap"><img id="nav-logo-img" src="" alt=""><div class="nav-logo" id="nav-logo">Auto<span>Barber</span></div></div>
     <div class="nav-actions">
-      <button class="btn btn-gold" onclick="openBooking()">✂️ Agendar Agora</button>
+      <div id="client-nav-area">
+        <span class="client-nav-name" id="client-nav-name" style="display:none"></span>
+        <button class="btn btn-outline btn-sm" id="client-profile-btn" style="display:none" onclick="showView('view-client-profile');renderClientProfile()">👤 Minha Conta</button>
+        <button class="btn btn-outline btn-sm" id="client-login-nav-btn" onclick="openClientAuth(null)">Entrar</button>
+      </div>
+      <button class="btn btn-gold" onclick="clientOpenBooking()">✂️ Agendar Agora</button>
       <button class="btn btn-outline btn-sm" onclick="showView('view-admin-login')">Admin</button>
     </div>
   </nav>
@@ -469,6 +531,10 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
       <div id="bs4" style="display:none">
         <div class="step-label">Passo 4 de 5</div>
         <div class="step-title">Seus dados</div>
+        <div id="bs4-logged-in" style="display:none;background:rgba(212,160,23,.08);border:1px solid var(--gold);border-radius:10px;padding:12px;margin-bottom:16px;display:flex;align-items:center;gap:10px">
+          <span style="font-size:20px">✅</span>
+          <div><div style="font-weight:700;font-size:14px" id="bs4-client-name">—</div><div style="font-size:12px;color:var(--text2)">Logado como cliente · <a href="#" onclick="clientLogout();return false" style="color:var(--gold)">Sair</a></div></div>
+        </div>
         <div class="form-group"><label>Nome completo *</label><input id="b-name" placeholder="João Silva" type="text"></div>
         <div class="form-group"><label>WhatsApp *</label><input id="b-phone" placeholder="(11) 99999-9999" type="tel"></div>
         <div class="form-group"><label>E-mail (opcional)</label><input id="b-email" placeholder="joao@email.com" type="email"></div>
@@ -534,7 +600,174 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
           <div style="font-size:14px;color:var(--text2);margin-bottom:12px">Guarde seu código de confirmação</div>
           <div class="confirm-code" id="confirm-booking-code"></div>
           <div class="confirm-details" id="confirm-details"></div>
-          <button class="btn btn-gold btn-full" style="margin-top:20px" onclick="closeBooking()">Fechar</button>
+          <div style="display:flex;gap:10px;margin-top:20px;flex-direction:column">
+            <button class="btn btn-gold btn-full" id="bs6-profile-btn" style="display:none" onclick="closeBooking();showView('view-client-profile');renderClientProfile()">👤 Ver meu perfil</button>
+            <button class="btn btn-outline btn-full" onclick="closeBooking()">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     CLIENT AUTH MODAL
+═══════════════════════════════════════════ -->
+<div class="modal-overlay" id="client-auth-overlay">
+  <div class="modal" style="max-width:420px;width:100%">
+    <button class="modal-close" onclick="closeClientAuth()">×</button>
+    <div class="modal-body">
+      <div style="text-align:center;margin-bottom:16px">
+        <div style="font-size:28px;margin-bottom:4px">💈</div>
+        <div style="font-weight:800;font-size:18px" id="client-auth-shop-name">AutoBarber</div>
+        <div style="font-size:12px;color:var(--text2)">Entre ou crie sua conta para agendar</div>
+      </div>
+      <div class="client-tab-bar">
+        <button class="client-tab-btn active" id="ctab-login" onclick="switchClientTab('login')">Entrar</button>
+        <button class="client-tab-btn" id="ctab-register" onclick="switchClientTab('register')">Criar conta</button>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="client-login-form">
+        <div class="form-group"><label>E-mail</label><input id="cl-email" type="email" placeholder="seu@email.com" autocomplete="email"></div>
+        <div class="form-group"><label>Senha</label>
+          <div class="pass-wrap"><input id="cl-pass" type="password" placeholder="••••••••" autocomplete="current-password"><button class="pass-toggle" type="button" onclick="togglePass('cl-pass',this)" tabindex="-1">👁</button></div>
+        </div>
+        <button class="btn btn-gold btn-full" onclick="clientLogin()">Entrar →</button>
+        <div style="text-align:center;margin-top:12px"><a href="#" onclick="showClientForgot();return false" style="font-size:12px;color:var(--text2)">Esqueci minha senha</a></div>
+      </div>
+
+      <!-- REGISTER -->
+      <div id="client-register-form" style="display:none">
+        <div class="form-group"><label>Nome completo *</label><input id="cr-name" type="text" placeholder="João Silva" autocomplete="name"></div>
+        <div class="form-row">
+          <div class="form-group"><label>WhatsApp *</label><input id="cr-phone" type="tel" placeholder="(11) 99999-9999" autocomplete="tel"></div>
+          <div class="form-group"><label>Data de nascimento</label><input id="cr-birth" type="date"></div>
+        </div>
+        <div class="form-group"><label>E-mail *</label><input id="cr-email" type="email" placeholder="seu@email.com" autocomplete="email"></div>
+        <div class="form-group"><label>Senha *</label>
+          <div class="pass-wrap"><input id="cr-pass" type="password" placeholder="Mínimo 6 caracteres" autocomplete="new-password"><button class="pass-toggle" type="button" onclick="togglePass('cr-pass',this)" tabindex="-1">👁</button></div>
+        </div>
+        <div class="form-group"><label>Confirmar senha *</label>
+          <div class="pass-wrap"><input id="cr-pass2" type="password" placeholder="Repita a senha" autocomplete="new-password"><button class="pass-toggle" type="button" onclick="togglePass('cr-pass2',this)" tabindex="-1">👁</button></div>
+        </div>
+        <button class="btn btn-gold btn-full" onclick="clientRegister()">Criar conta →</button>
+      </div>
+
+      <!-- FORGOT PASSWORD -->
+      <div id="client-forgot-form" style="display:none">
+        <div style="text-align:center;padding:8px 0 16px">
+          <div style="font-size:32px;margin-bottom:8px">🔐</div>
+          <div style="font-weight:700;margin-bottom:6px">Recuperar senha</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6">Digite seu e-mail cadastrado. Se encontrarmos uma conta, o administrador da barbearia poderá redefinir sua senha.</div>
+        </div>
+        <div class="form-group"><label>E-mail cadastrado</label><input id="forgot-email" type="email" placeholder="seu@email.com"></div>
+        <div id="forgot-result" style="display:none;padding:12px;background:var(--bg4);border-radius:8px;font-size:13px;border:1px solid var(--border);margin-bottom:12px;line-height:1.6"></div>
+        <button class="btn btn-gold btn-full" onclick="requestClientReset()">Solicitar redefinição</button>
+        <div style="text-align:center;margin-top:10px"><a href="#" onclick="switchClientTab('login');return false" style="font-size:12px;color:var(--text2)">← Voltar ao login</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CLIENT PROFILE VIEW
+═══════════════════════════════════════════ -->
+<div id="view-client-profile" class="view fade">
+  <nav class="nav" style="position:sticky;top:0;z-index:100;border-bottom:1px solid var(--border)">
+    <div class="nav-logo-wrap"><img id="cp-nav-logo" src="" style="display:none;height:36px;max-width:120px;object-fit:contain;border-radius:4px"><div class="nav-logo" id="cp-nav-brand">Auto<span>Barber</span></div></div>
+    <div class="nav-actions">
+      <button class="btn btn-outline btn-sm" onclick="showView('view-home');initHome()">← Início</button>
+      <button class="btn btn-err btn-sm" onclick="clientLogout()">Sair</button>
+    </div>
+  </nav>
+  <div class="profile-hero">
+    <div class="profile-avatar" id="profile-avatar">JO</div>
+    <div class="profile-name" id="profile-name">—</div>
+    <div class="profile-meta" id="profile-meta">—</div>
+  </div>
+  <div class="profile-stats">
+    <div class="pstat"><div class="pstat-val" id="pstat-total">0</div><div class="pstat-lbl">Agendamentos</div></div>
+    <div class="pstat"><div class="pstat-val" id="pstat-spent">R$0</div><div class="pstat-lbl">Total gasto</div></div>
+    <div class="pstat"><div class="pstat-val" id="pstat-last">—</div><div class="pstat-lbl">Última visita</div></div>
+  </div>
+  <div class="profile-nav">
+    <div class="profile-tab active" onclick="switchProfileTab('upcoming',this)">📅 Próximos</div>
+    <div class="profile-tab" onclick="switchProfileTab('history',this)">📋 Histórico</div>
+    <div class="profile-tab" onclick="switchProfileTab('edit',this)">✏️ Meus dados</div>
+    <div class="profile-tab" onclick="switchProfileTab('pass',this)">🔒 Senha</div>
+  </div>
+
+  <!-- UPCOMING -->
+  <div class="profile-section active" id="ptab-upcoming">
+    <div id="profile-upcoming-list"></div>
+  </div>
+  <!-- HISTORY -->
+  <div class="profile-section" id="ptab-history">
+    <div id="profile-history-list"></div>
+  </div>
+  <!-- EDIT PROFILE -->
+  <div class="profile-section" id="ptab-edit">
+    <div class="panel-form" style="max-width:520px">
+      <h3>Meus dados</h3>
+      <div class="form-group"><label>Nome completo</label><input id="ep-name" type="text"></div>
+      <div class="form-row">
+        <div class="form-group"><label>WhatsApp</label><input id="ep-phone" type="tel"></div>
+        <div class="form-group"><label>Data de nascimento</label><input id="ep-birth" type="date"></div>
+      </div>
+      <div class="form-group"><label>E-mail</label><input id="ep-email" type="email" disabled style="opacity:.6"></div>
+      <button class="btn btn-gold" onclick="saveClientProfile()">💾 Salvar dados</button>
+    </div>
+  </div>
+  <!-- CHANGE PASSWORD -->
+  <div class="profile-section" id="ptab-pass">
+    <div class="panel-form" style="max-width:400px">
+      <h3>Alterar senha</h3>
+      <div class="form-group"><label>Senha atual</label>
+        <div class="pass-wrap"><input id="pp-current" type="password" placeholder="Senha atual"><button class="pass-toggle" type="button" onclick="togglePass('pp-current',this)" tabindex="-1">👁</button></div>
+      </div>
+      <div class="form-group"><label>Nova senha</label>
+        <div class="pass-wrap"><input id="pp-new" type="password" placeholder="Mínimo 6 caracteres"><button class="pass-toggle" type="button" onclick="togglePass('pp-new',this)" tabindex="-1">👁</button></div>
+      </div>
+      <div class="form-group"><label>Confirmar nova senha</label>
+        <div class="pass-wrap"><input id="pp-new2" type="password" placeholder="Repita a nova senha"><button class="pass-toggle" type="button" onclick="togglePass('pp-new2',this)" tabindex="-1">👁</button></div>
+      </div>
+      <button class="btn btn-gold" onclick="changeClientPassword()">🔒 Alterar senha</button>
+    </div>
+  </div>
+</div>
+
+<!-- CLIENT DETAIL DRAWER -->
+<div id="client-detail-overlay" onclick="if(event.target===this)closeClientDetail()">
+  <div class="client-drawer">
+    <div class="drawer-head">
+      <div class="client-avatar-sm" id="cd-avatar">—</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:800;font-size:16px" id="cd-name">—</div>
+        <div style="font-size:12px;color:var(--text2)" id="cd-since">—</div>
+      </div>
+      <button onclick="closeClientDetail()" style="background:none;border:none;font-size:22px;color:var(--text2);cursor:pointer">×</button>
+    </div>
+    <div class="drawer-body">
+      <div class="panel-form" style="margin-bottom:16px">
+        <h3>📋 Dados pessoais</h3>
+        <div id="cd-details"></div>
+      </div>
+      <div class="panel-form" style="margin-bottom:16px">
+        <h3>📊 Estatísticas</h3>
+        <div id="cd-stats"></div>
+      </div>
+      <div class="panel-form" style="margin-bottom:16px">
+        <h3>📅 Histórico de agendamentos</h3>
+        <div id="cd-history"></div>
+      </div>
+      <div class="panel-form">
+        <h3>📝 Observações internas</h3>
+        <textarea id="cd-notes" rows="4" placeholder="Anotações sobre este cliente..." style="margin-bottom:10px"></textarea>
+        <button class="btn btn-gold btn-sm" onclick="saveClientNotes()">💾 Salvar obs.</button>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+          <button class="btn btn-outline btn-sm" onclick="adminResetClientPassword()">🔑 Redefinir senha</button>
         </div>
       </div>
     </div>
@@ -590,6 +823,7 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
         <div class="sidebar-section">Principal</div>
         <div class="nav-item active" onclick="showSection('dashboard')" id="nav-dashboard"><span class="icon">📊</span> Dashboard</div>
         <div class="nav-item" onclick="showSection('appointments')" id="nav-appointments"><span class="icon">📅</span> Agendamentos</div>
+        <div class="nav-item" onclick="showSection('clients')" id="nav-clients"><span class="icon">👥</span> Clientes</div>
         <div class="sidebar-section">Configurações</div>
         <div class="nav-item" onclick="showSection('services')" id="nav-services"><span class="icon">✂️</span> Serviços</div>
         <div class="nav-item" onclick="showSection('professionals')" id="nav-professionals"><span class="icon">👤</span> Profissionais</div>
@@ -620,6 +854,15 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
           <div class="stat-card"><div class="stat-label">Receita Hoje</div><div class="stat-val" id="stat-revenue">R$ 0</div><div class="stat-sub">confirmados</div></div>
           <div class="stat-card"><div class="stat-label">Pendentes</div><div class="stat-val" id="stat-pending">0</div><div class="stat-sub">aguardando confirmação</div></div>
           <div class="stat-card"><div class="stat-label">Concluídos</div><div class="stat-val" id="stat-done">0</div><div class="stat-sub">hoje</div></div>
+        </div>
+        <div class="dash-section-title">👥 Clientes</div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-label">Total Clientes</div><div class="stat-val" id="stat-cli-total">0</div><div class="stat-sub">cadastrados</div></div>
+          <div class="stat-card"><div class="stat-label">Novos este mês</div><div class="stat-val" id="stat-cli-new">0</div><div class="stat-sub">cadastros</div></div>
+          <div class="stat-card"><div class="stat-label">Recorrentes</div><div class="stat-val" id="stat-cli-rec">0</div><div class="stat-sub">+1 agendamento</div></div>
+          <div class="stat-card"><div class="stat-label">Inativos</div><div class="stat-val" id="stat-cli-inactive">0</div><div class="stat-sub">+60 dias sem visita</div></div>
+          <div class="stat-card"><div class="stat-label">Ticket Médio</div><div class="stat-val" id="stat-cli-ticket">R$ 0</div><div class="stat-sub">por cliente</div></div>
+          <div class="stat-card" style="cursor:pointer" onclick="showSection('clients')"><div class="stat-label">Top Clientes</div><div class="stat-val" id="stat-cli-top">—</div><div class="stat-sub">mais visitas</div></div>
         </div>
         <div style="font-weight:700;font-size:16px;margin-bottom:12px">Agenda de Hoje</div>
         <div class="tbl-wrap">
@@ -655,6 +898,36 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
             <thead><tr><th>Código</th><th>Data / Hora</th><th>Cliente</th><th>Serviço</th><th>Profissional</th><th>Valor</th><th>Status</th><th>Ações</th></tr></thead>
             <tbody id="appt-table"></tbody>
           </table>
+        </div>
+      </div>
+
+
+      <!-- ── CLIENTS ── -->
+      <div id="section-clients" class="admin-section">
+        <div class="page-head">
+          <h2>Clientes</h2>
+          <button class="btn btn-outline btn-sm" onclick="exportClientsCSV()">⬇️ Exportar CSV</button>
+        </div>
+        <div class="filters" style="flex-wrap:wrap;gap:10px;margin-bottom:16px">
+          <input type="text" id="cli-search" placeholder="Buscar por nome, e-mail ou telefone..." style="flex:1;min-width:200px" oninput="renderClients()">
+          <select id="cli-filter-status" onchange="renderClients()">
+            <option value="">Todos os clientes</option>
+            <option value="active">Ativos</option>
+            <option value="inactive">Inativos +60 dias</option>
+            <option value="new">Novos este mês</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+          <div class="stat-card" style="flex:1;min-width:140px"><div class="stat-label">Total</div><div class="stat-val" id="cli-stat-total">0</div></div>
+          <div class="stat-card" style="flex:1;min-width:140px"><div class="stat-label">Ativos</div><div class="stat-val" id="cli-stat-active">0</div></div>
+          <div class="stat-card" style="flex:1;min-width:140px"><div class="stat-label">Inativos</div><div class="stat-val" id="cli-stat-inactive">0</div></div>
+          <div class="stat-card" style="flex:1;min-width:140px"><div class="stat-label">Novos este mês</div><div class="stat-val" id="cli-stat-new">0</div></div>
+        </div>
+        <div class="client-grid" id="clients-grid"></div>
+        <div id="clients-empty" style="display:none;text-align:center;padding:40px;color:var(--text2)">
+          <div style="font-size:40px;margin-bottom:12px">👥</div>
+          <div>Nenhum cliente cadastrado ainda</div>
+          <div style="font-size:13px;margin-top:6px">Os clientes aparecem aqui quando se cadastram no sistema</div>
         </div>
       </div>
 
@@ -1131,6 +1404,7 @@ function showSection(sec){
   const ni=document.getElementById('nav-'+sec);
   if(ni)ni.classList.add('active');
   if(sec==='dashboard')renderDashboard();
+  else if(sec==='clients')renderClients();
   else if(sec==='appointments')renderAppointments();
   else if(sec==='services')renderServices();
   else if(sec==='professionals')renderPros();
@@ -1160,6 +1434,8 @@ function renderDashboard(){
   document.getElementById('stat-revenue').textContent='R$ '+revenue.toFixed(2).replace('.',',');
   document.getElementById('stat-pending').textContent=pending.length;
   document.getElementById('stat-done').textContent=done.length;
+  // Client metrics
+  renderDashboardClientStats();
   const pros=getData('professionals');
   const svcs=getData('services');
   const tb=document.getElementById('dash-table');
@@ -1231,7 +1507,13 @@ function apptActions(a){
 function setApptStatus(id,status){
   const appts=getData('appointments');
   const a=appts.find(x=>x.id===id);
-  if(a){a.status=status;saveData('appointments',appts);renderDashboard();renderAppointments();toast('Status atualizado','ok');}
+  if(a){
+    a.status=status;
+    saveData('appointments',appts);
+    if(status==='done'&&a.clientId)updateClientLastVisit(a.clientId,a.date);
+    renderDashboard();renderAppointments();toast('Status atualizado','ok');
+    pushSyncSilent();
+  }
 }
 function cancelAppt(id){
   showConfirm('Cancelar agendamento','Deseja cancelar este agendamento?',()=>{
@@ -1721,6 +2003,13 @@ function openBooking(){
   document.body.style.overflow='hidden';
   renderBookingStep(1);
 }
+function clientOpenBooking(){
+  if(!currentClient){
+    openClientAuth(()=>openBooking());
+    return;
+  }
+  openBooking();
+}
 function closeBooking(){
   document.getElementById('booking-modal').classList.remove('open');
   document.body.style.overflow='';
@@ -1755,7 +2044,7 @@ function renderBookingStep(step){
   if(step===1) renderBookingServices();
   if(step===2) renderBookingPros();
   if(step===3) renderCalendar();
-  if(step===4) renderBookingSummary();
+  if(step===4){renderBookingSummary();prefillClientData();}
 }
 
 function renderBookingServices(){
@@ -1942,6 +2231,7 @@ function confirmBooking(){
   const appt={
     id:'apt'+Date.now(),
     bookingCode:code,
+    clientId:currentClient?currentClient.id:null,
     clientName:booking.clientName,
     clientPhone:booking.clientPhone,
     clientEmail:booking.clientEmail||'',
@@ -1962,6 +2252,8 @@ function confirmBooking(){
   // show confirmation
   const pro=pros.find(p=>p.id===assignedProId)||{name:'—'};
   document.getElementById('confirm-booking-code').textContent=code;
+  const bs6PBtn=document.getElementById('bs6-profile-btn');
+  if(bs6PBtn)bs6PBtn.style.display=currentClient?'':'none';
   document.getElementById('confirm-details').innerHTML=`
     <div class="confirm-row"><span>Serviço</span><span>${esc(svc.name)}</span></div>
     <div class="confirm-row"><span>Profissional</span><span>${esc(pro.name)}</span></div>
@@ -2048,6 +2340,8 @@ function initHome(){
   applyViewMode();
   // Auto-load shop from URL ?shop= parameter
   autoLoadShopFromUrl();
+  // Restore client session
+  updateClientNav();
 }
 
 // ─── UTILS ────────────────────────────────────────
@@ -2263,6 +2557,7 @@ function getSyncData(){
     admins:getData('admins'),
     appointments:getData('appointments'),
     blockedSlots:getData('blockedSlots'),
+    clients:getData('clients'),
   };
 }
 async function pullSyncById(blobId){
@@ -2275,6 +2570,7 @@ async function pullSyncById(blobId){
   if(data.admins)save('admins',data.admins);
   if(data.appointments)save('appointments',data.appointments);
   if(data.blockedSlots)save('blockedSlots',data.blockedSlots);
+  if(data.clients)save('clients',data.clients);
 }
 async function createSync(){
   const btn=event.currentTarget;
@@ -2502,6 +2798,497 @@ async function autoLoadShopFromUrl(){
   }catch(e){
     console.warn('autoLoadShopFromUrl failed:',e);
   }
+}
+
+
+// ─── CLIENT SYSTEM ──────────────────────────────────────────────
+let currentClient=null;
+let _afterClientAuth=null;
+let _activeClientId=null;
+
+// ── Hash ──
+async function hashPass(password){
+  const enc=new TextEncoder();
+  const data=enc.encode(password+'_ab_cli_v1');
+  const hash=await crypto.subtle.digest('SHA-256',data);
+  return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+// ── Auth Modal ──
+function openClientAuth(afterFn){
+  _afterClientAuth=afterFn||null;
+  const s=getSettings();
+  const el=document.getElementById('client-auth-shop-name');
+  if(el)el.textContent=s.name||'AutoBarber';
+  switchClientTab('login');
+  document.getElementById('client-auth-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeClientAuth(){
+  document.getElementById('client-auth-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function switchClientTab(tab){
+  ['login','register','forgot'].forEach(t=>{
+    document.getElementById('client-'+t+'-form').style.display=t===tab?'':'none';
+    const btn=document.getElementById('ctab-'+t);
+    if(btn)btn.classList.toggle('active',t===tab);
+  });
+}
+function showClientForgot(){
+  document.getElementById('client-login-form').style.display='none';
+  document.getElementById('client-forgot-form').style.display='';
+  document.getElementById('client-register-form').style.display='none';
+}
+
+// ── Login ──
+async function clientLogin(){
+  const email=document.getElementById('cl-email').value.trim().toLowerCase();
+  const pass=document.getElementById('cl-pass').value;
+  if(!email||!pass){toast('Preencha e-mail e senha','err');return;}
+  const clients=getData('clients');
+  const client=clients.find(c=>c.email===email);
+  if(!client){toast('E-mail não encontrado','err');return;}
+  const hash=await hashPass(pass);
+  if(hash!==client.passHash){toast('Senha incorreta','err');return;}
+  client.lastLogin=new Date().toISOString();
+  saveData('clients',clients);
+  pushSyncSilent();
+  currentClient=client;
+  save('clientSession',{id:client.id,name:client.name,email:client.email});
+  updateClientNav();
+  closeClientAuth();
+  toast('Bem-vindo, '+client.name.split(' ')[0]+'! 👋','ok');
+  if(_afterClientAuth){const fn=_afterClientAuth;_afterClientAuth=null;fn();}
+}
+
+// ── Register ──
+async function clientRegister(){
+  const name=document.getElementById('cr-name').value.trim();
+  const phone=document.getElementById('cr-phone').value.trim();
+  const email=document.getElementById('cr-email').value.trim().toLowerCase();
+  const pass=document.getElementById('cr-pass').value;
+  const pass2=document.getElementById('cr-pass2').value;
+  const birth=document.getElementById('cr-birth').value;
+  if(!name||!phone||!email||!pass){toast('Preencha todos os campos obrigatórios','err');return;}
+  if(pass.length<6){toast('Senha deve ter no mínimo 6 caracteres','err');return;}
+  if(pass!==pass2){toast('As senhas não coincidem','err');return;}
+  if(!/^[^@]+@[^@]+\.[^@]+$/.test(email)){toast('E-mail inválido','err');return;}
+  const clients=getData('clients');
+  if(clients.find(c=>c.email===email)){toast('Este e-mail já está cadastrado','err');return;}
+  const hash=await hashPass(pass);
+  const client={
+    id:'cli'+Date.now(),
+    name,phone,email,
+    passHash:hash,
+    birthDate:birth||'',
+    createdAt:new Date().toISOString(),
+    lastLogin:new Date().toISOString(),
+    lastVisit:null,
+    notes:'',
+    active:true
+  };
+  clients.push(client);
+  saveData('clients',clients);
+  pushSyncSilent();
+  currentClient=client;
+  save('clientSession',{id:client.id,name:client.name,email:client.email});
+  updateClientNav();
+  closeClientAuth();
+  toast('Conta criada! Bem-vindo, '+name.split(' ')[0]+'! 🎉','ok');
+  if(_afterClientAuth){const fn=_afterClientAuth;_afterClientAuth=null;fn();}
+}
+
+// ── Logout ──
+function clientLogout(){
+  currentClient=null;
+  save('clientSession',null);
+  updateClientNav();
+  showView('view-home');
+  initHome();
+  toast('Até logo!','ok');
+}
+
+// ── Session restore ──
+function updateClientNav(){
+  const session=load('clientSession');
+  if(session&&!currentClient){
+    const clients=getData('clients');
+    currentClient=clients.find(c=>c.id===session.id)||null;
+  }
+  const nameEl=document.getElementById('client-nav-name');
+  const profileBtn=document.getElementById('client-profile-btn');
+  const loginBtn=document.getElementById('client-login-nav-btn');
+  if(currentClient){
+    if(nameEl){nameEl.textContent=currentClient.name.split(' ')[0];nameEl.style.display='';}
+    if(profileBtn)profileBtn.style.display='';
+    if(loginBtn)loginBtn.style.display='none';
+  } else {
+    if(nameEl)nameEl.style.display='none';
+    if(profileBtn)profileBtn.style.display='none';
+    if(loginBtn)loginBtn.style.display='';
+  }
+}
+
+// ── Forgot password ──
+function requestClientReset(){
+  const email=document.getElementById('forgot-email').value.trim().toLowerCase();
+  if(!email){toast('Digite seu e-mail','err');return;}
+  const clients=getData('clients');
+  const cl=clients.find(c=>c.email===email);
+  const res=document.getElementById('forgot-result');
+  if(res){
+    res.style.display='';
+    if(cl){
+      res.innerHTML='<strong>Conta encontrada!</strong><br>Informe ao administrador da barbearia que você precisa redefinir a senha do e-mail <strong>'+esc(email)+'</strong>. Ele pode resetar pelo painel administrativo → Clientes → seu perfil.';
+    } else {
+      res.innerHTML='Não encontramos nenhuma conta com este e-mail. Verifique se digitou corretamente.';
+    }
+  }
+}
+
+// ── Prefill booking step 4 ──
+function prefillClientData(){
+  if(!currentClient)return;
+  const nameEl=document.getElementById('b-name');
+  const phoneEl=document.getElementById('b-phone');
+  const emailEl=document.getElementById('b-email');
+  if(nameEl&&!nameEl.value)nameEl.value=currentClient.name;
+  if(phoneEl&&!phoneEl.value)phoneEl.value=currentClient.phone;
+  if(emailEl&&!emailEl.value)emailEl.value=currentClient.email;
+  const loggedDiv=document.getElementById('bs4-logged-in');
+  if(loggedDiv){loggedDiv.style.display='flex';document.getElementById('bs4-client-name').textContent=currentClient.name;}
+}
+
+// ── Client profile ──
+function renderClientProfile(){
+  if(!currentClient){showView('view-home');return;}
+  const cl=currentClient;
+  // Nav brand
+  const s=getSettings();
+  const cpBrand=document.getElementById('cp-nav-brand');
+  const cpLogo=document.getElementById('cp-nav-logo');
+  const logoUrl=load('logoImage');
+  if(logoUrl&&cpLogo){cpLogo.src=logoUrl;cpLogo.style.display='block';if(cpBrand)cpBrand.style.display='none';}
+  else{if(cpLogo)cpLogo.style.display='none';if(cpBrand){cpBrand.style.display='';
+    const sp=s.name.indexOf(' ');
+    if(sp>0)cpBrand.innerHTML=s.name.slice(0,sp)+'<span>'+s.name.slice(sp+1)+'</span>';
+    else cpBrand.textContent=s.name;
+  }}
+  // Header
+  document.getElementById('profile-avatar').textContent=initials(cl.name);
+  document.getElementById('profile-name').textContent=cl.name;
+  document.getElementById('profile-meta').textContent=cl.email+(cl.phone?' · '+cl.phone:'');
+  // Stats
+  const stats=getClientStats(cl.id);
+  document.getElementById('pstat-total').textContent=stats.total;
+  document.getElementById('pstat-spent').textContent='R$'+stats.spent.toFixed(0);
+  document.getElementById('pstat-last').textContent=stats.lastVisit?fmtDateBr(stats.lastVisit):'—';
+  // Edit form
+  document.getElementById('ep-name').value=cl.name;
+  document.getElementById('ep-phone').value=cl.phone||'';
+  document.getElementById('ep-email').value=cl.email;
+  document.getElementById('ep-birth').value=cl.birthDate||'';
+  // Tabs
+  switchProfileTab('upcoming',document.querySelector('.profile-tab'));
+}
+function switchProfileTab(tab, el){
+  document.querySelectorAll('.profile-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.profile-section').forEach(s=>s.classList.remove('active'));
+  if(el)el.classList.add('active');
+  document.getElementById('ptab-'+tab)?.classList.add('active');
+  if(tab==='upcoming')renderClientUpcoming();
+  if(tab==='history')renderClientHistory();
+}
+function renderClientUpcoming(){
+  if(!currentClient)return;
+  const today=fmtDate(new Date());
+  const appts=getData('appointments').filter(a=>a.clientId===currentClient.id&&a.date>=today&&a.status!=='cancelled').sort((a,b)=>a.date.localeCompare(b.date)||a.time.localeCompare(b.time));
+  const pros=getData('professionals');const svcs=getData('services');
+  const el=document.getElementById('profile-upcoming-list');
+  if(!el)return;
+  if(!appts.length){el.innerHTML='<div style="text-align:center;padding:32px;color:var(--text2)"><div style="font-size:32px;margin-bottom:10px">📅</div>Nenhum agendamento próximo</div>';return;}
+  el.innerHTML=appts.map(a=>{
+    const pro=pros.find(p=>p.id===a.professionalId)||{name:'—',color:'#888'};
+    const svc=svcs.find(s=>s.id===a.serviceId)||{name:'—'};
+    return `<div class="appt-history-card">
+      <div class="ah-head"><div class="ah-svc">${esc(svc.name)}</div><div>${statusBadge(a.status)}</div></div>
+      <div class="ah-meta">
+        <span>📅 ${fmtDateBr(a.date)} às ${a.time}</span>
+        <span>💈 ${esc(pro.name)}</span>
+        <span style="color:var(--gold)">R$ ${a.amount.toFixed(2).replace('.',',')}</span>
+      </div>
+      <div style="font-size:11px;color:var(--text2);margin-top:6px">Código: ${a.bookingCode}</div>
+    </div>`;
+  }).join('');
+}
+function renderClientHistory(){
+  if(!currentClient)return;
+  const today=fmtDate(new Date());
+  const appts=getData('appointments').filter(a=>a.clientId===currentClient.id&&(a.date<today||a.status==='done'||a.status==='cancelled')).sort((a,b)=>b.date.localeCompare(a.date));
+  const pros=getData('professionals');const svcs=getData('services');
+  const el=document.getElementById('profile-history-list');
+  if(!el)return;
+  if(!appts.length){el.innerHTML='<div style="text-align:center;padding:32px;color:var(--text2)"><div style="font-size:32px;margin-bottom:10px">📋</div>Nenhum histórico ainda</div>';return;}
+  el.innerHTML=appts.map(a=>{
+    const pro=pros.find(p=>p.id===a.professionalId)||{name:'—'};
+    const svc=svcs.find(s=>s.id===a.serviceId)||{name:'—'};
+    return `<div class="appt-history-card">
+      <div class="ah-head"><div class="ah-svc">${esc(svc.name)}</div><div>${statusBadge(a.status)}</div></div>
+      <div class="ah-meta">
+        <span>📅 ${fmtDateBr(a.date)}</span>
+        <span>💈 ${esc(pro.name)}</span>
+        <span style="color:var(--gold)">R$ ${a.amount.toFixed(2).replace('.',',')}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+async function saveClientProfile(){
+  if(!currentClient)return;
+  const name=document.getElementById('ep-name').value.trim();
+  const phone=document.getElementById('ep-phone').value.trim();
+  const birth=document.getElementById('ep-birth').value;
+  if(!name||!phone){toast('Nome e telefone obrigatórios','err');return;}
+  const clients=getData('clients');
+  const idx=clients.findIndex(c=>c.id===currentClient.id);
+  if(idx<0)return;
+  clients[idx]={...clients[idx],name,phone,birthDate:birth||''};
+  saveData('clients',clients);
+  currentClient=clients[idx];
+  save('clientSession',{id:currentClient.id,name:currentClient.name,email:currentClient.email});
+  pushSyncSilent();
+  document.getElementById('profile-name').textContent=name;
+  document.getElementById('profile-meta').textContent=currentClient.email+(phone?' · '+phone:'');
+  document.getElementById('profile-avatar').textContent=initials(name);
+  updateClientNav();
+  toast('Dados atualizados!','ok');
+}
+async function changeClientPassword(){
+  if(!currentClient)return;
+  const cur=document.getElementById('pp-current').value;
+  const nw=document.getElementById('pp-new').value;
+  const nw2=document.getElementById('pp-new2').value;
+  if(!cur||!nw||!nw2){toast('Preencha todos os campos','err');return;}
+  if(nw.length<6){toast('Nova senha muito curta','err');return;}
+  if(nw!==nw2){toast('As senhas não coincidem','err');return;}
+  const curHash=await hashPass(cur);
+  if(curHash!==currentClient.passHash){toast('Senha atual incorreta','err');return;}
+  const newHash=await hashPass(nw);
+  const clients=getData('clients');
+  const idx=clients.findIndex(c=>c.id===currentClient.id);
+  if(idx<0)return;
+  clients[idx].passHash=newHash;
+  saveData('clients',clients);
+  currentClient=clients[idx];
+  pushSyncSilent();
+  document.getElementById('pp-current').value='';
+  document.getElementById('pp-new').value='';
+  document.getElementById('pp-new2').value='';
+  toast('Senha alterada com sucesso!','ok');
+}
+
+// ── Client stats ──
+function getClientStats(clientId){
+  const appts=getData('appointments').filter(a=>a.clientId===clientId&&a.status!=='cancelled');
+  const done=appts.filter(a=>a.status==='done');
+  const spent=done.reduce((s,a)=>s+a.amount,0);
+  const dates=done.map(a=>a.date).sort();
+  const lastVisit=dates[dates.length-1]||null;
+  const total=appts.length;
+  // frequency: average days between visits
+  let freq=null;
+  if(dates.length>1){
+    const gaps=[];
+    for(let i=1;i<dates.length;i++){
+      const d0=new Date(dates[i-1]);const d1=new Date(dates[i]);
+      gaps.push((d1-d0)/(1000*60*60*24));
+    }
+    freq=Math.round(gaps.reduce((s,g)=>s+g,0)/gaps.length);
+  }
+  return{total,spent,lastVisit,freq};
+}
+function updateClientLastVisit(clientId,date){
+  const clients=getData('clients');
+  const idx=clients.findIndex(c=>c.id===clientId);
+  if(idx<0)return;
+  if(!clients[idx].lastVisit||date>clients[idx].lastVisit)clients[idx].lastVisit=date;
+  saveData('clients',clients);
+  pushSyncSilent();
+}
+
+// ── Admin: render clients ──
+function renderClients(){
+  const clients=getData('clients');
+  const appts=getData('appointments');
+  const search=(document.getElementById('cli-search')?.value||'').toLowerCase();
+  const filterStatus=document.getElementById('cli-filter-status')?.value||'';
+  const today=fmtDate(new Date());
+  const monthStart=today.slice(0,7)+'-01';
+  const cutoff60=fmtDate(new Date(Date.now()-60*24*60*60*1000));
+
+  let list=clients;
+  if(search)list=list.filter(c=>c.name.toLowerCase().includes(search)||c.email.toLowerCase().includes(search)||(c.phone||'').includes(search));
+  if(filterStatus==='active')list=list.filter(c=>{const lv=c.lastVisit||c.createdAt?.slice(0,10)||'';return lv>=cutoff60;});
+  if(filterStatus==='inactive')list=list.filter(c=>{const lv=c.lastVisit||c.createdAt?.slice(0,10)||'';return lv<cutoff60;});
+  if(filterStatus==='new')list=list.filter(c=>(c.createdAt||'').slice(0,10)>=monthStart);
+
+  // Count stats
+  const active=clients.filter(c=>{const lv=c.lastVisit||c.createdAt?.slice(0,10)||'';return lv>=cutoff60;}).length;
+  const inactive=clients.length-active;
+  const newMonth=clients.filter(c=>(c.createdAt||'').slice(0,10)>=monthStart).length;
+  document.getElementById('cli-stat-total').textContent=clients.length;
+  document.getElementById('cli-stat-active').textContent=active;
+  document.getElementById('cli-stat-inactive').textContent=inactive;
+  document.getElementById('cli-stat-new').textContent=newMonth;
+
+  const grid=document.getElementById('clients-grid');
+  const empty=document.getElementById('clients-empty');
+  if(!list.length){if(grid)grid.innerHTML='';if(empty)empty.style.display='';return;}
+  if(empty)empty.style.display='none';
+
+  const nextApptMap={};
+  appts.filter(a=>a.clientId&&a.date>=today&&a.status!=='cancelled').forEach(a=>{
+    if(!nextApptMap[a.clientId]||a.date<nextApptMap[a.clientId])nextApptMap[a.clientId]=a.date;
+  });
+
+  list.sort((a,b)=>((b.lastVisit||b.createdAt||'')).localeCompare(a.lastVisit||a.createdAt||''));
+  grid.innerHTML=list.map(c=>{
+    const stats=getClientStats(c.id);
+    const next=nextApptMap[c.id];
+    const initAv=initials(c.name);
+    return `<div class="client-card" onclick="openClientDetail('${c.id}')">
+      <div class="client-avatar-sm">${initAv}</div>
+      <div class="client-info">
+        <div class="client-name">${esc(c.name)}</div>
+        <div class="client-contact">${esc(c.email)}<br>${esc(c.phone||'')}</div>
+        <div class="client-badges">
+          <span class="cbadge">✂️ ${stats.total} visitas</span>
+          ${stats.lastVisit?`<span class="cbadge">📅 ${fmtDateBr(stats.lastVisit)}</span>`:''}
+          ${next?`<span class="cbadge gold">⏰ ${fmtDateBr(next)}</span>`:''}
+          ${stats.spent>0?`<span class="cbadge gold">R$ ${stats.spent.toFixed(0)}</span>`:''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Client detail drawer ──
+function openClientDetail(id){
+  _activeClientId=id;
+  const clients=getData('clients');
+  const cl=clients.find(c=>c.id===id);
+  if(!cl)return;
+  const stats=getClientStats(id);
+  const appts=getData('appointments').filter(a=>a.clientId===id).sort((a,b)=>b.date.localeCompare(a.date));
+  const pros=getData('professionals');const svcs=getData('services');
+  const today=fmtDate(new Date());
+  const nextAppt=getData('appointments').find(a=>a.clientId===id&&a.date>=today&&a.status!=='cancelled');
+
+  document.getElementById('cd-avatar').textContent=initials(cl.name);
+  document.getElementById('cd-name').textContent=cl.name;
+  document.getElementById('cd-since').textContent='Cliente desde '+fmtDateBr((cl.createdAt||'').slice(0,10));
+  document.getElementById('cd-notes').value=cl.notes||'';
+
+  document.getElementById('cd-details').innerHTML=`
+    <div class="detail-row"><span class="detail-label">E-mail</span><span class="detail-val">${esc(cl.email)}</span></div>
+    <div class="detail-row"><span class="detail-label">Telefone</span><span class="detail-val">${esc(cl.phone||'—')}</span></div>
+    ${cl.birthDate?`<div class="detail-row"><span class="detail-label">Nascimento</span><span class="detail-val">${fmtDateBr(cl.birthDate)}</span></div>`:''}
+    <div class="detail-row"><span class="detail-label">Último login</span><span class="detail-val">${cl.lastLogin?new Date(cl.lastLogin).toLocaleDateString('pt-BR'):'—'}</span></div>`;
+
+  const freq=stats.freq?`A cada ${stats.freq} dias`:'—';
+  document.getElementById('cd-stats').innerHTML=`
+    <div class="detail-row"><span class="detail-label">Total de visitas</span><span class="detail-val">${stats.total}</span></div>
+    <div class="detail-row"><span class="detail-label">Total gasto</span><span class="detail-val" style="color:var(--gold)">R$ ${stats.spent.toFixed(2).replace('.',',')}</span></div>
+    <div class="detail-row"><span class="detail-label">Ticket médio</span><span class="detail-val">R$ ${stats.total>0?(stats.spent/stats.total).toFixed(2).replace('.',','):'0,00'}</span></div>
+    <div class="detail-row"><span class="detail-label">Última visita</span><span class="detail-val">${stats.lastVisit?fmtDateBr(stats.lastVisit):'—'}</span></div>
+    <div class="detail-row"><span class="detail-label">Frequência</span><span class="detail-val">${freq}</span></div>
+    ${nextAppt?`<div class="detail-row"><span class="detail-label">Próximo agend.</span><span class="detail-val" style="color:var(--gold)">${fmtDateBr(nextAppt.date)} ${nextAppt.time}</span></div>`:''}`;
+
+  document.getElementById('cd-history').innerHTML=appts.length?appts.slice(0,10).map(a=>{
+    const pro=pros.find(p=>p.id===a.professionalId)||{name:'—'};
+    const svc=svcs.find(s=>s.id===a.serviceId)||{name:'—'};
+    return `<div style="padding:10px 0;border-bottom:1px solid var(--border)">
+      <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+        <strong style="font-size:13px">${esc(svc.name)}</strong><span style="color:var(--gold);font-size:13px">R$ ${a.amount.toFixed(2).replace('.',',')}</span>
+      </div>
+      <div style="font-size:11px;color:var(--text2)">${fmtDateBr(a.date)} · ${esc(pro.name)} · ${statusBadge(a.status)}</div>
+    </div>`;
+  }).join(''):'<div style="color:var(--text2);font-size:13px">Nenhum agendamento ainda</div>';
+
+  document.getElementById('client-detail-overlay').classList.add('open');
+}
+function closeClientDetail(){
+  document.getElementById('client-detail-overlay').classList.remove('open');
+  _activeClientId=null;
+}
+function saveClientNotes(){
+  if(!_activeClientId)return;
+  const notes=document.getElementById('cd-notes').value;
+  const clients=getData('clients');
+  const idx=clients.findIndex(c=>c.id===_activeClientId);
+  if(idx<0)return;
+  clients[idx].notes=notes;
+  saveData('clients',clients);
+  pushSyncSilent();
+  toast('Observações salvas','ok');
+}
+async function adminResetClientPassword(){
+  if(!_activeClientId)return;
+  // Generate a temp password
+  const temp='AB'+Math.random().toString(36).substr(2,6).toUpperCase();
+  const hash=await hashPass(temp);
+  const clients=getData('clients');
+  const idx=clients.findIndex(c=>c.id===_activeClientId);
+  if(idx<0)return;
+  clients[idx].passHash=hash;
+  saveData('clients',clients);
+  pushSyncSilent();
+  showConfirm('Senha redefinida','Senha temporária gerada: <strong style="color:var(--gold);font-size:16px;letter-spacing:1px">'+temp+'</strong><br><br>Informe ao cliente. Ele pode trocar no perfil.',()=>{},'OK','btn-gold');
+}
+
+// ── Dashboard client metrics ──
+function renderDashboardClientStats(){
+  const clients=getData('clients');
+  const appts=getData('appointments');
+  const today=fmtDate(new Date());
+  const monthStart=today.slice(0,7)+'-01';
+  const cutoff60=fmtDate(new Date(Date.now()-60*24*60*60*1000));
+
+  const newMonth=clients.filter(c=>(c.createdAt||'').slice(0,10)>=monthStart).length;
+  const rec=clients.filter(c=>getClientStats(c.id).total>1).length;
+  const inactive=clients.filter(c=>{const lv=c.lastVisit||c.createdAt?.slice(0,10)||'';return lv<cutoff60;}).length;
+
+  // Ticket médio
+  const cliWithAppts=clients.filter(c=>getClientStats(c.id).total>0);
+  const avgTicket=cliWithAppts.length?cliWithAppts.reduce((s,c)=>{const st=getClientStats(c.id);return s+(st.total?st.spent/st.total:0);},0)/cliWithAppts.length:0;
+
+  // Top client
+  let topCli='—';
+  if(clients.length){
+    const sorted=[...clients].sort((a,b)=>getClientStats(b.id).total-getClientStats(a.id).total);
+    if(sorted[0]&&getClientStats(sorted[0].id).total>0)topCli=sorted[0].name.split(' ')[0];
+  }
+
+  const el=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  el('stat-cli-total',clients.length);
+  el('stat-cli-new',newMonth);
+  el('stat-cli-rec',rec);
+  el('stat-cli-inactive',inactive);
+  el('stat-cli-ticket','R$ '+avgTicket.toFixed(2).replace('.',','));
+  el('stat-cli-top',topCli);
+}
+
+// ── Export clients CSV ──
+function exportClientsCSV(){
+  const clients=getData('clients');
+  const rows=[['ID','Nome','E-mail','Telefone','Nascimento','Cadastro','Última visita','Total visitas','Total gasto','Notas']];
+  clients.forEach(c=>{
+    const st=getClientStats(c.id);
+    rows.push([c.id,c.name,c.email,c.phone||'',c.birthDate||'',(c.createdAt||'').slice(0,10),st.lastVisit||'',st.total,'R$ '+st.spent.toFixed(2),c.notes||'']);
+  });
+  const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='clientes.csv';a.click();
 }
 
 // ─── INIT ────────────────────────────────────────
