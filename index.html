@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AutoBarber – Agendamento Online</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -889,11 +890,7 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
               <button class="pass-toggle" type="button" onclick="togglePass('login-pass',this)" tabindex="-1">👁</button>
             </div>
           </div>
-          <div class="form-group login-sync-row">
-            <label style="font-size:12px;color:var(--text2)">Código da loja <span style="font-weight:400;opacity:.7">(opcional)</span></label>
-            <input id="login-sync-code" type="text" placeholder="Cole o código da loja aqui" style="font-family:monospace;font-size:12px">
-            <div class="sync-hint">💡 Peça ao administrador o código da loja para sincronizar os dados neste dispositivo.</div>
-          </div>
+
           <button class="btn btn-gold btn-full" onclick="doLogin()">Entrar →</button>
           <div style="margin-top:16px;text-align:center">
             <a href="#" onclick="showView('view-home')" style="font-size:13px">← Voltar ao site</a>
@@ -904,11 +901,7 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
       <!-- employee form -->
       <div id="login-emp-form" style="display:none">
         <div class="card">
-          <div class="form-group">
-            <label>Código da Barbearia *</label>
-            <input id="emp-login-code" type="text" placeholder="Ex: 6824f3a9c1b2..." style="font-family:monospace;font-size:12px">
-            <div style="font-size:11px;color:var(--text2);margin-top:4px">💡 Peça o código ao administrador da barbearia</div>
-          </div>
+
           <div class="form-group">
             <label>Login ou E-mail *</label>
             <input id="emp-login-user" type="text" placeholder="seu.login ou email@barbearia.com">
@@ -1305,30 +1298,22 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
           </div>
           <div id="template-preview" style="display:none;margin-top:12px;background:var(--bg4);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;white-space:pre-wrap;line-height:1.7;color:var(--text)"></div>
         </div>
-        <!-- CLOUD SYNC -->
+        <!-- SUPABASE STATUS -->
         <div class="panel-form">
-          <h3>☁️ Sincronização em Nuvem</h3>
+          <h3>🟢 Supabase — Banco de Dados</h3>
           <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">
-            Compartilhe dados (profissionais, serviços, agendamentos) entre dispositivos. Crie um código da sua loja e envie para sua equipe.
+            Todos os dados são sincronizados automaticamente com o banco Supabase. Qualquer dispositivo que acessar o sistema vê os dados em tempo real.
           </div>
-          <div id="sync-connected-panel" style="display:none">
-            <div style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Código da sua loja</div>
-            <div class="sync-code-box" id="sync-code-display">—</div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
-              <button class="btn btn-outline btn-sm" onclick="copySyncCode()">📋 Copiar</button>
-              <button class="btn btn-gold btn-sm" onclick="pushSync()">⬆️ Enviar dados</button>
-              <button class="btn btn-outline btn-sm" onclick="pullSync()">⬇️ Baixar dados</button>
-              <button class="btn btn-err btn-sm" onclick="disconnectSync()">✕ Desconectar</button>
+          <div id="sb-status-panel" style="padding:14px;background:var(--bg3);border-radius:10px;border:1px solid var(--border)">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span id="sb-status-dot" style="width:10px;height:10px;border-radius:50%;background:#888;display:inline-block;flex-shrink:0"></span>
+              <span id="sb-status-text" style="font-size:13px;font-weight:600">Verificando conexão...</span>
             </div>
-            <div id="sync-status" style="margin-top:10px;font-size:12px;color:var(--text2)"></div>
+            <div id="sb-status-detail" style="font-size:11px;color:var(--text2);margin-top:6px"></div>
           </div>
-          <div id="sync-disconnected-panel">
-            <div style="display:grid;grid-template-columns:1fr auto;gap:8px;margin-bottom:10px">
-              <input id="sync-code-input" placeholder="Cole o código da loja aqui..." style="font-family:monospace;font-size:13px">
-              <button class="btn btn-gold" onclick="connectSync()">Conectar</button>
-            </div>
-            <div style="text-align:center;color:var(--text2);font-size:13px;padding:4px 0">— ou —</div>
-            <button class="btn btn-outline btn-sm btn-full" style="margin-top:8px" onclick="createSync()">✨ Criar código da minha loja</button>
+          <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+            <button class="btn btn-gold btn-sm" onclick="sbForceLoad()">⬇️ Atualizar dados</button>
+            <button class="btn btn-outline btn-sm" onclick="sbForcePush()">⬆️ Enviar dados locais</button>
           </div>
         </div>
         <!-- DOMÍNIO PERSONALIZADO -->
@@ -1565,7 +1550,7 @@ function load(k){try{return JSON.parse(localStorage.getItem('ab_'+k))||null}catc
 function save(k,v){localStorage.setItem('ab_'+k,JSON.stringify(v))}
 function getData(k){return load(k)||structuredClone(DEFAULT[k]||[])}
 function getSettings(){return {...DEFAULT.settings,...(load('settings')||{})}}
-function saveData(k,v){save(k,v)}
+function saveData(k,v){save(k,v);sbPush(k,v);}
 
 let currentUser=null;
 
@@ -1598,18 +1583,7 @@ function closeConfirm(){document.getElementById('confirm-modal').classList.remov
 document.getElementById('confirm-ok-btn').onclick=()=>{if(confirmCb)confirmCb();closeConfirm();}
 
 // ─── AUTH ────────────────────────────────────────
-async function doLogin(){
-  // Use sync code from login field or from saved ID
-  const loginCode=document.getElementById('login-sync-code')?.value?.trim();
-  const syncId=loginCode||load('syncBlobId');
-  if(syncId){
-    try{
-      await pullSyncById(syncId);
-      if(loginCode){save('syncBlobId',loginCode);initSyncUI();}
-    }catch(e){
-      if(loginCode){toast('Código da loja inválido ou sem conexão','err');return;}
-    }
-  }
+async function doLogin(){'use strict';
   const u=document.getElementById('login-user').value.trim();
   const p=document.getElementById('login-pass').value;
   const admins=getData('admins');
@@ -2804,8 +2778,66 @@ function previewNotifyTemplate(){
 }
 
 // ─── CLOUD SYNC ─────────────────────────────────────────
-const SYNC_API='/api/jsonblob'; // Proxied server-side by Vercel → JSONBlob (no CORS)
-function getSyncData(){
+// ── SUPABASE ──────────────────────────────────────────────────
+const SUPABASE_URL='https://ucuvvfacbeeiagoumrbw.supabase.co';
+const SUPABASE_KEY='sb_publishable_sg9b37cEOcN3FXJ1s24x7Q_vUJCuGmj';
+const SB_KEYS=['settings','professionals','services','clients','appointments','blockedSlots','admins','commissionRules','commissions','commGoals','commClosings'];
+let _sb=null;
+
+function initSupabase(){
+  if(window.supabase&&!_sb){
+    _sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+  }
+  return _sb;
+}
+
+async function sbPush(key,value){
+  const sb=_sb||initSupabase();if(!sb)return;
+  try{await sb.from('ab_store').upsert({key,value,updated_at:new Date().toISOString()});}
+  catch(e){console.warn('sbPush',key,e);}
+}
+
+async function sbLoadAll(){
+  const sb=_sb||initSupabase();if(!sb)throw new Error('no sb');
+  const {data,error}=await sb.from('ab_store').select('key,value');
+  if(error)throw error;
+  if(data&&data.length>0){
+    data.forEach(row=>{localStorage.setItem('ab_'+row.key,JSON.stringify(row.value));});
+    return data.length;
+  }
+  // First run — push existing local data to Supabase
+  await sbForcePush();
+  return 0;
+}
+
+async function sbForcePush(){
+  const sb=_sb||initSupabase();if(!sb){toast('Sem conexão Supabase','err');return;}
+  const rows=SB_KEYS.map(k=>({key:k,value:getData(k),updated_at:new Date().toISOString()}));
+  const {error}=await sb.from('ab_store').upsert(rows);
+  if(error){toast('Erro ao enviar: '+error.message,'err');}
+  else{toast('Dados enviados ao Supabase!','ok');updateSbStatusUI(true,'Dados sincronizados');}
+}
+
+async function sbForceLoad(){
+  try{
+    const n=await sbLoadAll();
+    renderDashboard&&renderDashboard();
+    toast('Dados atualizados ('+n+' registros)','ok');
+    updateSbStatusUI(true,'Atualizado em '+new Date().toLocaleTimeString('pt-BR'));
+  }catch(e){toast('Erro ao carregar: '+e.message,'err');}
+}
+
+function updateSbStatusUI(ok,detail){
+  const dot=document.getElementById('sb-status-dot');
+  const txt=document.getElementById('sb-status-text');
+  const det=document.getElementById('sb-status-detail');
+  if(dot)dot.style.background=ok?'#22c55e':'#ef4444';
+  if(txt)txt.textContent=ok?'✅ Conectado ao Supabase':'❌ Sem conexão';
+  if(det)det.textContent=detail||'';
+}
+
+// ── Legacy sync stubs (no-op — Supabase handles everything) ──
+function getSyncData(){return{};} function _getSyncDataUnused(){
   return {
     settings:getSettings(),
     professionals:getData('professionals'),
@@ -2816,7 +2848,7 @@ function getSyncData(){
     clients:getData('clients'),
   };
 }
-async function pullSyncById(blobId){
+async function pullSyncById(blobId){return sbLoadAll().catch(()=>{});} async function _pullSyncByIdUnused(blobId){
   const resp=await fetch(SYNC_API+'/'+blobId,{headers:{Accept:'application/json'}});
   if(!resp.ok)throw new Error('HTTP '+resp.status);
   const data=await resp.json();
@@ -2894,16 +2926,7 @@ async function pullSync(){
     toast('Falha ao baixar dados','err');
   }
 }
-async function pushSyncSilent(){
-  const blobId=load('syncBlobId');if(!blobId)return;
-  try{
-    await fetch(SYNC_API+'/'+blobId,{
-      method:'PUT',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(getSyncData())
-    });
-  }catch(e){/* silent */}
-}
+async function pushSyncSilent(){/* no-op: saveData() now writes to Supabase directly */}
 function copySyncCode(){
   const code=document.getElementById('sync-code-display').textContent;
   navigator.clipboard.writeText(code).then(()=>toast('Código copiado!','ok')).catch(()=>{
@@ -2925,17 +2948,7 @@ function showSyncConnected(blobId){
   if(dp)dp.style.display='none';
   if(cd)cd.textContent=blobId;
 }
-function initSyncUI(){
-  const blobId=load('syncBlobId');
-  const cp=document.getElementById('sync-connected-panel');
-  const dp=document.getElementById('sync-disconnected-panel');
-  if(blobId){
-    showSyncConnected(blobId);
-  } else {
-    if(cp)cp.style.display='none';
-    if(dp)dp.style.display='';
-  }
-}
+function initSyncUI(){/* replaced by Supabase — no-op */}
 
 
 // ─── PASSWORD TOGGLE ─────────────────────────────────────
@@ -4101,14 +4114,13 @@ function switchLoginTab(tab){
 let currentEmployee=null;
 
 async function doEmployeeLogin(){
-  const shopCode=document.getElementById('emp-login-code').value.trim();
   const userInput=document.getElementById('emp-login-user').value.trim().toLowerCase();
   const pass=document.getElementById('emp-login-pass').value;
-  if(!shopCode||!userInput||!pass){toast('Preencha todos os campos','err');return;}
+  if(!userInput||!pass){toast('Preencha login e senha','err');return;}
   const btn=event.currentTarget;const orig=btn.textContent;btn.textContent='Verificando...';btn.disabled=true;
   try{
-    await pullSyncById(shopCode);
-    save('syncBlobId',shopCode);
+    // Ensure latest data from Supabase
+    await sbLoadAll().catch(()=>{});
     const pros=getData('professionals');
     const found=pros.find(p=>p.active&&(p.login===userInput||p.email===userInput)&&p.passHash===pass);
     if(!found){toast('Credenciais incorretas ou funcionário inativo','err');return;}
@@ -4120,7 +4132,7 @@ async function doEmployeeLogin(){
     showView('view-employee-portal');
     toast('Bem-vindo, '+found.name.split(' ')[0]+'! 👋','ok');
   }catch(e){
-    toast('Código da barbearia inválido ou sem conexão','err');console.error(e);
+    toast('Erro ao verificar credenciais','err');console.error(e);
   }finally{btn.textContent=orig;btn.disabled=false;}
 }
 
@@ -4551,9 +4563,19 @@ function generateSlots(pro,dateStr){
 // ─── INIT ────────────────────────────────────────
 
 // Restore mobile mode from storage
-isMobileMode=!!(load('mobileMode'));
-restoreEmployeeSession();
-initHome();
+(async()=>{
+  try{
+    initSupabase();
+    const n=await sbLoadAll();
+    updateSbStatusUI(true,'Conectado · '+n+' registros carregados');
+  }catch(e){
+    console.warn('Supabase init failed:',e);
+    updateSbStatusUI(false,'Usando dados locais: '+e.message);
+  }
+  isMobileMode=!!(load('mobileMode'));
+  restoreEmployeeSession();
+  initHome();
+})();
 // Set today's date in filters
 document.getElementById('filter-date').value=fmtDate(new Date());
 document.getElementById('sch-week').value=fmtDate(new Date());
