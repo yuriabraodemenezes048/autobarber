@@ -288,7 +288,7 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
 .sync-code-box{font-family:monospace;font-size:13px;color:var(--gold);background:var(--bg4);padding:12px;border-radius:8px;border:1px solid var(--border);word-break:break-all;letter-spacing:.5px}
 
 /* ─── LOGO SETTINGS ─── */
-.logo-preview-box{width:80px;height:80px;background:var(--bg4);border-radius:10px;border:1px solid var(--border);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0}
+.logo-preview-box{width:180px;height:180px;background:var(--bg4);border-radius:14px;border:1px solid var(--border);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:64px;flex-shrink:0}
 .logo-preview-box img{width:100%;height:100%;object-fit:contain}
 
 /* ─── MOBILE RESPONSIVE ─── */
@@ -407,10 +407,9 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
       <div id="client-nav-area">
         <span class="client-nav-name" id="client-nav-name" style="display:none"></span>
         <button class="btn btn-outline btn-sm" id="client-profile-btn" style="display:none" onclick="showView('view-client-profile');renderClientProfile()">👤 Minha Conta</button>
-        <button class="btn btn-outline btn-sm" id="client-login-nav-btn" onclick="openClientAuth(null)">Entrar</button>
+        <button class="btn btn-outline btn-sm" id="client-register-nav-btn" onclick="openClientAuth(null,'register')">Criar conta</button>
+        <button class="btn btn-gold btn-sm" id="client-login-nav-btn" onclick="openClientAuth(null,'login')">Entrar</button>
       </div>
-      <button class="btn btn-gold" onclick="clientOpenBooking()">✂️ Agendar Agora</button>
-      <button class="btn btn-outline btn-sm" onclick="showView('view-admin-login')">Admin</button>
     </div>
   </nav>
 
@@ -424,7 +423,7 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
       <span class="hero-badge">🗓️ Escolha seu horário</span>
       <span class="hero-badge">⭐ Profissionais top</span>
     </div>
-    <button class="btn btn-gold" style="font-size:16px;padding:14px 36px" onclick="openBooking()">Agendar Agora →</button>
+    <button class="btn btn-gold" style="font-size:16px;padding:14px 36px" onclick="clientOpenBooking()">Agendar Agora →</button>
   </section>
 
   <!-- SERVICES -->
@@ -462,9 +461,10 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
     </div>
   </section>
 
-  <footer>
+  <footer style="position:relative">
     <div id="footer-name">AutoBarber</div>
     <div style="margin-top:6px">Sistema de agendamento online • Desenvolvido com ❤️</div>
+    <button onclick="showView('view-admin-login')" style="position:absolute;bottom:14px;left:16px;background:none;border:none;color:var(--text2);font-size:11px;cursor:pointer;opacity:0.4;padding:4px 8px;letter-spacing:.5px" title="Acesso administrativo">⚙ admin</button>
   </footer>
 </div>
 
@@ -2815,12 +2815,12 @@ async function hashPass(password){
 }
 
 // ── Auth Modal ──
-function openClientAuth(afterFn){
+function openClientAuth(afterFn,tab){
   _afterClientAuth=afterFn||null;
   const s=getSettings();
   const el=document.getElementById('client-auth-shop-name');
   if(el)el.textContent=s.name||'AutoBarber';
-  switchClientTab('login');
+  switchClientTab(tab||'login');
   document.getElementById('client-auth-overlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
@@ -2919,14 +2919,17 @@ function updateClientNav(){
   const nameEl=document.getElementById('client-nav-name');
   const profileBtn=document.getElementById('client-profile-btn');
   const loginBtn=document.getElementById('client-login-nav-btn');
+  const registerBtn=document.getElementById('client-register-nav-btn');
   if(currentClient){
     if(nameEl){nameEl.textContent=currentClient.name.split(' ')[0];nameEl.style.display='';}
     if(profileBtn)profileBtn.style.display='';
     if(loginBtn)loginBtn.style.display='none';
+    if(registerBtn)registerBtn.style.display='none';
   } else {
     if(nameEl)nameEl.style.display='none';
     if(profileBtn)profileBtn.style.display='none';
     if(loginBtn)loginBtn.style.display='';
+    if(registerBtn)registerBtn.style.display='';
   }
 }
 
