@@ -372,6 +372,62 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
 
 /* ─── DASHBOARD CLIENT METRICS ─── */
 .dash-section-title{font-weight:700;font-size:14px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin:20px 0 10px}
+
+/* ── EMPLOYEE PORTAL ── */
+#view-employee-portal{background:var(--bg1)}
+.emp-layout{display:flex;height:100vh;overflow:hidden}
+.emp-sidebar{width:240px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
+.emp-sidebar-logo{padding:20px 16px;font-size:18px;font-weight:800;border-bottom:1px solid var(--border);color:var(--gold)}
+.emp-sidebar-logo span{font-size:11px;font-weight:500;color:var(--text2);display:block;margin-top:2px}
+.emp-nav-item{display:flex;align-items:center;gap:10px;padding:11px 16px;cursor:pointer;border-radius:8px;margin:2px 8px;font-size:14px;color:var(--text2);transition:.15s}
+.emp-nav-item:hover{background:var(--bg3);color:var(--text)}
+.emp-nav-item.active{background:rgba(212,160,23,.15);color:var(--gold);font-weight:600}
+.emp-nav-item .icon{font-size:16px;width:20px;text-align:center}
+.emp-sidebar-footer{padding:12px 16px;border-top:1px solid var(--border);margin-top:auto}
+.emp-main{flex:1;overflow-y:auto;padding:0}
+.emp-section{display:none;padding:24px}
+.emp-section.active{display:block}
+.emp-topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.emp-topbar-title{font-weight:700;font-size:18px}
+.emp-topbar-user{font-size:13px;color:var(--text2)}
+.emp-stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:24px}
+.emp-stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;transition:.2s}
+.emp-stat-card:hover{border-color:var(--gold)}
+.emp-stat-val{font-size:26px;font-weight:800;color:var(--gold);margin-bottom:4px}
+.emp-stat-label{font-size:12px;color:var(--text2)}
+.emp-section-title{font-size:16px;font-weight:700;margin:20px 0 12px}
+.emp-appt-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:14px}
+.emp-appt-time{font-size:22px;font-weight:800;color:var(--gold);min-width:52px;text-align:center}
+.emp-appt-info{flex:1}
+.emp-appt-name{font-weight:600;font-size:14px}
+.emp-appt-service{font-size:12px;color:var(--text2);margin-top:2px}
+.emp-appt-actions{display:flex;gap:6px}
+.emp-client-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:.15s}
+.emp-client-card:hover{border-color:var(--gold)}
+.emp-client-name{font-weight:600;font-size:14px}
+.emp-client-meta{font-size:12px;color:var(--text2);margin-top:4px}
+.emp-client-stats{display:flex;gap:16px;margin-top:8px}
+.emp-client-stat{font-size:11px;color:var(--text2)}
+.emp-client-stat strong{color:var(--text);font-size:13px}
+.emp-agenda-tabs{display:flex;gap:0;margin-bottom:16px;border:1px solid var(--border);border-radius:8px;overflow:hidden;width:fit-content}
+.emp-agenda-tab{padding:8px 18px;font-size:13px;cursor:pointer;transition:.15s;background:var(--bg2);color:var(--text2)}
+.emp-agenda-tab.active{background:var(--gold);color:#000;font-weight:600}
+.emp-agenda-date-header{background:var(--bg3);border-radius:8px;padding:10px 14px;font-weight:600;font-size:13px;margin-bottom:10px;color:var(--text2)}
+.emp-badge-done{background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.3);padding:2px 8px;border-radius:20px;font-size:11px}
+.emp-badge-pending{background:rgba(212,160,23,.15);color:var(--gold);border:1px solid rgba(212,160,23,.3);padding:2px 8px;border-radius:20px;font-size:11px}
+.emp-badge-cancelled{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.2);padding:2px 8px;border-radius:20px;font-size:11px}
+.emp-client-detail-overlay{position:fixed;top:0;right:-420px;width:420px;max-width:100vw;height:100%;background:var(--bg2);border-left:1px solid var(--border);z-index:300;transition:.3s;overflow-y:auto;box-shadow:-4px 0 24px rgba(0,0,0,.3)}
+.emp-client-detail-overlay.open{right:0}
+.emp-profile-form{max-width:520px}
+.emp-login-tabs{display:flex;gap:0;margin-bottom:20px;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.emp-login-tab{flex:1;padding:10px;text-align:center;cursor:pointer;font-size:14px;font-weight:500;background:var(--bg3);color:var(--text2);transition:.15s}
+.emp-login-tab.active{background:var(--gold);color:#000;font-weight:700}
+/* Employee badge on admin panel */
+.emp-status-badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.emp-status-active{background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.3)}
+.emp-status-inactive{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.2)}
+@media(max-width:600px){.emp-sidebar{display:none}.emp-section{padding:16px}.emp-stat-grid{grid-template-columns:1fr 1fr}}
+
 </style>
 </head>
 <body>
@@ -783,28 +839,61 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
       <div class="login-logo">
         <img id="login-logo-img" src="" alt="" style="display:none;max-height:64px;max-width:160px;object-fit:contain;margin:0 auto 10px;border-radius:8px">
         <h1 id="login-logo-name">AutoBarber</h1>
-        <p>Painel Administrativo</p>
+        <p id="login-subtitle">Painel Administrativo</p>
       </div>
-      <div class="card">
-        <div class="form-group"><label>Usuário</label><input id="login-user" type="text" placeholder="admin"></div>
-        <div class="form-group">
-          <label>Senha</label>
-          <div class="pass-wrap">
-            <input id="login-pass" type="password" placeholder="••••••••">
-            <button class="pass-toggle" type="button" onclick="togglePass('login-pass',this)" tabindex="-1">👁</button>
+      <!-- tabs -->
+      <div class="emp-login-tabs" style="margin-bottom:16px">
+        <div class="emp-login-tab active" id="ltab-admin" onclick="switchLoginTab('admin')">🔐 Administrador</div>
+        <div class="emp-login-tab" id="ltab-emp" onclick="switchLoginTab('emp')">💈 Funcionário</div>
+      </div>
+      <!-- admin form -->
+      <div id="login-admin-form">
+        <div class="card">
+          <div class="form-group"><label>Usuário</label><input id="login-user" type="text" placeholder="admin"></div>
+          <div class="form-group">
+            <label>Senha</label>
+            <div class="pass-wrap">
+              <input id="login-pass" type="password" placeholder="••••••••">
+              <button class="pass-toggle" type="button" onclick="togglePass('login-pass',this)" tabindex="-1">👁</button>
+            </div>
+          </div>
+          <div class="form-group login-sync-row">
+            <label style="font-size:12px;color:var(--text2)">Código da loja <span style="font-weight:400;opacity:.7">(opcional)</span></label>
+            <input id="login-sync-code" type="text" placeholder="Cole o código da loja aqui" style="font-family:monospace;font-size:12px">
+            <div class="sync-hint">💡 Peça ao administrador o código da loja para sincronizar os dados neste dispositivo.</div>
+          </div>
+          <button class="btn btn-gold btn-full" onclick="doLogin()">Entrar →</button>
+          <div style="margin-top:16px;text-align:center">
+            <a href="#" onclick="showView('view-home')" style="font-size:13px">← Voltar ao site</a>
           </div>
         </div>
-        <div class="form-group login-sync-row">
-          <label style="font-size:12px;color:var(--text2)">Código da loja <span style="font-weight:400;opacity:.7">(opcional — para logar de outro dispositivo)</span></label>
-          <input id="login-sync-code" type="text" placeholder="Cole o código da loja aqui" style="font-family:monospace;font-size:12px">
-          <div class="sync-hint">💡 Peça ao administrador o código da loja para sincronizar os dados neste dispositivo.</div>
-        </div>
-        <button class="btn btn-gold btn-full" onclick="doLogin()">Entrar →</button>
-        <div style="margin-top:16px;text-align:center">
-          <a href="#" onclick="showView('view-home')" style="font-size:13px">← Voltar ao site</a>
+        <div style="text-align:center;margin-top:16px;font-size:12px;color:var(--text2)">Padrão: admin / admin123</div>
+      </div>
+      <!-- employee form -->
+      <div id="login-emp-form" style="display:none">
+        <div class="card">
+          <div class="form-group">
+            <label>Código da Barbearia *</label>
+            <input id="emp-login-code" type="text" placeholder="Ex: 6824f3a9c1b2..." style="font-family:monospace;font-size:12px">
+            <div style="font-size:11px;color:var(--text2);margin-top:4px">💡 Peça o código ao administrador da barbearia</div>
+          </div>
+          <div class="form-group">
+            <label>Login ou E-mail *</label>
+            <input id="emp-login-user" type="text" placeholder="seu.login ou email@barbearia.com">
+          </div>
+          <div class="form-group">
+            <label>Senha *</label>
+            <div class="pass-wrap">
+              <input id="emp-login-pass" type="password" placeholder="••••••••">
+              <button class="pass-toggle" type="button" onclick="togglePass('emp-login-pass',this)" tabindex="-1">👁</button>
+            </div>
+          </div>
+          <button class="btn btn-gold btn-full" onclick="doEmployeeLogin()">Entrar como Funcionário →</button>
+          <div style="margin-top:16px;text-align:center">
+            <a href="#" onclick="showView('view-home')" style="font-size:13px">← Voltar ao site</a>
+          </div>
         </div>
       </div>
-      <div style="text-align:center;margin-top:16px;font-size:12px;color:var(--text2)">Padrão: admin / admin123</div>
     </div>
   </div>
 </div>
@@ -827,6 +916,7 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
         <div class="sidebar-section">Configurações</div>
         <div class="nav-item" onclick="showSection('services')" id="nav-services"><span class="icon">✂️</span> Serviços</div>
         <div class="nav-item" onclick="showSection('professionals')" id="nav-professionals"><span class="icon">👤</span> Profissionais</div>
+        <div class="nav-item" onclick="showSection('employees')" id="nav-employees" style="display:none"><span class="icon">👥</span> Funcionários</div>
         <div class="nav-item" onclick="showSection('schedule')" id="nav-schedule"><span class="icon">🗓️</span> Agenda</div>
         <div class="nav-item" onclick="showSection('reports')" id="nav-reports"><span class="icon">📈</span> Relatórios</div>
         <div class="nav-item" onclick="showSection('settings')" id="nav-settings"><span class="icon">⚙️</span> Configurações</div>
@@ -1011,16 +1101,33 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
                 </div>
               </div>
             </div>
-            <div class="form-group">
-              <label>Login (usuário para acesso ao painel)</label>
-              <input id="pf-login" placeholder="Deixe em branco para não criar acesso">
+            <div class="form-row">
+              <div class="form-group"><label>E-mail</label><input id="pf-email" type="email" placeholder="barbeiro@email.com"></div>
+              <div class="form-group"><label>Telefone</label><input id="pf-phone" placeholder="(11) 99999-9999"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Cargo</label>
+                <select id="pf-cargo">
+                  <option value="Barbeiro">Barbeiro</option>
+                  <option value="Cabeleireiro">Cabeleireiro</option>
+                  <option value="Manicure">Manicure</option>
+                  <option value="Esteticista">Esteticista</option>
+                  <option value="Gerente">Gerente</option>
+                </select>
+              </div>
+              <div class="form-group"><label>Data de contratação</label><input id="pf-hire" type="date"></div>
             </div>
             <div class="form-group">
-              <label>Senha</label>
+              <label>Login (usuário para acesso ao sistema)</label>
+              <input id="pf-login" placeholder="Ex: carlos.silva">
+            </div>
+            <div class="form-group">
+              <label>Senha inicial</label>
               <div class="pass-wrap">
                 <input id="pf-pass" type="password" placeholder="Mínimo 6 caracteres">
                 <button class="pass-toggle" type="button" onclick="togglePass('pf-pass',this)" tabindex="-1">👁</button>
               </div>
+              <div style="font-size:11px;color:var(--text2);margin-top:4px">O funcionário usa o login/e-mail + senha + código da barbearia para acessar o portal.</div>
             </div>
             <div style="display:flex;gap:10px">
               <button class="btn btn-gold" onclick="savePro()">Salvar</button>
@@ -1262,6 +1369,29 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
         </div>
       </div>
 
+    
+      <!-- ═══ EMPLOYEES ═══ -->
+      <div id="section-employees" class="admin-section">
+        <div class="page-head"><h2>Funcionários</h2><button class="btn btn-gold btn-sm" onclick="showSection('professionals')">+ Cadastrar Funcionário</button></div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:16px;font-size:13px;color:var(--text2)">
+          💡 Para cadastrar um funcionário, use a aba <strong>Profissionais</strong> e preencha e-mail, login e senha. O código da barbearia está em <strong>Configurações → Sincronização</strong>.
+        </div>
+        <div style="margin-bottom:14px;display:flex;gap:10px;flex-wrap:wrap">
+          <input id="emp-search" placeholder="Buscar por nome, e-mail ou cargo..." style="flex:1;min-width:200px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:14px" oninput="renderEmployees()">
+          <select id="emp-filter-status" onchange="renderEmployees()" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text)">
+            <option value="">Todos</option>
+            <option value="active">Ativos</option>
+            <option value="inactive">Inativos</option>
+          </select>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="table" style="min-width:700px">
+            <thead><tr><th>Funcionário</th><th>Cargo</th><th>Contato</th><th>Login</th><th>Contratação</th><th>Status</th><th>Ações</th></tr></thead>
+            <tbody id="employees-table"></tbody>
+          </table>
+        </div>
+      </div>
+
     </main>
   </div>
 </div>
@@ -1386,6 +1516,8 @@ async function doLogin(){
   document.getElementById('nav-settings').style.display=isPro?'none':'';
   const navPros=document.getElementById('nav-professionals');
   if(navPros)navPros.style.display=isPro?'none':'';
+  const navEmp=document.getElementById('nav-employees');
+  if(navEmp)navEmp.style.display=(found.role==='owner')?'':'none';
   document.getElementById('sb-user-name').textContent=found.name||found.username;
   document.getElementById('sb-user-role').textContent=found.role==='owner'?'Proprietário':'Profissional';
   const s=getSettings();
@@ -1408,6 +1540,7 @@ function showSection(sec){
   else if(sec==='appointments')renderAppointments();
   else if(sec==='services')renderServices();
   else if(sec==='professionals')renderPros();
+  else if(sec==='employees')renderEmployees();
   else if(sec==='schedule')initSchedule();
   else if(sec==='reports')initReports();
   else if(sec==='settings')loadSettings();
@@ -1707,6 +1840,10 @@ function openProForm(){
   document.getElementById('pf-end').value='19:00';
   document.getElementById('pf-login').value='';
   document.getElementById('pf-pass').value='';
+  document.getElementById('pf-email').value='';
+  document.getElementById('pf-phone').value='';
+  document.getElementById('pf-cargo').value='Barbeiro';
+  document.getElementById('pf-hire').value='';
   document.querySelectorAll('.wd').forEach(c=>{c.checked=[1,2,3,4,5,6].includes(parseInt(c.value));});
   _proPhotoData=null;
   document.getElementById('pro-photo-preview').innerHTML='👤';
@@ -1725,6 +1862,10 @@ function editPro(id){
   document.getElementById('pf-end').value=p.workEnd||'19:00';
   document.getElementById('pf-login').value=p.login||'';
   document.getElementById('pf-pass').value='';
+  document.getElementById('pf-email').value=p.email||'';
+  document.getElementById('pf-phone').value=p.phone||'';
+  document.getElementById('pf-cargo').value=p.cargo||'Barbeiro';
+  document.getElementById('pf-hire').value=p.hireDate||'';
   document.querySelectorAll('.wd').forEach(c=>{c.checked=(p.workDays||[]).includes(parseInt(c.value));});
   selectedProColor=p.color||'#d4a017';
   document.querySelectorAll('.color-opt').forEach(o=>{o.classList.toggle('selected',o.dataset.c===selectedProColor)});
@@ -1752,12 +1893,12 @@ function savePro(){
   if(id){
     const i=pros.findIndex(p=>p.id===id);
     if(i>=0){
-      const photoVal=_proPhotoData!==null?_proPhotoData:pros[i].photo;pros[i]={...pros[i],name,specialty:document.getElementById('pf-spec').value,workStart:document.getElementById('pf-start').value,workEnd:document.getElementById('pf-end').value,workDays,color:selectedProColor,photo:photoVal};
+      const photoVal=_proPhotoData!==null?_proPhotoData:pros[i].photo;pros[i]={...pros[i],name,specialty:document.getElementById('pf-spec').value,workStart:document.getElementById('pf-start').value,workEnd:document.getElementById('pf-end').value,workDays,color:selectedProColor,photo:photoVal,email:document.getElementById('pf-email').value.trim(),phone:document.getElementById('pf-phone').value.trim(),cargo:document.getElementById('pf-cargo').value,hireDate:document.getElementById('pf-hire').value};
       if(login)pros[i].login=login;
       if(pass)pros[i].passHash=pass;
     }
   } else {
-    const newP={id:'p'+Date.now(),name,specialty:document.getElementById('pf-spec').value,workStart:document.getElementById('pf-start').value,workEnd:document.getElementById('pf-end').value,workDays,color:selectedProColor,active:true,photo:_proPhotoData||''};
+    const newP={id:'p'+Date.now(),name,specialty:document.getElementById('pf-spec').value,workStart:document.getElementById('pf-start').value,workEnd:document.getElementById('pf-end').value,workDays,color:selectedProColor,active:true,photo:_proPhotoData||'',email:document.getElementById('pf-email').value.trim(),phone:document.getElementById('pf-phone').value.trim(),cargo:document.getElementById('pf-cargo').value,hireDate:document.getElementById('pf-hire').value,employeeStatus:'active'};
     if(login){newP.login=login;if(pass)newP.passHash=pass;}
     pros.push(newP);
   }
@@ -3294,14 +3435,626 @@ function exportClientsCSV(){
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='clientes.csv';a.click();
 }
 
+
+// ─── EMPLOYEE LOGIN TAB SWITCH ────────────────────────────────
+function switchLoginTab(tab){
+  document.getElementById('login-admin-form').style.display=tab==='admin'?'':'none';
+  document.getElementById('login-emp-form').style.display=tab==='emp'?'':'none';
+  document.getElementById('ltab-admin').classList.toggle('active',tab==='admin');
+  document.getElementById('ltab-emp').classList.toggle('active',tab==='emp');
+  const subtitle=document.getElementById('login-subtitle');
+  if(subtitle)subtitle.textContent=tab==='admin'?'Painel Administrativo':'Portal do Funcionário';
+}
+
+// ─── EMPLOYEE AUTH ────────────────────────────────────────────
+let currentEmployee=null;
+
+async function doEmployeeLogin(){
+  const shopCode=document.getElementById('emp-login-code').value.trim();
+  const userInput=document.getElementById('emp-login-user').value.trim().toLowerCase();
+  const pass=document.getElementById('emp-login-pass').value;
+  if(!shopCode||!userInput||!pass){toast('Preencha todos os campos','err');return;}
+  const btn=event.currentTarget;const orig=btn.textContent;btn.textContent='Verificando...';btn.disabled=true;
+  try{
+    await pullSyncById(shopCode);
+    save('syncBlobId',shopCode);
+    const pros=getData('professionals');
+    const found=pros.find(p=>p.active&&(p.login===userInput||p.email===userInput)&&p.passHash===pass);
+    if(!found){toast('Credenciais incorretas ou funcionário inativo','err');return;}
+    found.lastLogin=new Date().toISOString();
+    saveData('professionals',pros);
+    currentEmployee={id:found.id,name:found.name,cargo:found.cargo||'Barbeiro',email:found.email||'',phone:found.phone||'',color:found.color||'#d4a017',hireDate:found.hireDate||''};
+    save('employeeSession',currentEmployee);
+    initEmployeePortal();
+    showView('view-employee-portal');
+    toast('Bem-vindo, '+found.name.split(' ')[0]+'! 👋','ok');
+  }catch(e){
+    toast('Código da barbearia inválido ou sem conexão','err');console.error(e);
+  }finally{btn.textContent=orig;btn.disabled=false;}
+}
+
+function empLogout(){
+  currentEmployee=null;
+  save('employeeSession',null);
+  showView('view-home');
+  initHome();
+  toast('Até logo!','ok');
+}
+
+function restoreEmployeeSession(){
+  const s=load('employeeSession');
+  if(s&&!currentEmployee){currentEmployee=s;}
+}
+
+// ─── EMPLOYEE PORTAL NAV ──────────────────────────────────────
+function empShowSection(sec){
+  document.querySelectorAll('.emp-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.emp-nav-item').forEach(n=>n.classList.remove('active'));
+  const sEl=document.getElementById('emp-section-'+sec);
+  if(sEl)sEl.classList.add('active');
+  const nEl=document.getElementById('emp-nav-'+sec);
+  if(nEl)nEl.classList.add('active');
+  if(sec==='dashboard')renderEmpDashboard();
+  else if(sec==='agenda'){document.getElementById('emp-agenda-date').value=fmtDate(new Date());renderEmpAgenda();}
+  else if(sec==='clients')renderEmpClients();
+  else if(sec==='profile')renderEmpProfile();
+}
+
+function initEmployeePortal(){
+  if(!currentEmployee)return;
+  const s=getSettings();
+  const sbShop=document.getElementById('emp-sb-shop');
+  if(sbShop)sbShop.textContent=s.name||'AutoBarber';
+  const sbName=document.getElementById('emp-sb-name');
+  if(sbName)sbName.textContent=currentEmployee.name.split(' ')[0];
+  const sbRole=document.getElementById('emp-sb-role');
+  if(sbRole)sbRole.textContent=currentEmployee.cargo||'Funcionário';
+  const topName=document.getElementById('emp-topbar-name');
+  if(topName)topName.textContent=currentEmployee.name;
+  empShowSection('dashboard');
+}
+
+// ─── EMPLOYEE DASHBOARD ───────────────────────────────────────
+function renderEmpDashboard(){
+  if(!currentEmployee)return;
+  const today=fmtDate(new Date());
+  const allAppts=getData('appointments');
+  const myAppts=allAppts.filter(a=>a.professional===currentEmployee.id);
+  const todayAppts=myAppts.filter(a=>a.date===today&&a.status!=='cancelled');
+  const todayDone=todayAppts.filter(a=>a.status==='done');
+  const todayRevenue=todayDone.reduce((s,a)=>s+a.amount,0);
+  // Free slots today
+  const pro=getData('professionals').find(p=>p.id===currentEmployee.id);
+  let freeSlots=0;
+  if(pro){
+    const slots=generateSlots(pro,today);
+    freeSlots=slots.filter(sl=>!allAppts.find(a=>a.professional===pro.id&&a.date===today&&a.time===sl&&a.status!=='cancelled')).length;
+  }
+  // Month stats
+  const nowD=new Date();
+  const ym=fmtDate(nowD).slice(0,7);
+  const monthAppts=myAppts.filter(a=>a.date.startsWith(ym)&&a.status!=='cancelled');
+  const monthDone=monthAppts.filter(a=>a.status==='done');
+  const monthRevenue=monthDone.reduce((s,a)=>s+a.amount,0);
+  const uniqueClients=new Set(monthDone.filter(a=>a.clientId).map(a=>a.clientId));
+  const prevMonthDate=new Date(nowD.getFullYear(),nowD.getMonth()-1,1);
+  const pm=fmtDate(prevMonthDate).slice(0,7);
+  const prevClients=new Set(myAppts.filter(a=>a.date.startsWith(pm)&&a.status==='done'&&a.clientId).map(a=>a.clientId));
+  const returnClients=[...uniqueClients].filter(id=>prevClients.has(id)).length;
+  const returnRate=uniqueClients.size>0?Math.round(returnClients/uniqueClients.size*100):0;
+  // Set stats
+  const el2=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  el2('emp-stat-today-appts',todayAppts.length);
+  el2('emp-stat-today-done',todayDone.length);
+  el2('emp-stat-today-free',freeSlots);
+  el2('emp-stat-today-revenue','R$'+todayRevenue.toFixed(0));
+  el2('emp-stat-month-clients',uniqueClients.size);
+  el2('emp-stat-month-appts',monthDone.length);
+  el2('emp-stat-month-revenue','R$'+monthRevenue.toFixed(0));
+  el2('emp-stat-month-return',returnRate+'%');
+  // Next appointment
+  const now=new Date();
+  const upcoming=myAppts.filter(a=>a.status==='pending'&&(a.date>today||(a.date===today&&a.time>=now.toTimeString().slice(0,5)))).sort((a,b)=>a.date.localeCompare(b.date)||a.time.localeCompare(b.time));
+  const nextEl=document.getElementById('emp-next-appt');
+  if(nextEl){
+    if(upcoming.length){
+      const nx=upcoming[0];
+      const svc=getData('services').find(s=>s.id===nx.service);
+      const cli=getData('clients').find(c=>c.id===nx.clientId);
+      nextEl.innerHTML=`<div class="emp-appt-card">
+        <div class="emp-appt-time">${nx.time}</div>
+        <div class="emp-appt-info">
+          <div class="emp-appt-name">${esc(cli?cli.name:nx.name||'Cliente')}</div>
+          <div class="emp-appt-service">${svc?esc(svc.name):nx.service} · ${nx.date===today?'Hoje':nx.date}</div>
+        </div>
+        <span class="emp-badge-pending">Aguardando</span>
+      </div>`;
+    }else{nextEl.innerHTML='<div style="color:var(--text2);font-size:14px">Nenhum agendamento próximo</div>';}
+  }
+  // Today list
+  const todayEl=document.getElementById('emp-today-list');
+  if(todayEl){
+    if(!todayAppts.length){todayEl.innerHTML='<div style="color:var(--text2);font-size:14px">Nenhum agendamento hoje</div>';return;}
+    const svcs=getData('services');const clients=getData('clients');
+    todayEl.innerHTML=todayAppts.sort((a,b)=>a.time.localeCompare(b.time)).map(a=>{
+      const svc=svcs.find(s=>s.id===a.service);
+      const cli=clients.find(c=>c.id===a.clientId);
+      const badgeClass=a.status==='done'?'emp-badge-done':a.status==='cancelled'?'emp-badge-cancelled':'emp-badge-pending';
+      const badgeText=a.status==='done'?'Concluído':a.status==='cancelled'?'Cancelado':'Aguardando';
+      const actionBtn=a.status==='pending'?`<button class="btn btn-gold btn-sm" onclick="empMarkDone('${a.id}')">✓ Concluir</button>`:'';
+      return `<div class="emp-appt-card">
+        <div class="emp-appt-time">${a.time}</div>
+        <div class="emp-appt-info">
+          <div class="emp-appt-name">${esc(cli?cli.name:a.name||'Cliente')}</div>
+          <div class="emp-appt-service">${svc?esc(svc.name):a.service||'—'} · R$${a.amount||0}</div>
+          ${a.notes?`<div style="font-size:11px;color:var(--text2);margin-top:2px">📝 ${esc(a.notes)}</div>`:''}
+        </div>
+        <div class="emp-appt-actions"><span class="${badgeClass}">${badgeText}</span>${actionBtn}</div>
+      </div>`;
+    }).join('');
+  }
+}
+
+function empMarkDone(id){
+  const appts=getData('appointments');
+  const i=appts.findIndex(a=>a.id===id);
+  if(i<0)return;
+  appts[i].status='done';
+  if(appts[i].clientId)updateClientLastVisit(appts[i].clientId,appts[i].date);
+  saveData('appointments',appts);
+  pushSyncSilent();
+  renderEmpDashboard();
+  toast('Atendimento concluído ✓','ok');
+}
+
+// ─── EMPLOYEE AGENDA ──────────────────────────────────────────
+let _empAgendaTab='day';
+function empAgendaTab(tab){
+  _empAgendaTab=tab;
+  ['day','week','month'].forEach(t=>{
+    const el=document.getElementById('emp-tab-'+t);
+    if(el)el.classList.toggle('active',t===tab);
+  });
+  renderEmpAgenda();
+}
+
+function renderEmpAgenda(){
+  if(!currentEmployee)return;
+  const dateVal=document.getElementById('emp-agenda-date').value||fmtDate(new Date());
+  const allAppts=getData('appointments');
+  const myAppts=allAppts.filter(a=>a.professional===currentEmployee.id&&a.status!=='cancelled');
+  const svcs=getData('services');const clients=getData('clients');
+  const con=document.getElementById('emp-agenda-content');
+  if(!con)return;
+  const renderCard=(a)=>{
+    const svc=svcs.find(s=>s.id===a.service);
+    const cli=clients.find(c=>c.id===a.clientId);
+    const badgeClass=a.status==='done'?'emp-badge-done':'emp-badge-pending';
+    const badgeText=a.status==='done'?'Concluído':'Aguardando';
+    const actionBtn=a.status==='pending'?`<button class="btn btn-gold btn-sm" onclick="empMarkDone('${a.id}')">✓ Concluir</button>`:'';
+    return `<div class="emp-appt-card">
+      <div class="emp-appt-time">${a.time}</div>
+      <div class="emp-appt-info">
+        <div class="emp-appt-name">${esc(cli?cli.name:a.name||'Cliente')}</div>
+        <div class="emp-appt-service">${svc?esc(svc.name):a.service||'—'} · R$${a.amount||0}</div>
+        ${a.notes?`<div style="font-size:11px;color:var(--text2)">📝 ${esc(a.notes)}</div>`:''}
+      </div>
+      <div class="emp-appt-actions"><span class="${badgeClass}">${badgeText}</span>${actionBtn}</div>
+    </div>`;
+  };
+  if(_empAgendaTab==='day'){
+    const day=myAppts.filter(a=>a.date===dateVal).sort((a,b)=>a.time.localeCompare(b.time));
+    const wd=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+    const d=new Date(dateVal+'T12:00:00');
+    con.innerHTML=`<div class="emp-agenda-date-header">${wd[d.getDay()]}, ${d.toLocaleDateString('pt-BR')}</div>`
+      +(day.length?day.map(renderCard).join(''):'<div style="color:var(--text2)">Nenhum agendamento neste dia</div>');
+  } else if(_empAgendaTab==='week'){
+    const base=new Date(dateVal+'T12:00:00');
+    const dow=base.getDay();base.setDate(base.getDate()-dow);
+    let out='';
+    for(let i=0;i<7;i++){
+      const d=new Date(base);d.setDate(base.getDate()+i);
+      const ds=fmtDate(d);
+      const day=myAppts.filter(a=>a.date===ds).sort((a,b)=>a.time.localeCompare(b.time));
+      const wd=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+      out+=`<div class="emp-agenda-date-header">${wd[d.getDay()]}, ${d.toLocaleDateString('pt-BR')}</div>`;
+      out+=day.length?day.map(renderCard).join(''):`<div style="color:var(--text2);font-size:13px;padding:8px 0 12px">Sem agendamentos</div>`;
+    }
+    con.innerHTML=out;
+  } else {
+    const ym=dateVal.slice(0,7);
+    const monthAppts=myAppts.filter(a=>a.date.startsWith(ym)).sort((a,b)=>a.date.localeCompare(b.date)||a.time.localeCompare(b.time));
+    // Group by date
+    const byDate={};
+    monthAppts.forEach(a=>{if(!byDate[a.date])byDate[a.date]=[];byDate[a.date].push(a);});
+    const wd=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+    let out='';
+    Object.keys(byDate).sort().forEach(ds=>{
+      const d=new Date(ds+'T12:00:00');
+      out+=`<div class="emp-agenda-date-header">${wd[d.getDay()]}, ${d.toLocaleDateString('pt-BR')}</div>`;
+      out+=byDate[ds].map(renderCard).join('');
+    });
+    con.innerHTML=out||(monthAppts.length?'':'<div style="color:var(--text2)">Nenhum agendamento neste mês</div>');
+  }
+}
+
+// ─── EMPLOYEE CLIENTS ─────────────────────────────────────────
+function getEmpClientStats(clientId,empId){
+  const appts=getData('appointments').filter(a=>a.professional===empId&&a.clientId===clientId&&a.status==='done');
+  const spent=appts.reduce((s,a)=>s+a.amount,0);
+  const dates=appts.map(a=>a.date).sort();
+  const lastVisit=dates[dates.length-1]||null;
+  const firstVisit=dates[0]||null;
+  return{total:appts.length,spent,lastVisit,firstVisit};
+}
+
+function renderEmpClients(){
+  if(!currentEmployee)return;
+  const q=(document.getElementById('emp-client-search')?.value||'').toLowerCase();
+  const sort=document.getElementById('emp-client-sort')?.value||'visits';
+  const allAppts=getData('appointments').filter(a=>a.professional===currentEmployee.id&&a.status==='done'&&a.clientId);
+  const clientIds=[...new Set(allAppts.map(a=>a.clientId))];
+  const allClients=getData('clients');
+  let empClients=clientIds.map(id=>{
+    const cl=allClients.find(c=>c.id===id);
+    if(!cl)return null;
+    return{...cl,...getEmpClientStats(id,currentEmployee.id)};
+  }).filter(Boolean);
+  // Filter
+  if(q)empClients=empClients.filter(c=>(c.name||'').toLowerCase().includes(q)||(c.phone||'').includes(q)||(c.email||'').toLowerCase().includes(q));
+  // Sort
+  if(sort==='visits')empClients.sort((a,b)=>b.total-a.total);
+  else if(sort==='spent')empClients.sort((a,b)=>b.spent-a.spent);
+  else if(sort==='recent')empClients.sort((a,b)=>(b.lastVisit||'').localeCompare(a.lastVisit||''));
+  else empClients.sort((a,b)=>a.name.localeCompare(b.name));
+  // Frequent (top 3)
+  const freqEl=document.getElementById('emp-freq-clients');
+  if(freqEl){
+    const top3=[...empClients].sort((a,b)=>b.total-a.total).slice(0,3);
+    freqEl.innerHTML=top3.length?top3.map((c,i)=>`<div class="emp-client-card" onclick="openEmpClientDetail('${c.id}')">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="pro-avatar" style="background:${['#d4a017','#3b82f6','#22c55e'][i]};width:36px;height:36px;font-size:13px">${initials(c.name)}</div>
+        <div>
+          <div class="emp-client-name">${esc(c.name)} <span style="font-size:11px;color:var(--gold)">🏆 #${i+1}</span></div>
+          <div class="emp-client-meta">${c.phone||c.email||'—'}</div>
+        </div>
+      </div>
+      <div class="emp-client-stats">
+        <div class="emp-client-stat"><strong>${c.total}</strong><br>Cortes</div>
+        <div class="emp-client-stat"><strong>R$${c.spent.toFixed(0)}</strong><br>Gasto total</div>
+        <div class="emp-client-stat"><strong>${c.lastVisit||'—'}</strong><br>Última visita</div>
+      </div>
+    </div>`).join(''):'<div style="color:var(--text2);font-size:13px">Sem clientes frequentes ainda</div>';
+  }
+  // All clients
+  const listEl=document.getElementById('emp-clients-list');
+  if(listEl){
+    listEl.innerHTML=empClients.length?empClients.map(c=>`<div class="emp-client-card" onclick="openEmpClientDetail('${c.id}')">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <div class="pro-avatar" style="width:32px;height:32px;font-size:12px">${initials(c.name)}</div>
+        <div><div class="emp-client-name">${esc(c.name)}</div><div class="emp-client-meta">${c.phone||''} ${c.email?'· '+c.email:''}</div></div>
+      </div>
+      <div class="emp-client-stats">
+        <div class="emp-client-stat"><strong>${c.total}</strong> cortes</div>
+        <div class="emp-client-stat"><strong>R$${c.spent.toFixed(0)}</strong> gasto</div>
+        <div class="emp-client-stat">Última: <strong>${c.lastVisit||'—'}</strong></div>
+      </div>
+    </div>`).join(''):'<div style="color:var(--text2);font-size:14px">Nenhum cliente encontrado</div>';
+  }
+}
+
+function openEmpClientDetail(clientId){
+  const cl=getData('clients').find(c=>c.id===clientId);
+  if(!cl)return;
+  const stats=getEmpClientStats(clientId,currentEmployee.id);
+  const appts=getData('appointments').filter(a=>a.professional===currentEmployee.id&&a.clientId===clientId).sort((a,b)=>b.date.localeCompare(a.date));
+  const svcs=getData('services');
+  const overlay=document.getElementById('emp-client-detail');
+  if(overlay)overlay.classList.add('open');
+  const nameEl=document.getElementById('ecd-name');
+  if(nameEl)nameEl.textContent=cl.name;
+  const infoEl=document.getElementById('ecd-info');
+  if(infoEl)infoEl.innerHTML=`
+    <div class="emp-stat-grid" style="margin-bottom:16px">
+      <div class="emp-stat-card"><div class="emp-stat-val">${stats.total}</div><div class="emp-stat-label">Cortes comigo</div></div>
+      <div class="emp-stat-card"><div class="emp-stat-val">R$${stats.spent.toFixed(0)}</div><div class="emp-stat-label">Gasto total</div></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Telefone</label><input value="${esc(cl.phone||'—')}" readonly style="opacity:.7"></div>
+      <div class="form-group"><label>E-mail</label><input value="${esc(cl.email||'—')}" readonly style="opacity:.7"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Primeira visita comigo</label><input value="${stats.firstVisit||'—'}" readonly style="opacity:.7"></div>
+      <div class="form-group"><label>Última visita</label><input value="${stats.lastVisit||'—'}" readonly style="opacity:.7"></div>
+    </div>`;
+  const histEl=document.getElementById('ecd-history');
+  if(histEl)histEl.innerHTML=appts.length?appts.map(a=>{
+    const svc=svcs.find(s=>s.id===a.service);
+    const badgeClass=a.status==='done'?'emp-badge-done':a.status==='cancelled'?'emp-badge-cancelled':'emp-badge-pending';
+    return `<div class="emp-appt-card" style="margin-bottom:8px">
+      <div class="emp-appt-time" style="font-size:14px">${a.date}<br><span style="font-size:12px;color:var(--text2)">${a.time}</span></div>
+      <div class="emp-appt-info">
+        <div class="emp-appt-name">${svc?esc(svc.name):a.service||'—'}</div>
+        <div class="emp-appt-service">R$${a.amount||0} ${a.paymentMethod==='pix'?'· PIX':a.paymentMethod==='store'?'· Pagar no local':''}</div>
+      </div>
+      <span class="${badgeClass}">${a.status==='done'?'Concluído':a.status==='cancelled'?'Cancelado':'Pendente'}</span>
+    </div>`;
+  }).join(''):'<div style="color:var(--text2)">Nenhum atendimento registrado</div>';
+}
+function closeEmpClientDetail(){
+  const o=document.getElementById('emp-client-detail');
+  if(o)o.classList.remove('open');
+}
+
+// ─── EMPLOYEE PROFILE ─────────────────────────────────────────
+function renderEmpProfile(){
+  if(!currentEmployee)return;
+  const pro=getData('professionals').find(p=>p.id===currentEmployee.id);
+  if(!pro)return;
+  const av=document.getElementById('emp-profile-avatar');
+  if(av){
+    if(pro.photo)av.innerHTML=`<img src="${pro.photo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+    else{av.textContent=initials(pro.name);av.style.background=pro.color||'#d4a017';}
+  }
+  const el2=(id,v)=>{const e=document.getElementById(id);if(e)e.value=v;};
+  const tx=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  tx('emp-profile-name',pro.name);
+  tx('emp-profile-cargo',pro.cargo||'Barbeiro');
+  el2('emp-pf-email',pro.email||'—');
+  el2('emp-pf-phone',pro.phone||'—');
+  el2('emp-pf-cargo2',pro.cargo||'Barbeiro');
+  el2('emp-pf-hire',pro.hireDate||'—');
+}
+
+function empChangePassword(){
+  if(!currentEmployee)return;
+  const old=document.getElementById('emp-pass-old').value;
+  const nw=document.getElementById('emp-pass-new').value;
+  const nw2=document.getElementById('emp-pass-new2').value;
+  if(!old||!nw||!nw2){toast('Preencha todos os campos','err');return;}
+  if(nw.length<6){toast('Nova senha deve ter pelo menos 6 caracteres','err');return;}
+  if(nw!==nw2){toast('Senhas não coincidem','err');return;}
+  const pros=getData('professionals');
+  const i=pros.findIndex(p=>p.id===currentEmployee.id);
+  if(i<0)return;
+  if(pros[i].passHash!==old){toast('Senha atual incorreta','err');return;}
+  pros[i].passHash=nw;
+  saveData('professionals',pros);
+  pushSyncSilent();
+  document.getElementById('emp-pass-old').value='';
+  document.getElementById('emp-pass-new').value='';
+  document.getElementById('emp-pass-new2').value='';
+  toast('Senha alterada com sucesso!','ok');
+}
+
+// ─── ADMIN EMPLOYEE MANAGEMENT ───────────────────────────────
+function renderEmployees(){
+  if(!document.getElementById('section-employees'))return;
+  const q=(document.getElementById('emp-search')?.value||'').toLowerCase();
+  const statusFilter=document.getElementById('emp-filter-status')?.value||'';
+  let pros=getData('professionals');
+  // Only show those with login credentials
+  if(q)pros=pros.filter(p=>(p.name||'').toLowerCase().includes(q)||(p.email||'').toLowerCase().includes(q)||(p.cargo||'').toLowerCase().includes(q));
+  if(statusFilter==='active')pros=pros.filter(p=>p.active);
+  else if(statusFilter==='inactive')pros=pros.filter(p=>!p.active);
+  const tb=document.getElementById('employees-table');
+  if(!tb)return;
+  if(!pros.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text2)">Nenhum funcionário cadastrado. Use a aba <strong>Profissionais</strong> para adicionar.</td></tr>';return;}
+  const daysSince=(dateStr)=>{if(!dateStr)return null;const d=new Date(dateStr);const now=new Date();return Math.floor((now-d)/(1000*60*60*24));};
+  tb.innerHTML=pros.map(p=>`<tr>
+    <td><div style="display:flex;align-items:center;gap:10px">
+      ${p.photo?`<img src="${p.photo}" style="width:36px;height:36px;border-radius:50%;object-fit:cover">`:`<div class="pro-avatar" style="background:${p.color};width:36px;height:36px;font-size:13px">${initials(p.name)}</div>`}
+      <div><strong>${esc(p.name)}</strong><br><span style="font-size:11px;color:var(--text2)">${esc(p.specialty||'')}</span></div>
+    </div></td>
+    <td>${esc(p.cargo||'—')}</td>
+    <td><div style="font-size:12px">${esc(p.email||'—')}<br>${esc(p.phone||'—')}</div></td>
+    <td><div style="font-size:12px;font-family:monospace">${p.login?esc(p.login):'<span style="color:var(--text2)">Sem acesso</span>'}</div></td>
+    <td><div style="font-size:12px">${p.hireDate?new Date(p.hireDate+'T12:00').toLocaleDateString('pt-BR'):'—'}${p.hireDate?`<br><span style="color:var(--text2)">${daysSince(p.hireDate)} dias</span>`:''}</div></td>
+    <td><span class="emp-status-badge ${p.active?'emp-status-active':'emp-status-inactive'}">${p.active?'Ativo':'Inativo'}</span></td>
+    <td class="tbl-actions">
+      <button class="btn btn-outline btn-sm" onclick="editPro('${p.id}');showSection('professionals')" title="Editar">✏️</button>
+      <button class="btn btn-outline btn-sm" onclick="togglePro('${p.id}');renderEmployees()" title="${p.active?'Desativar':'Ativar'}">${p.active?'🔒':'🔓'}</button>
+      <button class="btn btn-gold btn-sm" onclick="adminResetEmpPassword('${p.id}')" title="Redefinir senha">🔑</button>
+    </td>
+  </tr>`).join('');
+}
+
+function adminResetEmpPassword(proId){
+  const pros=getData('professionals');
+  const i=pros.findIndex(p=>p.id===proId);
+  if(i<0)return;
+  const tempPass='auto'+Math.random().toString(36).slice(2,8);
+  pros[i].passHash=tempPass;
+  saveData('professionals',pros);
+  pushSyncSilent();
+  showAlert('Senha Redefinida','Nova senha temporária do funcionário '+esc(pros[i].name)+':<br><br><strong style="font-size:20px;font-family:monospace;color:var(--gold)">'+tempPass+'</strong><br><br>Informe ao funcionário e peça para alterar no portal.');
+  toast('Senha redefinida','ok');
+}
+
+function showAlert(title,msg){
+  // Reuse confirm modal as info modal
+  document.getElementById('confirm-title').textContent=title;
+  document.getElementById('confirm-msg').innerHTML=msg;
+  const b=document.getElementById('confirm-ok-btn');
+  b.textContent='OK';b.className='btn btn-gold btn-sm';
+  confirmCb=null;
+  document.getElementById('confirm-modal').classList.add('open');
+}
+
+// ─── EMPLOYEE SLOT COUNT (reuse generateSlots if available) ──
+function generateSlots(pro,dateStr){
+  if(!pro)return[];
+  const d=new Date(dateStr+'T12:00:00');
+  if(!(pro.workDays||[]).includes(d.getDay()))return[];
+  const slots=[];
+  const [sh,sm]=((pro.workStart||'09:00')).split(':').map(Number);
+  const [eh,em]=((pro.workEnd||'19:00')).split(':').map(Number);
+  let cur=sh*60+sm;const end=eh*60+em;
+  while(cur+30<=end){slots.push((Math.floor(cur/60)+'').padStart(2,'0')+':'+(cur%60+'').padStart(2,'0'));cur+=30;}
+  return slots;
+}
+
+
 // ─── INIT ────────────────────────────────────────
 
 // Restore mobile mode from storage
 isMobileMode=!!(load('mobileMode'));
+restoreEmployeeSession();
 initHome();
 // Set today's date in filters
 document.getElementById('filter-date').value=fmtDate(new Date());
 document.getElementById('sch-week').value=fmtDate(new Date());
 </script>
+
+<!-- ═══════════════════════════════════════════
+     EMPLOYEE PORTAL
+═══════════════════════════════════════════ -->
+<div id="view-employee-portal" class="view fade">
+  <div class="emp-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="emp-sidebar">
+      <div class="emp-sidebar-logo">
+        💈 <span id="emp-sb-shop">AutoBarber</span>
+        <span id="emp-sb-name" style="color:var(--gold);font-size:13px">Funcionário</span>
+      </div>
+      <nav style="padding:8px 0;flex:1">
+        <div class="emp-nav-item active" id="emp-nav-dashboard" onclick="empShowSection('dashboard')"><span class="icon">📊</span> Dashboard</div>
+        <div class="emp-nav-item" id="emp-nav-agenda" onclick="empShowSection('agenda')"><span class="icon">📅</span> Minha Agenda</div>
+        <div class="emp-nav-item" id="emp-nav-clients" onclick="empShowSection('clients')"><span class="icon">👥</span> Meus Clientes</div>
+        <div class="emp-nav-item" id="emp-nav-profile" onclick="empShowSection('profile')"><span class="icon">👤</span> Meu Perfil</div>
+      </nav>
+      <div class="emp-sidebar-footer">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:8px" id="emp-sb-role">Barbeiro</div>
+        <button class="btn btn-outline btn-sm btn-full" onclick="empLogout()">Sair</button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="emp-main">
+
+      <!-- ─── DASHBOARD ─── -->
+      <div id="emp-section-dashboard" class="emp-section active">
+        <div class="emp-topbar">
+          <div class="emp-topbar-title">📊 Dashboard</div>
+          <div class="emp-topbar-user" id="emp-topbar-name">—</div>
+        </div>
+        <div style="padding:24px">
+          <div class="emp-section-title" style="margin-top:0">☀️ Hoje</div>
+          <div class="emp-stat-grid">
+            <div class="emp-stat-card"><div class="emp-stat-val" id="emp-stat-today-appts">0</div><div class="emp-stat-label">Agendamentos hoje</div></div>
+            <div class="emp-stat-card"><div class="emp-stat-val" id="emp-stat-today-done">0</div><div class="emp-stat-label">Atendidos hoje</div></div>
+            <div class="emp-stat-card"><div class="emp-stat-val" id="emp-stat-today-free">0</div><div class="emp-stat-label">Horários livres</div></div>
+            <div class="emp-stat-card"><div class="emp-stat-val" id="emp-stat-today-revenue">R$0</div><div class="emp-stat-label">Faturamento do dia</div></div>
+          </div>
+          <div class="emp-section-title">📅 Próximo atendimento</div>
+          <div id="emp-next-appt"><div style="color:var(--text2);font-size:14px">Nenhum agendamento próximo</div></div>
+          <div class="emp-section-title">📆 Este mês</div>
+          <div class="emp-stat-grid">
+            <div class="emp-stat-card"><div class="emp-stat-val" id="emp-stat-month-clients">0</div><div class="emp-stat-label">Clientes atendidos</div></div>
+            <div class="emp-stat-card"><div class="emp-stat-val" id="emp-stat-month-appts">0</div><div class="emp-stat-label">Total de cortes</div></div>
+            <div class="emp-stat-card"><div class="emp-stat-val" id="emp-stat-month-revenue">R$0</div><div class="emp-stat-label">Faturamento gerado</div></div>
+            <div class="emp-stat-card"><div class="emp-stat-val" id="emp-stat-month-return">0%</div><div class="emp-stat-label">Taxa de retorno</div></div>
+          </div>
+          <div class="emp-section-title">📋 Agendamentos de hoje</div>
+          <div id="emp-today-list"></div>
+        </div>
+      </div>
+
+      <!-- ─── AGENDA ─── -->
+      <div id="emp-section-agenda" class="emp-section">
+        <div class="emp-topbar">
+          <div class="emp-topbar-title">📅 Minha Agenda</div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <input type="date" id="emp-agenda-date" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text)" onchange="renderEmpAgenda()">
+          </div>
+        </div>
+        <div style="padding:24px">
+          <div class="emp-agenda-tabs">
+            <div class="emp-agenda-tab active" id="emp-tab-day" onclick="empAgendaTab('day')">Dia</div>
+            <div class="emp-agenda-tab" id="emp-tab-week" onclick="empAgendaTab('week')">Semana</div>
+            <div class="emp-agenda-tab" id="emp-tab-month" onclick="empAgendaTab('month')">Mês</div>
+          </div>
+          <div id="emp-agenda-content"></div>
+        </div>
+      </div>
+
+      <!-- ─── CLIENTS ─── -->
+      <div id="emp-section-clients" class="emp-section">
+        <div class="emp-topbar">
+          <div class="emp-topbar-title">👥 Meus Clientes</div>
+        </div>
+        <div style="padding:24px">
+          <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+            <input id="emp-client-search" placeholder="Buscar por nome, telefone ou e-mail..." oninput="renderEmpClients()" style="flex:1;min-width:200px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:14px">
+            <select id="emp-client-sort" onchange="renderEmpClients()" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text)">
+              <option value="visits">Mais visitas</option>
+              <option value="recent">Mais recentes</option>
+              <option value="spent">Maior gasto</option>
+              <option value="name">Nome A-Z</option>
+            </select>
+          </div>
+          <div class="emp-section-title" style="margin-top:0">⭐ Clientes Frequentes</div>
+          <div id="emp-freq-clients"></div>
+          <div class="emp-section-title">Todos os meus clientes</div>
+          <div id="emp-clients-list"></div>
+        </div>
+      </div>
+
+      <!-- ─── PROFILE ─── -->
+      <div id="emp-section-profile" class="emp-section">
+        <div class="emp-topbar">
+          <div class="emp-topbar-title">👤 Meu Perfil</div>
+        </div>
+        <div style="padding:24px">
+          <div class="card emp-profile-form">
+            <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
+              <div class="pro-avatar" id="emp-profile-avatar" style="width:64px;height:64px;font-size:24px;flex-shrink:0">—</div>
+              <div>
+                <div style="font-size:20px;font-weight:700" id="emp-profile-name">—</div>
+                <div style="font-size:13px;color:var(--text2)" id="emp-profile-cargo">—</div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>E-mail</label><input id="emp-pf-email" readonly style="opacity:.7"></div>
+              <div class="form-group"><label>Telefone</label><input id="emp-pf-phone" readonly style="opacity:.7"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Cargo</label><input id="emp-pf-cargo2" readonly style="opacity:.7"></div>
+              <div class="form-group"><label>Contratado em</label><input id="emp-pf-hire" readonly style="opacity:.7"></div>
+            </div>
+            <div style="margin-top:8px;font-size:12px;color:var(--text2)">Para alterar seus dados, solicite ao administrador.</div>
+            <div class="emp-section-title">Alterar senha</div>
+            <div class="form-group"><label>Senha atual</label>
+              <div class="pass-wrap"><input id="emp-pass-old" type="password" placeholder="••••••••"><button class="pass-toggle" type="button" onclick="togglePass('emp-pass-old',this)" tabindex="-1">👁</button></div>
+            </div>
+            <div class="form-group"><label>Nova senha</label>
+              <div class="pass-wrap"><input id="emp-pass-new" type="password" placeholder="Mínimo 6 caracteres"><button class="pass-toggle" type="button" onclick="togglePass('emp-pass-new',this)" tabindex="-1">👁</button></div>
+            </div>
+            <div class="form-group"><label>Confirmar nova senha</label>
+              <div class="pass-wrap"><input id="emp-pass-new2" type="password" placeholder="Repita a senha"><button class="pass-toggle" type="button" onclick="togglePass('emp-pass-new2',this)" tabindex="-1">👁</button></div>
+            </div>
+            <button class="btn btn-gold btn-sm" onclick="empChangePassword()">Salvar nova senha</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /emp-main -->
+  </div><!-- /emp-layout -->
+
+  <!-- Client detail drawer -->
+  <div class="emp-client-detail-overlay" id="emp-client-detail">
+    <div style="padding:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <h3 id="ecd-name">—</h3>
+        <button onclick="closeEmpClientDetail()" style="background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer">✕</button>
+      </div>
+      <div id="ecd-info"></div>
+      <div class="emp-section-title">Histórico de atendimentos</div>
+      <div id="ecd-history"></div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
