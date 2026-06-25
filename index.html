@@ -496,6 +496,63 @@ body.mobile-mode .nav-actions .btn-outline{display:none}
 .saas-metric-val{font-size:28px;font-weight:900;color:var(--gold)}
 .saas-metric-lbl{font-size:12px;color:var(--text2);margin-top:4px}
 
+/* ─── LANDING PAGE ─── */
+.lp-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,10,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px}
+.lp-nav-logo{font-size:22px;font-weight:800;color:var(--gold)}.lp-nav-logo span{color:var(--text2);font-weight:300}.lp-nav-actions{display:flex;gap:10px}
+.lp-hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(212,160,23,.15),transparent)}
+.lp-hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;line-height:1.05;margin-bottom:20px}.lp-hero h1 em{font-style:normal;color:var(--gold)}
+.lp-hero p{font-size:20px;color:var(--text2);max-width:560px;margin:0 auto 40px;line-height:1.6}
+.lp-cta-wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:60px}
+.lp-trust{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;color:var(--text2);font-size:14px}.lp-trust span{display:flex;align-items:center;gap:6px}
+.lp-section{padding:80px 24px;max-width:1100px;margin:0 auto}
+.lp-section-label{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+.lp-section-title{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;margin-bottom:12px}.lp-section-sub{color:var(--text2);font-size:16px}
+.lp-features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-top:48px}
+.lp-feature{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:28px;transition:.2s}.lp-feature:hover{border-color:var(--gold);transform:translateY(-3px)}
+.lp-feature-icon{font-size:32px;margin-bottom:16px}.lp-feature-title{font-size:16px;font-weight:700;margin-bottom:8px}.lp-feature-desc{font-size:14px;color:var(--text2);line-height:1.6}
+.lp-pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:48px;align-items:start}
+.lp-plan{background:var(--bg3);border:2px solid var(--border);border-radius:20px;padding:32px;position:relative;transition:.2s}.lp-plan:hover{border-color:var(--gold)}
+.lp-plan.featured{border-color:var(--gold);background:linear-gradient(135deg,rgba(212,160,23,.08),var(--bg3))}
+.lp-plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:11px;font-weight:800;padding:4px 16px;border-radius:20px;white-space:nowrap}
+.lp-plan-name{font-size:14px;font-weight:600;color:var(--text2);margin-bottom:8px}
+.lp-plan-price{font-size:42px;font-weight:900;margin-bottom:4px}.lp-plan-price sup{font-size:20px;vertical-align:super;margin-right:2px}
+.lp-plan-period{font-size:14px;color:var(--text2);margin-bottom:8px}
+.lp-plan-savings{display:inline-block;background:rgba(34,197,94,.15);color:var(--ok);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:20px}
+.lp-plan-features{list-style:none;padding:0;margin-bottom:28px}.lp-plan-features li{font-size:14px;padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;color:var(--text2)}.lp-plan-features li::before{content:'✓';color:var(--ok);font-weight:700;flex-shrink:0}
+.lp-faq{margin-top:48px;max-width:720px;margin-left:auto;margin-right:auto}.lp-faq-item{border-bottom:1px solid var(--border)}
+.lp-faq-q{padding:20px 0;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:15px;user-select:none}.lp-faq-q::after{content:'+';font-size:20px;color:var(--gold);flex-shrink:0;transition:.2s;display:inline-block}
+.lp-faq-item.open .lp-faq-q::after{transform:rotate(45deg)}.lp-faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;color:var(--text2);font-size:14px;line-height:1.7}.lp-faq-item.open .lp-faq-a{max-height:300px;padding-bottom:20px}
+.lp-footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24px 32px}
+.lp-footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.lp-footer-col h4{font-size:13px;font-weight:700;margin-bottom:16px}.lp-footer-col a{display:block;font-size:13px;color:var(--text2);margin-bottom:8px;transition:.2s;cursor:pointer}.lp-footer-col a:hover{color:var(--gold)}
+.lp-footer-bottom{max-width:1100px;margin:32px auto 0;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--text2)}
+@media(max-width:768px){.lp-footer-inner{grid-template-columns:1fr 1fr}.lp-footer-bottom{justify-content:center;text-align:center}}
+/* ─── COOKIE CONSENT ─── */
+.cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9998;background:var(--bg2);border-top:2px solid var(--border);padding:20px 24px;display:none;box-shadow:0 -4px 24px rgba(0,0,0,.4)}
+.cookie-banner.show{display:block;animation:slideup .35s ease}@keyframes slideup{from{transform:translateY(100%)}to{transform:none}}
+.cookie-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.cookie-text{flex:1;font-size:13px;color:var(--text2);line-height:1.6;min-width:200px}.cookie-actions{display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap}
+/* ─── LGPD MODAL ─── */
+.lgpd-modal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px}
+.lgpd-modal-box{background:var(--bg2);border:1px solid var(--border);border-radius:16px;width:100%;max-width:680px;max-height:85vh;overflow-y:auto}
+.lgpd-modal-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg2)}
+.lgpd-modal-body{padding:24px;font-size:14px;color:var(--text2);line-height:1.8}.lgpd-modal-body h3{color:var(--text);font-size:15px;margin:20px 0 8px}.lgpd-modal-body h3:first-child{margin-top:0}.lgpd-modal-body p{margin-bottom:12px}.lgpd-modal-body a{color:var(--gold)}
+/* ─── ONBOARDING WIZARD ─── */
+.ob-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px}
+.ob-modal-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;padding:32px}
+.ob-step{display:none}.ob-step.active{display:block;animation:fadein .25s ease}
+.ob-progress{display:flex;gap:8px;margin-bottom:8px}.ob-dot{flex:1;height:6px;border-radius:6px;background:var(--border);transition:.3s}.ob-dot.active{background:var(--gold)}.ob-dot.done{background:var(--ok)}
+.ob-step-label{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.ob-step-title{font-size:22px;font-weight:800;margin-bottom:8px}.ob-step-sub{font-size:14px;color:var(--text2);margin-bottom:24px;line-height:1.6}
+.ob-nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.ob-service-row{display:flex;gap:10px;margin-bottom:10px;align-items:center}.ob-service-row input{flex:1}.ob-service-row .price-inp{width:90px;flex:none}
+.ob-days-wrap{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.ob-day-btn{padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;transition:.2s}.ob-day-btn.sel{border-color:var(--gold);background:rgba(212,160,23,.12);color:var(--gold)}
+/* ─── TRIAL BAR ─── */
+.trial-bar{position:fixed;top:0;left:0;right:0;z-index:900;padding:11px 24px;display:none;align-items:center;justify-content:space-between;gap:16px;font-size:14px;font-weight:600}
+.trial-bar.warn{background:linear-gradient(90deg,#f59e0b,#d97706);color:#000}.trial-bar.danger{background:linear-gradient(90deg,#ef4444,#dc2626);color:#fff}
+.trial-bar-msg{flex:1}.trial-bar-close{background:rgba(0,0,0,.2);border:none;color:inherit;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
 </style>
 </head>
 <body>
@@ -1723,8 +1780,11 @@ async function doLogin(){'use strict';
   showView('view-admin');
   showSection('dashboard');
   renderDashboard();
+  checkTrialNotification(found.email||found.username||'');
+  var _svcs=getData('services');
+  if(_svcs.length===0&&found.role!=='professional'){setTimeout(openOnboarding,600);}
 }
-function doLogout(){currentUser=null;showView('view-home');initHome();}
+function doLogout(){currentUser=null;closeTrialBar();if(shouldShowLanding()){showView('view-saas-landing');initSaasLanding();}else{showView('view-home');initHome();}}
 
 // ─── ADMIN NAV ────────────────────────────────────────
 function showSection(sec){
@@ -4888,11 +4948,195 @@ function generateSlots(pro,dateStr){
   isMobileMode=!!(load('mobileMode'));
   restoreEmployeeSession();
   checkPlansSubscribedParam();
-  initHome();
+  if(shouldShowLanding()){
+    showView('view-saas-landing');
+    initSaasLanding();
+  }else{
+    initHome();
+  }
+  initCookieConsent();
 })();
 // Set today's date in filters
 document.getElementById('filter-date').value=fmtDate(new Date());
 document.getElementById('sch-week').value=fmtDate(new Date());
+// ════════════════════════════════════════════════════
+// BUILD 9 — LANDING PAGE, LGPD, ONBOARDING, TRIAL, EMAIL, SENTRY
+// ════════════════════════════════════════════════════
+
+function shouldShowLanding(){
+  var p=new URLSearchParams(location.search);
+  if(p.get('shop')||p.get('subscribed')||p.get('admin'))return false;
+  var s=load('autobarber_settings');
+  if(s&&s.name&&s.name!=='AutoBarber')return false;
+  var sv=load('autobarber_services');
+  if(sv&&sv.length>0)return false;
+  return true;
+}
+
+function initSaasLanding(){
+  var g=document.getElementById('lp-pricing-grid');
+  if(g){
+    g.innerHTML=Object.values(CAKTO_CONFIG.plans).map(function(p){
+      return '<div class="lp-plan'+(p.featured?' featured':'')+'">'+
+        (p.featured?'<div class="lp-plan-badge">⭐ MAIS POPULAR</div>':'')+
+        '<div class="lp-plan-name">'+p.name+'</div>'+
+        '<div class="lp-plan-price"><sup>R$</sup>'+p.price.toFixed(2).replace('.',',')+'</div>'+
+        '<div class="lp-plan-period">por '+p.period+'</div>'+
+        (p.savings?'<div class="lp-plan-savings">'+p.savings+'</div>':'<div style="height:24px"></div>')+
+        '<ul class="lp-plan-features"><li>Agendamentos ilimitados</li><li>Portal do cliente</li><li>Gestão de funcionários</li><li>Comissões automáticas</li><li>Integração WhatsApp</li><li>'+CAKTO_CONFIG.trialDays+' dias grátis</li></ul>'+
+        '<button class="btn btn-gold btn-full" onclick="window.open(\''+p.checkoutUrl+'\',\'_blank\')">Começar agora →</button>'+
+      '</div>';
+    }).join('');
+  }
+  document.querySelectorAll('#view-saas-landing .lp-faq-q').forEach(function(q){
+    q.onclick=function(){q.parentElement.classList.toggle('open');};
+  });
+  var yr=document.getElementById('lp-footer-year');
+  if(yr)yr.textContent=new Date().getFullYear();
+}
+function scrollToLpSection(id){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});}
+
+function initCookieConsent(){
+  if(load('cookie_consent'))return;
+  var b=document.getElementById('cookie-banner');
+  if(b)setTimeout(function(){b.classList.add('show');},1800);
+}
+function acceptCookies(all){
+  save('cookie_consent',{accepted:all,date:new Date().toISOString()});
+  var b=document.getElementById('cookie-banner');
+  if(b){b.style.transition='transform .4s ease';b.style.transform='translateY(110%)';setTimeout(function(){b.style.display='none';},450);}
+}
+function openLgpdModal(which){
+  var m=document.getElementById('lgpd-modal');if(!m)return;
+  document.getElementById('lgpd-modal-title').textContent=(which==='privacy')?'Política de Privacidade':'Termos de Uso';
+  document.getElementById('lgpd-modal-body').innerHTML=(which==='privacy')?_PRIVACY_HTML:_TERMS_HTML;
+  m.style.display='flex';
+}
+function closeLgpdModal(){var m=document.getElementById('lgpd-modal');if(m)m.style.display='none';}
+
+var _PRIVACY_HTML='<h3>1. Coleta de Dados</h3><p>O AutoBarber coleta dados fornecidos voluntariamente (nome, e-mail, telefone) para prestão dos serviços de agendamento online.</p><h3>2. Uso dos Dados</h3><p>Os dados são utilizados para: (a) gerenciamento de agendamentos; (b) comunicações sobre seus agendamentos; (c) melhoria dos serviços.</p><h3>3. Compartilhamento</h3><p>Não vendemos seus dados. Compartilhamos apenas com prestadores essenciais (Supabase, Cakto) e quando exigido por lei.</p><h3>4. Segurança</h3><p>Dados armazenados na infraestrutura Supabase com criptografia em trânsito (TLS) e em repouso.</p><h3>5. Seus Direitos (LGPD)</h3><p>Você tem direito a: acessar, corrigir, excluir e portar seus dados. Contato: <a href="mailto:yuriabraodemenezes@gmail.com">yuriabraodemenezes@gmail.com</a></p><h3>6. Cookies</h3><p>Utilizamos cookies essenciais e, com seu consentimento, cookies analíticos.</p>';
+
+var _TERMS_HTML='<h3>1. Aceitação</h3><p>Ao utilizar o AutoBarber, você concorda com estes Termos. Se não concordar, não utilize a plataforma.</p><h3>2. O Serviço</h3><p>O AutoBarber é uma plataforma SaaS de agendamento para barbearias, com planos de assinatura após 7 dias grátis.</p><h3>3. Pagamento e Cancelamento</h3><p>Cobrança via Cakto conforme o plano. Cancele a qualquer momento sem multa. O acesso continua até o fim do período pago.</p><h3>4. Responsabilidade</h3><p>O AutoBarber é fornecido "como está". Responsabilidade máxima limitada ao valor pago nos últimos 30 dias.</p><h3>5. Propriedade Intelectual</h3><p>Código e design do AutoBarber são protegidos por direitos autorais. Seus dados pertencem a você.</p><h3>6. Foro</h3><p>Lei brasileira. Foro: comarca de São Paulo/SP.</p>';
+
+var _obStep=1,_obDays=[1,2,3,4,5,6];
+function openOnboarding(){
+  _obStep=1;_obDays=[1,2,3,4,5,6];
+  var m=document.getElementById('ob-modal');if(!m)return;
+  m.style.display='flex';_renderObStep();
+}
+function closeOnboarding(){var m=document.getElementById('ob-modal');if(m)m.style.display='none';}
+function _renderObStep(){
+  document.querySelectorAll('.ob-step').forEach(function(s,i){s.classList.toggle('active',i===_obStep-1);});
+  document.querySelectorAll('.ob-dot').forEach(function(d,i){
+    d.classList.remove('done','active');
+    if(i<_obStep-1)d.classList.add('done');
+    else if(i===_obStep-1)d.classList.add('active');
+  });
+  document.getElementById('ob-step-num').textContent=_obStep+' de 5';
+  document.getElementById('ob-prev').style.visibility=_obStep>1?'visible':'hidden';
+  document.getElementById('ob-next-btn').textContent=_obStep===5?'Concluir ✓':'Próximo →';
+}
+function obNext(){
+  if(_obStep===1){
+    var n=((document.getElementById('ob-shop-name')||{}).value||'').trim();
+    if(!n){toast('Informe o nome da barbearia','err');return;}
+    var s=getSettings();s.name=n;s.address=((document.getElementById('ob-address')||{}).value||'');s.phone=((document.getElementById('ob-phone')||{}).value||'');saveSettings(s);
+  }
+  if(_obStep===2){_obSaveServices();}
+  if(_obStep===3){_obSaveHours();}
+  if(_obStep===4){_obSaveEmployee();}
+  if(_obStep===5){closeOnboarding();initHome();toast('Barbearia configurada! 🎉','ok');return;}
+  _obStep++;_renderObStep();
+}
+function obPrev(){if(_obStep>1){_obStep--;_renderObStep();}}
+function _obSaveServices(){
+  var rows=document.querySelectorAll('.ob-service-row');
+  var svcs=getData('services');
+  rows.forEach(function(r){
+    var n=(r.querySelector('.ob-svc-name')||{}).value||'';n=n.trim();
+    var p=parseFloat((r.querySelector('.ob-svc-price')||{}).value)||0;
+    if(n)svcs.push({id:Date.now()+Math.random(),name:n,price:p,duration:30,active:true,icon:'✂️',description:''});
+  });
+  saveData('services',svcs);
+}
+function _obSaveHours(){
+  var o=((document.getElementById('ob-open')||{}).value||'09:00');
+  var c=((document.getElementById('ob-close')||{}).value||'19:00');
+  var s=getSettings();s.openTime=o;s.closeTime=c;saveSettings(s);
+}
+function _obSaveEmployee(){
+  var n=((document.getElementById('ob-emp-name')||{}).value||'').trim();if(!n)return;
+  var e=((document.getElementById('ob-emp-email')||{}).value||'').trim();
+  var pw=((document.getElementById('ob-emp-pass')||{}).value||'').trim()||'123456';
+  var emps=getData('professionals');
+  emps.push({id:Date.now(),name:n,email:e||n.toLowerCase().replace(/\s+/g,'')+'@barbearia.com',password:pw,login:n.toLowerCase().replace(/\s+/g,''),passHash:pw,specialty:'Barbeiro',active:true,color:'#d4a017',workDays:_obDays.slice(),workStart:'09:00',workEnd:'19:00'});
+  saveData('professionals',emps);
+}
+function obToggleDay(btn,day){
+  day=Number(day);var i=_obDays.indexOf(day);
+  if(i>=0){_obDays.splice(i,1);btn.classList.remove('sel');}else{_obDays.push(day);btn.classList.add('sel');}
+}
+function obAddServiceRow(){
+  var c=document.getElementById('ob-services-rows');if(!c)return;
+  var r=document.createElement('div');r.className='ob-service-row';
+  r.innerHTML='<input class="ob-svc-name" placeholder="Nome do serviço" style="flex:1"><input class="ob-svc-price price-inp" type="number" placeholder="R$" min="0">';
+  c.appendChild(r);
+}
+
+async function checkTrialNotification(email){
+  if(!email||!_sb)return;
+  if(email===CAKTO_CONFIG.superAdminEmail)return;
+  var sub=await loadShopSubscription(email);
+  if(!sub||sub.status!=='trial')return;
+  var daysLeft=Math.ceil((new Date(sub.trial_end)-Date.now())/864e5);
+  var bar=document.getElementById('trial-bar');if(!bar)return;
+  if(daysLeft<=0){
+    bar.className='trial-bar danger';
+    bar.querySelector('.trial-bar-msg').innerHTML='⛔ Período de teste <strong>expirado</strong>. Assine agora para continuar.';
+    bar.querySelector('.trial-bar-cta').textContent='Assinar agora →';
+    bar.style.display='flex';document.body.style.paddingTop='50px';
+  }else if(daysLeft<=3){
+    bar.className='trial-bar warn';
+    var d=daysLeft===1?'1 dia':''+daysLeft+' dias';
+    bar.querySelector('.trial-bar-msg').innerHTML='⏰ Restam <strong>'+d+' de teste</strong>. Assine para não perder acesso.';
+    bar.querySelector('.trial-bar-cta').textContent='Ver planos →';
+    bar.style.display='flex';document.body.style.paddingTop='50px';
+  }
+}
+function closeTrialBar(){var b=document.getElementById('trial-bar');if(b){b.style.display='none';document.body.style.paddingTop='';}}
+function trialBarCta(){closeTrialBar();showView('view-plans');renderPlans();}
+
+async function sendEmail(to,subject,body){
+  try{
+    var r=await fetch('/api/send-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({to,subject,html:body})});
+    var j=await r.json();return j.success||false;
+  }catch(e){console.warn('[AutoBarber] Email failed:',e);return false;}
+}
+async function sendBookingConfirmEmail(booking,client,pro,service){
+  if(!booking||!client||!client.email)return;
+  var s=getSettings();
+  var html='<div style="font-family:sans-serif;max-width:560px;margin:0 auto;background:#111;color:#f0f0f0;border-radius:12px;overflow:hidden">'+
+    '<div style="background:#d4a017;padding:20px 28px;text-align:center;color:#000;font-size:24px;font-weight:900">'+esc(s.name)+'</div>'+
+    '<div style="padding:28px"><h2 style="color:#d4a017">Agendamento confirmado! ✅</h2>'+
+    '<p>Olá, <strong>'+esc(client.name)+'</strong>!</p>'+
+    '<div style="background:#1a1a1a;border-radius:10px;padding:20px;margin:20px 0">'+
+      '<p style="margin:0 0 8px"><strong>📋 Serviço:</strong> '+esc((service&&service.name)||booking.service||'—')+'</p>'+
+      '<p style="margin:0 0 8px"><strong>👤 Profissional:</strong> '+esc((pro&&pro.name)||booking.professional||'—')+'</p>'+
+      '<p style="margin:0 0 8px"><strong>📅 Data:</strong> '+fmtDateBr(booking.date)+'</p>'+
+      '<p style="margin:0"><strong>⏰ Horário:</strong> '+esc(booking.time)+'</p>'+
+    '</div><p style="color:#999;font-size:13px">'+esc(s.address||'')+(s.phone?' · '+esc(s.phone):'')+'</p></div></div>';
+  await sendEmail(client.email,'✅ Agendamento confirmado — '+s.name,html);
+}
+
+(function(){
+  // Sentry: para ativar, va em sentry.io > Seu projeto > Settings > Client Keys (DSN)
+  // Cole o DSN abaixo:
+  // const DSN='';
+  // if(DSN){var s=document.createElement('script');s.src='https://browser.sentry-cdn.com/7.99.0/bundle.min.js';s.onload=function(){Sentry.init({dsn:DSN,environment:'production'});};document.head.appendChild(s);}
+  window.onerror=function(m,s,l,c,e){console.error('[AutoBarber]',m,s+':'+l,e);};
+  window.onunhandledrejection=function(e){console.error('[AutoBarber Promise]',e.reason);};
+})();
+
 </script>
 
 <!-- ═══════════════════════════════════════════
@@ -5104,5 +5348,210 @@ document.getElementById('sch-week').value=fmtDate(new Date());
     <button class="btn btn-outline btn-sm btn-full" onclick="doLogout()">Sair</button>
   </div>
 </div>
+<!-- ═══ TRIAL BAR ═══ -->
+<div id="trial-bar" class="trial-bar">
+  <span class="trial-bar-msg"></span>
+  <button class="trial-bar-cta btn btn-sm" style="background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.3);color:inherit;padding:6px 14px;border-radius:8px" onclick="trialBarCta()">Ver planos</button>
+  <button class="trial-bar-close" onclick="closeTrialBar()">&#x2715;</button>
+</div>
+
+<!-- ═══ COOKIE CONSENT ═══ -->
+<div id="cookie-banner" class="cookie-banner">
+  <div class="cookie-inner">
+    <div class="cookie-text">&#x1F36A; Usamos cookies essenciais para funcionamento e, com seu consentimento, cookies anal&#237;ticos. <a href="#" onclick="openLgpdModal('privacy');return false" style="color:var(--gold)">Pol&#237;tica de Privacidade</a>.</div>
+    <div class="cookie-actions">
+      <button class="btn btn-outline btn-sm" onclick="acceptCookies(false)">Apenas essenciais</button>
+      <button class="btn btn-gold btn-sm" onclick="acceptCookies(true)">Aceitar todos</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LGPD MODAL ═══ -->
+<div id="lgpd-modal" class="lgpd-modal" onclick="if(event.target===this)closeLgpdModal()">
+  <div class="lgpd-modal-box">
+    <div class="lgpd-modal-head">
+      <h2 id="lgpd-modal-title" style="font-size:18px;font-weight:700">Pol&#237;tica de Privacidade</h2>
+      <button onclick="closeLgpdModal()" style="background:var(--bg4);border:none;color:var(--text2);width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer">&#x2715;</button>
+    </div>
+    <div id="lgpd-modal-body" class="lgpd-modal-body"></div>
+  </div>
+</div>
+
+<!-- ═══ ONBOARDING WIZARD ═══ -->
+<div id="ob-modal" class="ob-modal" onclick="if(event.target===this)closeOnboarding()">
+  <div class="ob-modal-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-size:12px;color:var(--text2)" id="ob-step-num">1 de 5</span>
+      <button onclick="closeOnboarding()" style="background:var(--bg4);border:none;color:var(--text2);width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer">&#x2715;</button>
+    </div>
+    <div class="ob-progress"><div class="ob-dot active"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
+    <!-- Step 1: Barbearia -->
+    <div class="ob-step active">
+      <div class="ob-step-label">Passo 1</div>
+      <div class="ob-step-title">&#x1F3EA; Sua barbearia</div>
+      <div class="ob-step-sub">Comece pelo b&#225;sico. Essas informa&#231;&#245;es aparecem para seus clientes.</div>
+      <div class="form-group"><label>Nome da barbearia *</label><input id="ob-shop-name" placeholder="Ex: Barbearia do Jo&#227;o"></div>
+      <div class="form-group"><label>Endere&#231;o</label><input id="ob-address" placeholder="Rua, n&#250;mero, bairro, cidade"></div>
+      <div class="form-group"><label>Telefone / WhatsApp</label><input id="ob-phone" placeholder="(11) 99999-9999" type="tel"></div>
+    </div>
+    <!-- Step 2: Servi&#231;os -->
+    <div class="ob-step">
+      <div class="ob-step-label">Passo 2</div>
+      <div class="ob-step-title">&#x2702;&#xFE0F; Servi&#231;os oferecidos</div>
+      <div class="ob-step-sub">Adicione os servi&#231;os da sua barbearia. Voc&#234; pode adicionar mais depois.</div>
+      <div id="ob-services-rows">
+        <div class="ob-service-row"><input class="ob-svc-name" placeholder="Ex: Corte de cabelo" style="flex:1"><input class="ob-svc-price price-inp" type="number" placeholder="R$ 35" min="0"></div>
+        <div class="ob-service-row"><input class="ob-svc-name" placeholder="Ex: Barba" style="flex:1"><input class="ob-svc-price price-inp" type="number" placeholder="R$ 25" min="0"></div>
+        <div class="ob-service-row"><input class="ob-svc-name" placeholder="Ex: Corte + Barba" style="flex:1"><input class="ob-svc-price price-inp" type="number" placeholder="R$ 55" min="0"></div>
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="obAddServiceRow()" style="margin-top:8px">+ Adicionar servi&#231;o</button>
+    </div>
+    <!-- Step 3: Hor&#225;rios -->
+    <div class="ob-step">
+      <div class="ob-step-label">Passo 3</div>
+      <div class="ob-step-title">&#x1F550; Hor&#225;rio de funcionamento</div>
+      <div class="ob-step-sub">Defina os dias e hor&#225;rios em que sua barbearia atende.</div>
+      <div style="margin-bottom:16px"><label style="margin-bottom:8px;display:block">Dias de atendimento</label>
+        <div class="ob-days-wrap">
+          <button type="button" class="ob-day-btn" onclick="obToggleDay(this,0)">Dom</button>
+          <button type="button" class="ob-day-btn sel" onclick="obToggleDay(this,1)">Seg</button>
+          <button type="button" class="ob-day-btn sel" onclick="obToggleDay(this,2)">Ter</button>
+          <button type="button" class="ob-day-btn sel" onclick="obToggleDay(this,3)">Qua</button>
+          <button type="button" class="ob-day-btn sel" onclick="obToggleDay(this,4)">Qui</button>
+          <button type="button" class="ob-day-btn sel" onclick="obToggleDay(this,5)">Sex</button>
+          <button type="button" class="ob-day-btn sel" onclick="obToggleDay(this,6)">S&#225;b</button>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Abre &#224;s</label><input id="ob-open" type="time" value="09:00"></div>
+        <div class="form-group"><label>Fecha &#224;s</label><input id="ob-close" type="time" value="19:00"></div>
+      </div>
+    </div>
+    <!-- Step 4: Funcion&#225;rio -->
+    <div class="ob-step">
+      <div class="ob-step-label">Passo 4</div>
+      <div class="ob-step-title">&#x1F464; Primeiro barbeiro</div>
+      <div class="ob-step-sub">Cadastre o primeiro funcion&#225;rio. Ele poder&#225; fazer login pelo portal de funcion&#225;rios.</div>
+      <div class="form-group"><label>Nome completo</label><input id="ob-emp-name" placeholder="Ex: Carlos Barbeiro"></div>
+      <div class="form-group"><label>E-mail (opcional)</label><input id="ob-emp-email" placeholder="carlos@barbearia.com" type="email"></div>
+      <div class="form-group"><label>Senha de acesso</label><input id="ob-emp-pass" placeholder="M&#237;nimo 6 caracteres (padr&#227;o: 123456)"></div>
+    </div>
+    <!-- Step 5: Conclus&#227;o -->
+    <div class="ob-step">
+      <div class="ob-step-label">Passo 5</div>
+      <div class="ob-step-title">&#x1F389; Tudo pronto!</div>
+      <div class="ob-step-sub">Sua barbearia est&#225; configurada. Compartilhe o link com seus clientes!</div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:6px">Link de agendamento:</div>
+        <div style="font-size:15px;font-weight:600;color:var(--gold)">https://autobarber-app.vercel.app</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--text2)">
+        <div>&#x2705; Agendamento online ativo</div>
+        <div>&#x2705; Portal de funcion&#225;rios ativo</div>
+        <div>&#x2705; Relat&#243;rios e comiss&#245;es ativos</div>
+        <div>&#x2705; 7 dias de teste gratuito</div>
+      </div>
+    </div>
+    <div class="ob-nav">
+      <button id="ob-prev" class="btn btn-outline btn-sm" onclick="obPrev()" style="visibility:hidden">&#x2190; Voltar</button>
+      <button id="ob-next-btn" class="btn btn-gold" onclick="obNext()">Pr&#243;ximo &#x2192;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SAAS LANDING PAGE ═══ -->
+<div id="view-saas-landing" class="view fade">
+  <nav class="lp-nav">
+    <div class="lp-nav-logo">Auto<span>Barber</span></div>
+    <div class="lp-nav-actions">
+      <button class="btn btn-outline btn-sm" onclick="showView('view-admin-login')">Entrar</button>
+      <button class="btn btn-gold btn-sm" onclick="showView('view-plans');renderPlans()">Teste gr&#225;tis &#x2192;</button>
+    </div>
+  </nav>
+  <!-- Hero -->
+  <section class="lp-hero">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(212,160,23,.1);border:1px solid rgba(212,160,23,.3);border-radius:20px;padding:6px 16px;font-size:13px;color:var(--gold);margin-bottom:24px">
+      &#x2728; 7 dias gr&#225;tis, sem cart&#227;o de cr&#233;dito
+    </div>
+    <h1>Gerencie sua barbearia<br><em>como um profissional</em></h1>
+    <p>Agendamento online, gest&#227;o de funcion&#225;rios, comiss&#245;es autom&#225;ticas e relat&#243;rios completos. Tudo em um s&#243; lugar.</p>
+    <div class="lp-cta-wrap">
+      <button class="btn btn-gold" style="font-size:16px;padding:14px 32px" onclick="showView('view-plans');renderPlans()">Come&#231;ar gr&#225;tis por 7 dias &#x2192;</button>
+      <button class="btn btn-outline" style="font-size:16px;padding:14px 32px" onclick="scrollToLpSection('lp-features')">Ver funcionalidades</button>
+    </div>
+    <div class="lp-trust">
+      <span>&#x2705; Sem cart&#227;o de cr&#233;dito</span>
+      <span>&#x2705; Cancele quando quiser</span>
+      <span>&#x2705; Suporte inclu&#237;do</span>
+    </div>
+  </section>
+  <!-- Features -->
+  <div id="lp-features">
+  <section class="lp-section">
+    <div style="text-align:center">
+      <div class="lp-section-label">Funcionalidades</div>
+      <div class="lp-section-title">Tudo que sua barbearia precisa</div>
+      <div class="lp-section-sub" style="margin:0 auto">Uma plataforma completa para modernizar seu atendimento e aumentar sua receita.</div>
+    </div>
+    <div class="lp-features-grid">
+      <div class="lp-feature"><div class="lp-feature-icon">&#x1F4C5;</div><div class="lp-feature-title">Agendamento online 24h</div><div class="lp-feature-desc">Seus clientes agendam a qualquer hora pelo celular. Sem liga&#231;&#245;es, sem confus&#227;o.</div></div>
+      <div class="lp-feature"><div class="lp-feature-icon">&#x1F465;</div><div class="lp-feature-title">Gest&#227;o de funcion&#225;rios</div><div class="lp-feature-desc">Controle hor&#225;rios, agenda e performance de cada barbeiro com portal exclusivo.</div></div>
+      <div class="lp-feature"><div class="lp-feature-icon">&#x1F4B0;</div><div class="lp-feature-title">Comiss&#245;es autom&#225;ticas</div><div class="lp-feature-desc">Calcule comiss&#245;es por servi&#231;o automaticamente. Relat&#243;rios prontos para fechar o m&#234;s.</div></div>
+      <div class="lp-feature"><div class="lp-feature-icon">&#x1F4CA;</div><div class="lp-feature-title">Relat&#243;rios e m&#233;tricas</div><div class="lp-feature-desc">Acompanhe faturamento, clientes e servi&#231;os mais lucrativos em tempo real.</div></div>
+      <div class="lp-feature"><div class="lp-feature-icon">&#x1F4AC;</div><div class="lp-feature-title">Confirma&#231;&#227;o via WhatsApp</div><div class="lp-feature-desc">Envie confirma&#231;&#245;es autom&#225;ticas de agendamento. Reduza faltas e cancelamentos.</div></div>
+      <div class="lp-feature"><div class="lp-feature-icon">&#x1F512;</div><div class="lp-feature-title">Seguran&#231;a e LGPD</div><div class="lp-feature-desc">Dados protegidos com criptografia. Conforme a Lei Geral de Prote&#231;&#227;o de Dados.</div></div>
+    </div>
+  </section>
+  </div>
+  <!-- Pricing -->
+  <div style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <section class="lp-section">
+    <div style="text-align:center">
+      <div class="lp-section-label">Planos</div>
+      <div class="lp-section-title">Pre&#231;os simples e transparentes</div>
+      <div class="lp-section-sub" style="margin:0 auto">Comece gr&#225;tis por 7 dias. Sem cart&#227;o. Escolha o plano depois.</div>
+    </div>
+    <div id="lp-pricing-grid" class="lp-pricing-grid"></div>
+  </section>
+  </div>
+  <!-- FAQ -->
+  <section class="lp-section">
+    <div style="text-align:center"><div class="lp-section-label">D&#250;vidas</div><div class="lp-section-title">Perguntas frequentes</div></div>
+    <div class="lp-faq">
+      <div class="lp-faq-item"><div class="lp-faq-q">Preciso de cart&#227;o de cr&#233;dito para o teste gr&#225;tis?</div><div class="lp-faq-a">N&#227;o! Voc&#234; come&#231;a sem informar nenhum dado de pagamento. O cart&#227;o s&#243; &#233; solicitado quando voc&#234; decidir assinar ap&#243;s os 7 dias.</div></div>
+      <div class="lp-faq-item"><div class="lp-faq-q">Posso cancelar quando quiser?</div><div class="lp-faq-a">Sim. Cancele a qualquer momento pelo portal do assinante, sem multa. O acesso continua at&#233; o fim do per&#237;odo pago.</div></div>
+      <div class="lp-faq-item"><div class="lp-faq-q">Quantos funcion&#225;rios posso cadastrar?</div><div class="lp-faq-a">Todos os planos incluem funcion&#225;rios ilimitados. Sem custo extra por barbeiro.</div></div>
+      <div class="lp-faq-item"><div class="lp-faq-q">Os dados da minha barbearia ficam seguros?</div><div class="lp-faq-a">Sim. Infraestrutura Supabase com criptografia em tr&#226;nsito e em repouso. Conformidade com a LGPD.</div></div>
+      <div class="lp-faq-item"><div class="lp-faq-q">Como meus clientes fazem o agendamento?</div><div class="lp-faq-a">Voc&#234; recebe um link &#250;nico da sua barbearia. Compartilhe no WhatsApp, Instagram, Google. Seus clientes agendam em segundos, sem baixar aplicativo.</div></div>
+    </div>
+  </section>
+  <!-- CTA Final -->
+  <section style="padding:80px 24px;text-align:center;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(212,160,23,.12),transparent)">
+    <div style="font-size:clamp(1.8rem,4vw,3rem);font-weight:900;margin-bottom:16px">Pronto para modernizar<br>sua barbearia?</div>
+    <div style="color:var(--text2);font-size:16px;margin-bottom:32px">Junte-se a barbearias que j&#225; usam o AutoBarber para crescer.</div>
+    <button class="btn btn-gold" style="font-size:16px;padding:14px 40px" onclick="showView('view-plans');renderPlans()">Come&#231;ar teste gr&#225;tis &#x2192;</button>
+    <div style="margin-top:16px;font-size:13px;color:var(--text2)">J&#225; tem conta? <a href="#" onclick="showView('view-admin-login')" style="color:var(--gold)">Entrar</a></div>
+  </section>
+  <!-- Footer -->
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <div class="lp-footer-col">
+        <div style="font-size:22px;font-weight:800;color:var(--gold);margin-bottom:12px">Auto<span style="color:var(--text2);font-weight:300">Barber</span></div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.7;max-width:240px">A plataforma de gest&#227;o completa para barbearias modernas.</div>
+      </div>
+      <div class="lp-footer-col"><h4>Produto</h4><a onclick="scrollToLpSection('lp-features')">Funcionalidades</a><a onclick="scrollToLpSection('lp-pricing-grid')">Pre&#231;os</a><a onclick="showView('view-admin-login')">Entrar</a></div>
+      <div class="lp-footer-col"><h4>Legal</h4><a onclick="openLgpdModal('privacy')">Pol&#237;tica de Privacidade</a><a onclick="openLgpdModal('terms')">Termos de Uso</a><a onclick="openLgpdModal('privacy')">LGPD</a></div>
+      <div class="lp-footer-col"><h4>Suporte</h4><a href="mailto:yuriabraodemenezes@gmail.com">E-mail</a><a onclick="showView('view-plans');renderPlans()">Planos</a><a onclick="showView('view-plans');renderPlans()">Come&#231;ar gr&#225;tis</a></div>
+    </div>
+    <div class="lp-footer-bottom">
+      <span>&#169; <span id="lp-footer-year">2025</span> AutoBarber. Todos os direitos reservados.</span>
+      <div style="display:flex;gap:20px">
+        <a href="#" onclick="openLgpdModal('privacy');return false" style="color:var(--text2)">Privacidade</a>
+        <a href="#" onclick="openLgpdModal('terms');return false" style="color:var(--text2)">Termos</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
 </body>
 </html>
