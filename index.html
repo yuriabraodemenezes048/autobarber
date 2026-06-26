@@ -5370,6 +5370,12 @@ function generateSlots(pro,dateStr){
   try{
     initSupabase();
     const n=await sbLoadAll();
+    // If Supabase was empty but local has data, sbLoadAll already called sbForcePush.
+    // If n>0 but local has newer/extra data, push updates.
+    if(n>0){
+      // Re-push all local keys to keep Supabase in sync (safe: uses upsert)
+      setTimeout(()=>sbForcePush().catch(()=>{}), 2000);
+    }
     updateSbStatusUI(true,'Conectado · '+n+' registros carregados');
   }catch(e){
     console.warn('Supabase init failed:',e);
@@ -5396,10 +5402,14 @@ document.getElementById('sch-week').value=fmtDate(new Date());
 function shouldShowLanding(){
   var p=new URLSearchParams(location.search);
   if(p.get('shop')||p.get('subscribed')||p.get('admin'))return false;
-  var s=load('autobarber_settings');
+  // Check if this instance has been configured (use correct ab_ prefix keys)
+  var s=load('settings');
   if(s&&s.name&&s.name!=='AutoBarber')return false;
-  var sv=load('autobarber_services');
+  var sv=load('services');
   if(sv&&sv.length>0)return false;
+  // Also check if there's an admin session (user is managing this barbershop)
+  var sess=load('adminSession')||load('currentUser');
+  if(sess)return false;
   return true;
 }
 
