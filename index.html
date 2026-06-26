@@ -2382,7 +2382,153 @@ p,span,div,label,td,th,li{font-family:var(--font)!important}
       <div class="emp-login-tabs" style="margin-bottom:16px">
         <div class="emp-login-tab active" id="ltab-admin" onclick="switchLoginTab('admin')">🔐 Administrador</div>
         <div class="emp-login-tab" id="ltab-emp" onclick="switchLoginTab('emp')">💈 Funcionário</div>
+      
+
+      <!-- ── CRM ── -->
+      <div id="section-crm" class="admin-section">
+        <div class="page-head"><h2>CRM Clientes</h2><span class="text-sm text-muted">Perfis completos e histórico</span></div>
+        <div class="action-bar">
+          <input id="crm-search" type="text" placeholder="Buscar cliente..." class="search-input" oninput="renderCRM()" style="width:260px">
+          <select id="crm-filter" onchange="renderCRM()" style="width:180px;padding:8px 12px;background:var(--s2);border:1px solid var(--bdr2);border-radius:var(--r-s);color:var(--t1);font-size:13px">
+            <option value="">Todos os clientes</option>
+            <option value="vip">VIP (top spenders)</option>
+            <option value="new">Novos (30 dias)</option>
+            <option value="inactive">Inativos (60+ dias)</option>
+            <option value="birthday">Aniversariantes do mês</option>
+          </select>
+        </div>
+        <div id="crm-list"></div>
       </div>
+
+      <!-- ── RISCO ── -->
+      <div id="section-risk" class="admin-section">
+        <div class="page-head"><h2>Clientes em Risco</h2><span class="text-sm text-muted">Inteligência automática de retenção</span></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:28px" id="risk-stats"></div>
+        <div id="risk-tabs" style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap"></div>
+        <div id="risk-list"></div>
+      </div>
+
+      <!-- ── FIDELIDADE ── -->
+      <div id="section-loyalty" class="admin-section">
+        <div class="page-head"><h2>Programa de Fidelidade</h2><span class="text-sm text-muted">Pontos, cashback e benefícios</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px">
+          <div class="card">
+            <div class="card-title">Configurações do Programa</div>
+            <div class="card-sub">Defina as regras de pontuação</div>
+            <div style="display:grid;gap:12px;margin-top:8px">
+              <label class="form-label">Pontos por R$1 gasto<input id="loy-pts-per-real" type="number" value="1" min="1" style="margin-top:6px"></label>
+              <label class="form-label">Pontos para 1 corte grátis<input id="loy-pts-for-free" type="number" value="100" min="10" style="margin-top:6px"></label>
+              <label class="form-label">Validade dos pontos (dias)<input id="loy-pts-expiry" type="number" value="365" min="30" style="margin-top:6px"></label>
+              <button class="btn btn-primary" onclick="saveLoyaltyConfig()">Salvar Configurações</button>
+            </div>
+          </div>
+          <div class="card" id="loyalty-summary"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Ranking de Fidelidade</div>
+          <div id="loyalty-ranking"></div>
+        </div>
+      </div>
+
+      <!-- ── AVALIAÇÕES ── -->
+      <div id="section-reviews" class="admin-section">
+        <div class="page-head"><h2>Avaliações</h2><span class="text-sm text-muted">Nota média e comentários dos clientes</span></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px" id="review-stats"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+          <div class="card"><div class="card-title">Ranking de Barbeiros</div><div id="reviews-pro-ranking"></div></div>
+          <div class="card"><div class="card-title">Avaliações Recentes</div><div id="reviews-recent"></div></div>
+        </div>
+      </div>
+
+      <!-- ── METAS ── -->
+      <div id="section-goals" class="admin-section">
+        <div class="page-head"><h2>Metas</h2><span class="text-sm text-muted">Defina e acompanhe objetivos por barbeiro</span></div>
+        <div id="goals-list"></div>
+      </div>
+
+      <!-- ── RANKING ── -->
+      <div id="section-ranking" class="admin-section">
+        <div class="page-head"><h2>Ranking</h2><span class="text-sm text-muted">Performance dos barbeiros</span></div>
+        <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap" id="ranking-tabs"></div>
+        <div id="ranking-list"></div>
+      </div>
+
+      <!-- ── IA INSIGHTS ── -->
+      <div id="section-insights" class="admin-section">
+        <div class="page-head"><h2>IA Insights</h2><span class="text-sm text-muted">Inteligência de negócios gerada automaticamente</span></div>
+        <div id="insights-list" style="display:grid;gap:16px"></div>
+      </div>
+
+      <!-- ── MARKETING ── -->
+      <div id="section-marketing" class="admin-section">
+        <div class="page-head"><h2>Marketing</h2><span class="text-sm text-muted">Campanhas por WhatsApp e E-mail</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:24px">
+          <div class="card">
+            <div class="card-title">Nova Campanha</div>
+            <div class="card-sub">Crie e envie para segmentos</div>
+            <div style="display:grid;gap:12px;margin-top:12px">
+              <label class="form-label">Nome da Campanha<input id="mkt-name" type="text" placeholder="Ex: Promoção de Novembro" style="margin-top:6px"></label>
+              <label class="form-label">Segmento
+                <select id="mkt-segment" style="margin-top:6px">
+                  <option value="all">Todos os clientes</option>
+                  <option value="new">Novos (últimos 30 dias)</option>
+                  <option value="vip">VIP (top 20%)</option>
+                  <option value="inactive">Inativos (45+ dias)</option>
+                  <option value="birthday">Aniversariantes do mês</option>
+                  <option value="recurrent">Recorrentes</option>
+                </select>
+              </label>
+              <label class="form-label">Canal
+                <select id="mkt-channel" style="margin-top:6px">
+                  <option value="whatsapp">WhatsApp</option>
+                  <option value="email">E-mail</option>
+                </select>
+              </label>
+              <label class="form-label">Mensagem
+                <textarea id="mkt-message" placeholder="Olá {nome}! Temos uma oferta especial para você..." style="margin-top:6px;min-height:120px"></textarea>
+              </label>
+              <div style="display:flex;gap:8px">
+                <button class="btn btn-secondary" onclick="previewMarketing()">👁 Preview</button>
+                <button class="btn btn-primary" onclick="sendMarketing()">🚀 Enviar Campanha</button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card" style="margin-bottom:16px">
+              <div class="card-title">Alcance Estimado</div>
+              <div id="mkt-reach" style="margin-top:12px;font-size:28px;font-weight:800;color:var(--a2)">0 clientes</div>
+              <div id="mkt-reach-list" style="margin-top:12px;max-height:200px;overflow-y:auto"></div>
+            </div>
+            <div class="card"><div class="card-title">Histórico de Campanhas</div><div id="mkt-history"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── FINANCEIRO ── -->
+      <div id="section-financial" class="admin-section">
+        <div class="page-head"><h2>Financeiro</h2><span class="text-sm text-muted">Fluxo de caixa, DRE e projeções</span></div>
+        <div style="display:flex;gap:8px;margin-bottom:20px">
+          <select id="fin-period" onchange="renderFinancial()" style="padding:8px 14px;background:var(--s2);border:1px solid var(--bdr2);border-radius:var(--r-s);color:var(--t1);font-size:13px">
+            <option value="month">Este Mês</option>
+            <option value="last3">Últimos 3 Meses</option>
+            <option value="year">Este Ano</option>
+          </select>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-bottom:24px" id="fin-stats"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+          <div class="card"><div class="card-title">DRE Simplificado</div><div id="fin-dre"></div></div>
+          <div class="card"><div class="card-title">Receita por Serviço</div><div id="fin-by-service"></div></div>
+        </div>
+        <div class="card" style="margin-top:24px"><div class="card-title">Fluxo de Caixa (30 dias)</div><div id="fin-cashflow" style="margin-top:16px"></div></div>
+      </div>
+
+      <!-- ── EXPORTAÇÕES ── -->
+      <div id="section-exports" class="admin-section">
+        <div class="page-head"><h2>Exportações &amp; Relatórios</h2><span class="text-sm text-muted">Exporte seus dados em vários formatos</span></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px" id="exports-list"></div>
+      </div>
+
+</div>
       <!-- admin form -->
       <div id="login-admin-form">
         <div class="card">
@@ -2442,6 +2588,19 @@ p,span,div,label,td,th,li{font-family:var(--font)!important}
         <div class="nav-item active" onclick="showSection('dashboard')" id="nav-dashboard"><span class="icon">📊</span> Dashboard</div>
         <div class="nav-item" onclick="showSection('appointments')" id="nav-appointments"><span class="icon">📅</span> Agendamentos</div>
         <div class="nav-item" onclick="showSection('clients')" id="nav-clients"><span class="icon">👥</span> Clientes</div>
+        <div class="sidebar-section">Crescimento</div>
+        <div class="nav-item" onclick="showSection('crm')" id="nav-crm"><span class="icon">🎯</span> CRM Clientes</div>
+        <div class="nav-item" onclick="showSection('risk')" id="nav-risk"><span class="icon">⚠️</span> Em Risco</div>
+        <div class="nav-item" onclick="showSection('loyalty')" id="nav-loyalty"><span class="icon">⭐</span> Fidelidade</div>
+        <div class="nav-item" onclick="showSection('reviews')" id="nav-reviews"><span class="icon">★</span> Avaliações</div>
+        <div class="nav-item" onclick="showSection('marketing')" id="nav-marketing"><span class="icon">📣</span> Marketing</div>
+        <div class="sidebar-section">Inteligência</div>
+        <div class="nav-item" onclick="showSection('insights')" id="nav-insights"><span class="icon">🤖</span> IA Insights</div>
+        <div class="nav-item" onclick="showSection('goals')" id="nav-goals"><span class="icon">🏆</span> Metas</div>
+        <div class="nav-item" onclick="showSection('ranking')" id="nav-ranking"><span class="icon">🥇</span> Ranking</div>
+        <div class="sidebar-section">Financeiro</div>
+        <div class="nav-item" onclick="showSection('financial')" id="nav-financial"><span class="icon">💹</span> Financeiro</div>
+        <div class="nav-item" onclick="showSection('exports')" id="nav-exports"><span class="icon">📤</span> Exportações</div>
         <div class="sidebar-section">Configurações</div>
         <div class="nav-item" onclick="showSection('services')" id="nav-services"><span class="icon">✂️</span> Serviços</div>
         <div class="nav-item" onclick="showSection('professionals')" id="nav-professionals"><span class="icon">👤</span> Profissionais</div>
@@ -3166,6 +3325,16 @@ function showSection(sec){
   else if(sec==='reports')initReports();
   else if(sec==='settings')loadSettings();
   else if(sec==='admins')renderAdmins();
+  else if(sec==='crm')renderCRM();
+  else if(sec==='risk')renderRiskClients();
+  else if(sec==='loyalty')renderLoyalty();
+  else if(sec==='reviews')renderReviews();
+  else if(sec==='goals')renderGoals();
+  else if(sec==='ranking')renderRanking();
+  else if(sec==='insights')renderInsights();
+  else if(sec==='marketing')renderMarketing();
+  else if(sec==='financial')renderFinancial();
+  else if(sec==='exports')renderExports();
   // close mobile sidebar
   document.getElementById('sidebar').classList.remove('open');
 }
@@ -6496,6 +6665,480 @@ async function sendBookingConfirmEmail(booking,client,pro,service){
   // if(DSN){var s=document.createElement('script');s.src='https://browser.sentry-cdn.com/7.99.0/bundle.min.js';s.onload=function(){Sentry.init({dsn:DSN,environment:'production'});};document.head.appendChild(s);}
   window.onerror=function(m,s,l,c,e){console.error('[AutoBarber]',m,s+':'+l,e);};
   window.onunhandledrejection=function(e){console.error('[AutoBarber Promise]',e.reason);};
+})();
+
+
+
+/* ════════════════════════════════════════════════════════════════
+   BUILD 16 — PREMIUM MODULES
+   CRM · Risk · Loyalty · Reviews · Goals · Ranking · IA · Marketing · Financial · Exports
+════════════════════════════════════════════════════════════════ */
+
+/* ── HELPERS ── */
+function getMonthKey(d){var dt=d||new Date();return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0');}
+function fmtCurrency(v){return 'R$ '+parseFloat(v||0).toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');}
+function fmtDatePT(s){if(!s)return '-';var p=s.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
+function daysBetween(d1,d2){return Math.round(Math.abs(new Date(d2)-new Date(d1))/(1000*60*60*24));}
+function todayStr(){return fmtDate(new Date());}
+function riskBadge(days){
+  if(days>=60)return '<span class="badge badge-err">⚠ '+days+'d sem visita</span>';
+  if(days>=45)return '<span class="badge badge-warn">'+days+'d sem visita</span>';
+  if(days>=30)return '<span class="badge badge-neutral">'+days+'d sem visita</span>';
+  return '<span class="badge badge-ok">Ativo</span>';
+}
+function starRating(r){var n=Math.round(r||0);return '★'.repeat(n)+'☆'.repeat(5-n);}
+
+/* ── CLIENT ENRICHMENT ── */
+function enrichClients(){
+  var clients=getData('clients');
+  var appts=getData('appointments');
+  var reviews=getData('reviews')||[];
+  var loy=loadLoyaltyConfig();
+  return clients.map(function(c){
+    var cAppts=appts.filter(function(a){return a.clientId===c.id&&(a.status==='done'||a.status==='confirmed');});
+    var totalSpent=cAppts.reduce(function(s,a){return s+(parseFloat(a.amount)||0);},0);
+    var points=Math.floor(totalSpent*(loy.ptsPerReal||1));
+    var sorted=cAppts.slice().sort(function(a,b){return b.date.localeCompare(a.date);});
+    var lastAppt=sorted[0];
+    var lastVisit=lastAppt?lastAppt.date:(c.lastVisit||null);
+    var daysAgo=lastVisit?daysBetween(lastVisit,todayStr()):999;
+    var cReviews=reviews.filter(function(r){return r.clientId===c.id;});
+    var avgRating=cReviews.length?cReviews.reduce(function(s,r){return s+(r.rating||0);},0)/cReviews.length:null;
+    var proCounts={};
+    cAppts.forEach(function(a){if(a.professionalId)proCounts[a.professionalId]=(proCounts[a.professionalId]||0)+1;});
+    var favProId=Object.entries(proCounts).sort(function(a,b){return b[1]-a[1];})[0];
+    favProId=favProId?favProId[0]:null;
+    var pros=getData('professionals');
+    var favPro=pros.find(function(p){return p.id===favProId;})||{};
+    var firstAppt=cAppts.slice().sort(function(a,b){return a.date.localeCompare(b.date);})[0];
+    var monthsActive=firstAppt?Math.max(1,daysBetween(firstAppt.date,todayStr())/30):1;
+    var frequency=(cAppts.length/monthsActive).toFixed(1);
+    var ticketAvg=cAppts.length?totalSpent/cAppts.length:0;
+    return Object.assign({},c,{totalSpent:totalSpent,points:points,visitCount:cAppts.length,lastVisit:lastVisit,daysAgo:daysAgo,avgRating:avgRating,favPro:favPro.name||'-',frequency:frequency,ticketAvg:ticketAvg});
+  });
+}
+
+/* ── LOYALTY CONFIG ── */
+function loadLoyaltyConfig(){return load('loyalty_config')||{ptsPerReal:1,ptsForFree:100,ptsExpiry:365};}
+function saveLoyaltyConfig(){
+  var cfg={ptsPerReal:parseFloat(document.getElementById('loy-pts-per-real')&&document.getElementById('loy-pts-per-real').value)||1,ptsForFree:parseFloat(document.getElementById('loy-pts-for-free')&&document.getElementById('loy-pts-for-free').value)||100,ptsExpiry:parseFloat(document.getElementById('loy-pts-expiry')&&document.getElementById('loy-pts-expiry').value)||365};
+  save('loyalty_config',cfg);
+  toast('Configurações salvas','ok');
+  renderLoyalty();
+}
+
+/* ═══ CRM ═══ */
+function renderCRM(){
+  var search=(document.getElementById('crm-search')&&document.getElementById('crm-search').value||'').toLowerCase();
+  var filter=document.getElementById('crm-filter')&&document.getElementById('crm-filter').value||'';
+  var clients=enrichClients();
+  var spent=clients.map(function(c){return c.totalSpent;}).sort(function(a,b){return b-a;});
+  var vipThreshold=spent[Math.floor(spent.length*0.2)]||0;
+  var thisMonth=getMonthKey();
+  if(search)clients=clients.filter(function(c){return c.name.toLowerCase().includes(search)||c.phone.includes(search)||((c.email||'').toLowerCase().includes(search));});
+  if(filter==='vip')clients=clients.filter(function(c){return c.totalSpent>=vipThreshold&&c.totalSpent>0;});
+  else if(filter==='new')clients=clients.filter(function(c){return c.createdAt&&c.createdAt.slice(0,7)===thisMonth;});
+  else if(filter==='inactive')clients=clients.filter(function(c){return c.daysAgo>=60;});
+  else if(filter==='birthday'){var m=String(new Date().getMonth()+1).padStart(2,'0');clients=clients.filter(function(c){return c.birthDate&&c.birthDate.slice(5,7)===m;});}
+  var container=document.getElementById('crm-list');
+  if(!container)return;
+  if(!clients.length){container.innerHTML='<div class="empty-state"><div class="empty-icon">🎯</div><div class="empty-title">Nenhum cliente encontrado</div></div>';return;}
+  container.innerHTML='<div class="table-wrap"><table><thead><tr><th>Cliente</th><th>Visitas</th><th>Total Gasto</th><th>Ticket Médio</th><th>Pontos</th><th>Favorito</th><th>Última Visita</th><th>Status</th></tr></thead><tbody>'+
+    clients.map(function(c){return '<tr onclick="openCRMProfile(\''+c.id+'\')" style="cursor:pointer"><td><div style="font-weight:600;color:var(--t1)">'+c.name+'</div><div style="font-size:11px;color:var(--t3)">'+c.phone+'</div>'+(c.totalSpent>=vipThreshold&&c.totalSpent>0?'<span class="badge badge-info" style="margin-top:3px">VIP</span>':'')+'</td><td><strong>'+c.visitCount+'</strong></td><td style="color:var(--ok)">'+fmtCurrency(c.totalSpent)+'</td><td>'+fmtCurrency(c.ticketAvg)+'</td><td><span style="color:var(--warn);font-weight:700">⭐ '+c.points+'</span></td><td style="font-size:12px;color:var(--t2)">'+c.favPro+'</td><td style="font-size:12px">'+fmtDatePT(c.lastVisit)+'</td><td>'+riskBadge(c.daysAgo)+'</td></tr>';}).join('')+
+  '</tbody></table></div>';
+}
+
+function openCRMProfile(cid){
+  var clients=enrichClients();
+  var c=clients.find(function(x){return x.id===cid;});
+  if(!c)return;
+  var appts=getData('appointments').filter(function(a){return a.clientId===cid;}).sort(function(a,b){return b.date.localeCompare(a.date);});
+  var svcs=getData('services');var pros=getData('professionals');
+  var body='<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">'+
+    '<div style="background:var(--s3);border-radius:var(--r);padding:16px">'+
+    '<div style="font-size:22px;font-weight:800;color:var(--t1)">'+c.name+'</div>'+
+    '<div style="font-size:13px;color:var(--t2);margin-top:4px">'+c.phone+' · '+(c.email||'Sem e-mail')+'</div>'+
+    '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">'+(c.totalSpent>0?'<span class="badge badge-ok">Cliente ativo</span>':'')+(c.avgRating?'<span class="badge badge-info">'+starRating(c.avgRating)+' '+c.avgRating.toFixed(1)+'</span>':'')+'<span class="badge badge-neutral">⭐ '+c.points+' pts</span></div></div>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'+[['Total Gasto',fmtCurrency(c.totalSpent)],['Visitas',c.visitCount],['Ticket Médio',fmtCurrency(c.ticketAvg)],['Última Visita',fmtDatePT(c.lastVisit)]].map(function(x){return '<div style="background:var(--s3);border-radius:var(--r-s);padding:12px"><div style="font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:1px">'+x[0]+'</div><div style="font-size:18px;font-weight:700;color:var(--t1);margin-top:4px">'+x[1]+'</div></div>';}).join('')+'</div></div>'+
+    '<div style="font-weight:700;margin-bottom:10px;font-size:14px">Últimos Agendamentos</div>'+
+    '<div style="max-height:200px;overflow-y:auto">'+
+    (appts.slice(0,10).map(function(a){return '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--bdr)"><div><div style="font-size:13px;font-weight:600">'+(svcs.find(function(s){return s.id===a.serviceId;})||{name:a.serviceId}).name+'</div><div style="font-size:11px;color:var(--t3)">'+fmtDatePT(a.date)+' · '+a.time+' · '+(pros.find(function(p){return p.id===a.professionalId;})||{name:'-'}).name+'</div></div><div style="text-align:right"><div style="font-weight:700;color:var(--ok)">'+fmtCurrency(a.amount)+'</div><div style="font-size:11px;color:var(--t3)">'+a.status+'</div></div></div>';}).join('')||'<div style="color:var(--t3);font-size:13px">Nenhum agendamento</div>')+
+    '</div><div style="font-weight:700;margin-top:16px;margin-bottom:10px;font-size:14px">Observações</div>'+
+    '<textarea id="crm-notes-'+cid+'" style="margin:0" placeholder="Adicionar observações...">'+(c.notes||'')+'</textarea>'+
+    '<button class="btn btn-primary" style="margin-top:10px" onclick="saveCRMNotes(\''+cid+'\')">Salvar Observações</button>';
+  showModal(c.name,body);
+}
+
+function saveCRMNotes(cid){
+  var notes=document.getElementById('crm-notes-'+cid)&&document.getElementById('crm-notes-'+cid).value||'';
+  var clients=getData('clients');
+  var idx=clients.findIndex(function(c){return c.id===cid;});
+  if(idx>=0){clients[idx].notes=notes;save('clients',clients);toast('Observações salvas','ok');}
+}
+
+/* ═══ RISK CLIENTS ═══ */
+function renderRiskClients(){
+  var clients=enrichClients().filter(function(c){return c.daysAgo>0;});
+  var at15=clients.filter(function(c){return c.daysAgo>=15&&c.daysAgo<30;});
+  var at30=clients.filter(function(c){return c.daysAgo>=30&&c.daysAgo<45;});
+  var at45=clients.filter(function(c){return c.daysAgo>=45&&c.daysAgo<60;});
+  var at60=clients.filter(function(c){return c.daysAgo>=60;});
+  var statsEl=document.getElementById('risk-stats');
+  if(statsEl)statsEl.innerHTML=[['15-29 dias','⚠️ Atenção',at15.length,'badge-warn'],['30-44 dias','🔔 Em risco',at30.length,'badge-warn'],['45-59 dias','🚨 Alto risco',at45.length,'badge-err'],['60+ dias','❌ Perdidos',at60.length,'badge-err']].map(function(x){return '<div class="stat-card" style="text-align:center"><div style="font-size:24px;margin-bottom:8px">'+x[1]+'</div><div style="font-size:28px;font-weight:800;color:var(--t1)">'+x[2]+'</div><div class="stat-label" style="margin-top:4px">'+x[0]+'</div></div>';}).join('');
+  window._riskTab=window._riskTab||'15';
+  var tabsEl=document.getElementById('risk-tabs');
+  if(tabsEl)tabsEl.innerHTML=[['15','15-29 dias',at15.length],['30','30-44 dias',at30.length],['45','45-59 dias',at45.length],['60','60+ dias',at60.length]].map(function(x){return '<button class="btn '+(window._riskTab===x[0]?'btn-primary':'btn-secondary')+' btn-sm" onclick="window._riskTab=\''+x[0]+'\';renderRiskClients()">'+x[1]+' ('+x[2]+')</button>';}).join('');
+  var shown={'15':at15,'30':at30,'45':at45,'60':at60}[window._riskTab]||at15;
+  var listEl=document.getElementById('risk-list');
+  if(!listEl)return;
+  if(!shown.length){listEl.innerHTML='<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-title">Nenhum cliente nesta faixa</div></div>';return;}
+  listEl.innerHTML='<div class="table-wrap"><table><thead><tr><th>Cliente</th><th>Último Serviço</th><th>Dias Ausente</th><th>Total Gasto</th><th>Ações</th></tr></thead><tbody>'+
+    shown.map(function(c){return '<tr><td><div style="font-weight:600">'+c.name+'</div><div style="font-size:11px;color:var(--t3)">'+c.phone+'</div></td><td style="font-size:12px">'+fmtDatePT(c.lastVisit)+'</td><td>'+riskBadge(c.daysAgo)+'</td><td style="color:var(--ok)">'+fmtCurrency(c.totalSpent)+'</td><td><button class="btn btn-sm btn-secondary" onclick="sendWhatsAppMsg(\''+c.id+'\',\''+c.name.replace(/'/g,'')+'\',\''+c.phone+'\')">&#128172; WhatsApp</button></td></tr>';}).join('')+
+  '</tbody></table></div>';
+}
+
+function sendWhatsAppMsg(cid,name,phone){
+  var msg=encodeURIComponent('Olá '+name+'! Sentimos sua falta na barbearia 💈 Que tal agendar um horário? Acesse: '+location.origin);
+  window.open('https://wa.me/55'+phone.replace(/\D/g,'')+'?text='+msg,'_blank');
+}
+
+/* ═══ LOYALTY ═══ */
+function renderLoyalty(){
+  var clients=enrichClients();
+  var loy=loadLoyaltyConfig();
+  var e1=document.getElementById('loy-pts-per-real');if(e1)e1.value=loy.ptsPerReal;
+  var e2=document.getElementById('loy-pts-for-free');if(e2)e2.value=loy.ptsForFree;
+  var e3=document.getElementById('loy-pts-expiry');if(e3)e3.value=loy.ptsExpiry;
+  var totalPoints=clients.reduce(function(s,c){return s+c.points;},0);
+  var summaryEl=document.getElementById('loyalty-summary');
+  if(summaryEl)summaryEl.innerHTML='<div class="card-title">Resumo do Programa</div><div style="margin-top:16px;display:grid;gap:12px">'+
+    [['Total de pontos ativos','⭐ '+totalPoints.toLocaleString('pt-BR'),'var(--warn)'],['Clientes com pontos',clients.filter(function(c){return c.points>0;}).length,'var(--t1)'],['Prontos para resgatar',clients.filter(function(c){return c.points>=loy.ptsForFree;}).length,'var(--ok)']].map(function(x){return '<div style="display:flex;justify-content:space-between;padding:10px;background:var(--s3);border-radius:var(--r-s)"><span style="color:var(--t2)">'+x[0]+'</span><strong style="color:'+x[2]+'">'+x[1]+'</strong></div>';}).join('')+'</div>';
+  var top=clients.filter(function(c){return c.points>0;}).sort(function(a,b){return b.points-a.points;}).slice(0,10);
+  var rankEl=document.getElementById('loyalty-ranking');
+  if(rankEl)rankEl.innerHTML=top.length?'<table style="margin-top:12px"><thead><tr><th>#</th><th>Cliente</th><th>Pontos</th><th>Progresso</th></tr></thead><tbody>'+
+    top.map(function(c,i){var pct=Math.min(100,(c.points/loy.ptsForFree)*100).toFixed(0);return '<tr><td style="font-weight:800;color:var(--t2)">'+(i+1)+'</td><td><div style="font-weight:600">'+c.name+'</div></td><td><span style="color:var(--warn);font-weight:700">⭐ '+c.points+'</span></td><td><div style="width:120px;background:var(--s4);border-radius:var(--r-f);height:6px;overflow:hidden"><div style="height:100%;background:var(--warn);border-radius:var(--r-f);width:'+pct+'%"></div></div><div style="font-size:10px;color:var(--t3);margin-top:2px">'+c.points+'/'+loy.ptsForFree+'</div></td></tr>';}).join('')+'</tbody></table>':
+    '<div class="empty-state" style="padding:32px"><div class="empty-title">Nenhum ponto distribuído ainda</div></div>';
+}
+
+/* ═══ REVIEWS ═══ */
+function renderReviews(){
+  var reviews=getData('reviews')||[];
+  var pros=getData('professionals');
+  var avg=reviews.length?reviews.reduce(function(s,r){return s+(r.rating||0);},0)/reviews.length:0;
+  var statsEl=document.getElementById('review-stats');
+  if(statsEl)statsEl.innerHTML=[['Nota Média',avg.toFixed(1)+' ★'],['Total de Avaliações',reviews.length],['5 Estrelas',reviews.filter(function(r){return r.rating===5;}).length]].map(function(x){return '<div class="stat-card"><div class="stat-label">'+x[0]+'</div><div class="stat-val">'+x[1]+'</div></div>';}).join('');
+  var proRankEl=document.getElementById('reviews-pro-ranking');
+  if(proRankEl){
+    var proReviews=pros.map(function(p){var pR=reviews.filter(function(r){return r.proId===p.id;});var pA=pR.length?pR.reduce(function(s,r){return s+(r.rating||0);},0)/pR.length:0;return Object.assign({},p,{avgRating:pA,reviewCount:pR.length});}).filter(function(p){return p.reviewCount>0;}).sort(function(a,b){return b.avgRating-a.avgRating;});
+    proRankEl.innerHTML=proReviews.length?proReviews.map(function(p,i){return '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--bdr)"><div style="display:flex;align-items:center;gap:12px"><span style="width:28px;height:28px;background:var(--s3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px">'+(i+1)+'</span><div><div style="font-weight:600">'+p.name+'</div><div style="font-size:11px;color:var(--t3)">'+p.reviewCount+' avaliação(es)</div></div></div><div style="text-align:right"><div style="font-size:18px;font-weight:800;color:var(--warn)">'+p.avgRating.toFixed(1)+'</div><div style="font-size:11px;color:var(--warn)">'+starRating(p.avgRating)+'</div></div></div>';}).join(''):'<div style="padding:24px;text-align:center;color:var(--t3)">Nenhuma avaliação ainda</div>';
+  }
+  var recentEl=document.getElementById('reviews-recent');
+  if(recentEl)recentEl.innerHTML=reviews.slice().sort(function(a,b){return (b.date||'').localeCompare(a.date||'');}).slice(0,8).map(function(r){return '<div style="padding:12px 0;border-bottom:1px solid var(--bdr)"><div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:600;font-size:13px">'+(r.clientName||'Cliente')+'</div><div style="color:var(--warn);font-size:14px">'+starRating(r.rating)+'</div></div>'+(r.comment?'<div style="font-size:12px;color:var(--t2);margin-top:4px">"'+r.comment+'"</div>':'')+'<div style="font-size:10px;color:var(--t3);margin-top:4px">'+fmtDatePT((r.date||'').slice(0,10))+'</div></div>';}).join('')||'<div style="padding:24px;text-align:center;color:var(--t3)">Nenhuma avaliação</div>';
+}
+
+function promptReview(appt){
+  if(!appt)return;
+  var pros=getData('professionals');
+  var proName=(pros.find(function(p){return p.id===appt.professionalId;})||{name:'seu barbeiro'}).name;
+  var body='<div style="text-align:center;padding:16px 0"><div style="font-size:40px;margin-bottom:12px">⭐</div><div style="font-size:18px;font-weight:700;margin-bottom:8px">Como foi o atendimento?</div><div style="font-size:14px;color:var(--t2);margin-bottom:24px">Avalie o serviço de '+proName+'</div><div style="display:flex;justify-content:center;gap:8px;font-size:40px;margin-bottom:20px">'+[1,2,3,4,5].map(function(n){return '<span onclick="setReviewStar('+n+')" id="star-'+n+'" style="cursor:pointer;opacity:.4;transition:.15s">★</span>';}).join('')+'</div><textarea id="review-comment" placeholder="Comentário opcional..." style="max-width:360px;width:100%;margin:0 auto;display:block"></textarea><button class="btn btn-primary" style="margin-top:16px;width:100%;max-width:200px" onclick="submitReview(\''+appt.id+'\',\''+appt.professionalId+'\',\''+(appt.clientId||'')+'\',\''+(appt.clientName||'').replace(/'/g,'')+'\')">Enviar Avaliação</button></div>';
+  showModal('Avaliar Atendimento',body);
+}
+
+function setReviewStar(n){
+  window._reviewStars=n;
+  [1,2,3,4,5].forEach(function(i){var el=document.getElementById('star-'+i);if(el)el.style.opacity=i<=n?'1':'.3';});
+}
+
+function submitReview(apptId,proId,clientId,clientName){
+  var rating=window._reviewStars||0;
+  if(!rating){toast('Selecione uma nota','warn');return;}
+  var comment=document.getElementById('review-comment')&&document.getElementById('review-comment').value||'';
+  var reviews=getData('reviews')||[];
+  if(reviews.find(function(r){return r.appointmentId===apptId;})){toast('Já avaliado','info');closeModal();return;}
+  reviews.push({id:'rev'+Date.now(),appointmentId:apptId,proId:proId,clientId:clientId,clientName:clientName,rating:rating,comment:comment,date:new Date().toISOString()});
+  save('reviews',reviews);
+  toast('Avaliação enviada! '+starRating(rating),'ok');
+  closeModal();
+}
+
+/* ═══ GOALS ═══ */
+function renderGoals(){
+  var pros=getData('professionals').filter(function(p){return p.active;});
+  var goals=load('goals')||{};
+  var appts=getData('appointments');
+  var m=getMonthKey();
+  var container=document.getElementById('goals-list');
+  if(!container)return;
+  container.innerHTML=pros.map(function(p){
+    var g=goals[p.id+'-'+m]||{revenue:0,appointments:0};
+    var pAppts=appts.filter(function(a){return a.professionalId===p.id&&a.date.slice(0,7)===m&&(a.status==='done'||a.status==='confirmed');});
+    var actualRevenue=pAppts.reduce(function(s,a){return s+(parseFloat(a.amount)||0);},0);
+    var actualAppts=pAppts.length;
+    var revPct=g.revenue?Math.min(100,(actualRevenue/g.revenue)*100):0;
+    var apptPct=g.appointments?Math.min(100,(actualAppts/g.appointments)*100):0;
+    var revColor=revPct>=100?'var(--ok)':revPct>=60?'var(--warn)':'var(--err)';
+    var apptColor=apptPct>=100?'var(--ok)':apptPct>=60?'var(--warn)':'var(--err)';
+    return '<div class="card" style="margin-bottom:16px"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px"><div style="font-size:16px;font-weight:700">'+p.name+'</div><button class="btn btn-sm btn-secondary" onclick="editGoal(\''+p.id+'\',\''+m+'\')">&#9999;&#65039; Editar Meta</button></div>'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">'+
+      '<div><div style="font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Receita · '+m+'</div><div style="font-size:24px;font-weight:800">'+fmtCurrency(actualRevenue)+'</div><div style="font-size:12px;color:var(--t2)">meta: '+fmtCurrency(g.revenue||0)+'</div><div style="background:var(--s4);border-radius:var(--r-f);height:8px;overflow:hidden;margin-top:8px"><div style="height:100%;border-radius:var(--r-f);width:'+revPct.toFixed(0)+'%;background:'+revColor+'"></div></div><div style="font-size:11px;color:var(--t3);margin-top:4px">'+revPct.toFixed(0)+'%</div></div>'+
+      '<div><div style="font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Agendamentos</div><div style="font-size:24px;font-weight:800">'+actualAppts+'</div><div style="font-size:12px;color:var(--t2)">meta: '+(g.appointments||0)+'</div><div style="background:var(--s4);border-radius:var(--r-f);height:8px;overflow:hidden;margin-top:8px"><div style="height:100%;border-radius:var(--r-f);width:'+apptPct.toFixed(0)+'%;background:'+apptColor+'"></div></div><div style="font-size:11px;color:var(--t3);margin-top:4px">'+apptPct.toFixed(0)+'%</div></div>'+
+      '</div></div>';
+  }).join('');
+}
+
+function editGoal(proId,m){
+  var goals=load('goals')||{};
+  var g=goals[proId+'-'+m]||{revenue:0,appointments:0};
+  var pro=(getData('professionals').find(function(p){return p.id===proId;})||{name:'?'});
+  var body='<div style="display:grid;gap:14px"><label class="form-label">Meta de Receita (R$)<input id="goal-rev" type="number" value="'+g.revenue+'" style="margin-top:6px"></label><label class="form-label">Meta de Agendamentos<input id="goal-appt" type="number" value="'+g.appointments+'" style="margin-top:6px"></label><button class="btn btn-primary" onclick="saveGoal(\''+proId+'\',\''+m+'\')">Salvar Meta</button></div>';
+  showModal('Meta de '+pro.name+' — '+m,body);
+}
+
+function saveGoal(proId,m){
+  var goals=load('goals')||{};
+  goals[proId+'-'+m]={revenue:parseFloat(document.getElementById('goal-rev')&&document.getElementById('goal-rev').value)||0,appointments:parseInt(document.getElementById('goal-appt')&&document.getElementById('goal-appt').value)||0};
+  save('goals',goals);toast('Meta salva','ok');closeModal();renderGoals();
+}
+
+/* ═══ RANKING ═══ */
+function renderRanking(){
+  var pros=getData('professionals').filter(function(p){return p.active;});
+  var appts=getData('appointments');
+  var reviews=getData('reviews')||[];
+  window._rankingMetric=window._rankingMetric||'revenue';
+  var m=getMonthKey();
+  var tabsEl=document.getElementById('ranking-tabs');
+  if(tabsEl)tabsEl.innerHTML=[['revenue','💰 Receita'],['appointments','📅 Agendamentos'],['rating','⭐ Avaliações'],['clients','👥 Clientes'],['ticket','🎫 Ticket Médio']].map(function(x){return '<button class="btn btn-sm '+(window._rankingMetric===x[0]?'btn-primary':'btn-secondary')+'" onclick="window._rankingMetric=\''+x[0]+'\';renderRanking()">'+x[1]+'</button>';}).join('');
+  var metric=window._rankingMetric;
+  var proStats=pros.map(function(p){
+    var pAppts=appts.filter(function(a){return a.professionalId===p.id&&a.date.slice(0,7)===m&&(a.status==='done'||a.status==='confirmed');});
+    var revenue=pAppts.reduce(function(s,a){return s+(parseFloat(a.amount)||0);},0);
+    var pRevs=reviews.filter(function(r){return r.proId===p.id;});
+    var avgRating=pRevs.length?pRevs.reduce(function(s,r){return s+(r.rating||0);},0)/pRevs.length:0;
+    var uniqueClients=new Set(pAppts.map(function(a){return a.clientId||a.clientPhone;})).size;
+    var ticket=pAppts.length?revenue/pAppts.length:0;
+    return Object.assign({},p,{revenue:revenue,appointments:pAppts.length,avgRating:avgRating,uniqueClients:uniqueClients,ticket:ticket});
+  });
+  var sorted=proStats.slice().sort(function(a,b){return metric==='revenue'?b.revenue-a.revenue:metric==='appointments'?b.appointments-a.appointments:metric==='rating'?b.avgRating-a.avgRating:metric==='clients'?b.uniqueClients-a.uniqueClients:b.ticket-a.ticket;});
+  var medals=['🥇','🥈','🥉'];
+  var metricLabels={revenue:'receita no mês',appointments:'agendamentos',rating:'avaliação média',clients:'clientes únicos',ticket:'ticket médio'};
+  var listEl=document.getElementById('ranking-list');
+  if(!listEl)return;
+  listEl.innerHTML=sorted.map(function(p,i){var val=metric==='revenue'?fmtCurrency(p.revenue):metric==='rating'?p.avgRating.toFixed(1)+' ★':metric==='ticket'?fmtCurrency(p.ticket):metric==='appointments'?p.appointments:p.uniqueClients;return '<div class="card" style="display:flex;align-items:center;gap:20px;margin-bottom:12px"><div style="font-size:32px;width:44px;text-align:center">'+(medals[i]||'#'+(i+1))+'</div><div style="flex:1"><div style="font-size:16px;font-weight:700">'+p.name+'</div><div style="font-size:12px;color:var(--t2)">'+(p.specialty||'')+'</div></div><div style="text-align:right"><div style="font-size:22px;font-weight:800;color:var(--a2)">'+val+'</div><div style="font-size:11px;color:var(--t3)">'+metricLabels[metric]+'</div></div></div>';}).join('');
+}
+
+/* ═══ IA INSIGHTS ═══ */
+function renderInsights(){
+  var appts=getData('appointments');
+  var clients=getData('clients');
+  var reviews=getData('reviews')||[];
+  var td=todayStr();
+  var lastWeek=fmtDate(new Date(Date.now()-7*86400000));
+  var lastMonth=fmtDate(new Date(Date.now()-30*86400000));
+  var prevWeekStart=fmtDate(new Date(Date.now()-14*86400000));
+  var m=getMonthKey();
+  var pm=getMonthKey(new Date(Date.now()-30*86400000));
+  var insights=[];
+
+  var thisWeekA=appts.filter(function(a){return a.date>=lastWeek&&a.date<=td;});
+  var prevWeekA=appts.filter(function(a){return a.date>=prevWeekStart&&a.date<lastWeek;});
+  if(prevWeekA.length>0){var diff=((thisWeekA.length-prevWeekA.length)/prevWeekA.length)*100;insights.push({type:diff>=0?'ok':'warn',icon:diff>=0?'📈':'📉',title:diff>=0?'Agendamentos subiram '+diff.toFixed(0)+'% esta semana':'Agendamentos caíram '+Math.abs(diff).toFixed(0)+'% esta semana',desc:'Esta semana: '+thisWeekA.length+' · Semana anterior: '+prevWeekA.length,action:diff<0?'Considere criar uma promoção ou campanha de marketing':null});}
+
+  var lostClients=clients.filter(function(c){var cA=appts.filter(function(a){return a.clientId===c.id;});var lastA=cA.slice().sort(function(a,b){return b.date.localeCompare(a.date);})[0];return lastA&&lastA.date<lastMonth;});
+  if(lostClients.length>0)insights.push({type:'err',icon:'⚠️',title:lostClients.length+' clientes sem retorno há mais de 30 dias',desc:'Esses clientes podem estar indo para a concorrência',action:'Use o módulo Marketing para enviar uma campanha de reativação'});
+
+  var dayCounts={};appts.forEach(function(a){var d=new Date(a.date+'T12:00:00').getDay();dayCounts[d]=(dayCounts[d]||0)+1;});
+  var bestDay=Object.entries(dayCounts).sort(function(a,b){return b[1]-a[1];})[0];
+  var dayNames=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+  if(bestDay)insights.push({type:'info',icon:'📅',title:dayNames[bestDay[0]]+' é o dia mais movimentado',desc:bestDay[1]+' agendamentos registrados nesse dia da semana',action:'Garanta cobertura máxima de equipe nesse dia'});
+
+  var thisMonthRev=appts.filter(function(a){return a.date.slice(0,7)===m&&a.status==='done';}).reduce(function(s,a){return s+(parseFloat(a.amount)||0);},0);
+  var prevMonthRev=appts.filter(function(a){return a.date.slice(0,7)===pm&&a.status==='done';}).reduce(function(s,a){return s+(parseFloat(a.amount)||0);},0);
+  if(prevMonthRev>0){var rdiff=((thisMonthRev-prevMonthRev)/prevMonthRev)*100;insights.push({type:rdiff>=0?'ok':'warn',icon:'💰',title:rdiff>=0?'Receita subiu '+rdiff.toFixed(0)+'% vs mês anterior':'Receita caiu '+Math.abs(rdiff).toFixed(0)+'% vs mês anterior',desc:'Este mês: '+fmtCurrency(thisMonthRev)+' · Mês anterior: '+fmtCurrency(prevMonthRev)});}
+
+  var doneA=appts.filter(function(a){return a.status==='done'&&a.amount>0;});
+  if(doneA.length>0){var avgT=doneA.reduce(function(s,a){return s+(parseFloat(a.amount)||0);},0)/doneA.length;insights.push({type:'info',icon:'🎫',title:'Ticket médio: '+fmtCurrency(avgT),desc:'Baseado em '+doneA.length+' atendimentos realizados',action:'Considere serviços combo para aumentar o ticket médio'});}
+
+  var avgRating=reviews.length?reviews.reduce(function(s,r){return s+(r.rating||0);},0)/reviews.length:null;
+  if(avgRating)insights.push({type:avgRating>=4?'ok':avgRating>=3?'warn':'err',icon:'⭐',title:'Nota média: '+avgRating.toFixed(1)+' estrelas',desc:'Baseado em '+reviews.length+' avaliações de clientes'});
+
+  var newC=clients.filter(function(c){return c.createdAt&&c.createdAt.slice(0,7)===m;}).length;
+  if(newC>0)insights.push({type:'ok',icon:'🎉',title:newC+' novos clientes em '+m,desc:'Manter esse ritmo de aquisição é ótimo para crescimento'});
+
+  var colors={ok:'var(--ok)',err:'var(--err)',warn:'var(--warn)',info:'var(--info)'};
+  var bgColors={ok:'var(--ok-bg)',err:'var(--err-bg)',warn:'var(--warn-bg)',info:'var(--info-bg)'};
+  var el=document.getElementById('insights-list');
+  if(!el)return;
+  el.innerHTML=insights.length?insights.map(function(ins){return '<div class="card" style="border-left:3px solid '+colors[ins.type]+';margin-bottom:12px"><div style="display:flex;gap:14px;align-items:flex-start"><span style="font-size:28px;flex-shrink:0">'+ins.icon+'</span><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:4px">'+ins.title+'</div><div style="font-size:13px;color:var(--t2)">'+ins.desc+'</div>'+(ins.action?'<div style="margin-top:10px;font-size:12px;background:'+bgColors[ins.type]+';color:'+colors[ins.type]+';padding:8px 12px;border-radius:var(--r-s);display:inline-block">💡 '+ins.action+'</div>':'')+'</div></div></div>';}).join(''):
+    '<div class="empty-state"><div class="empty-icon">🤖</div><div class="empty-title">Dados insuficientes para análise</div><div class="empty-sub">Adicione agendamentos e clientes para ativar a inteligência de negócios</div></div>';
+}
+
+/* ═══ MARKETING ═══ */
+function getMarketingSegment(seg){
+  var clients=enrichClients();
+  var m=getMonthKey();
+  if(seg==='all')return clients;
+  if(seg==='new')return clients.filter(function(c){return c.createdAt&&c.createdAt.slice(0,7)===m;});
+  if(seg==='vip'){var threshold=clients.map(function(c){return c.totalSpent;}).sort(function(a,b){return b-a;})[Math.floor(clients.length*0.2)]||0;return clients.filter(function(c){return c.totalSpent>=threshold&&c.totalSpent>0;});}
+  if(seg==='inactive')return clients.filter(function(c){return c.daysAgo>=45;});
+  if(seg==='birthday'){var mon=String(new Date().getMonth()+1).padStart(2,'0');return clients.filter(function(c){return c.birthDate&&c.birthDate.slice(5,7)===mon;});}
+  if(seg==='recurrent')return clients.filter(function(c){return c.visitCount>=3;});
+  return clients;
+}
+
+function renderMarketing(){
+  updateMktReach();
+  var campaigns=load('campaigns')||[];
+  var histEl=document.getElementById('mkt-history');
+  if(histEl)histEl.innerHTML=campaigns.length?campaigns.slice().reverse().slice(0,10).map(function(c){return '<div style="padding:10px 0;border-bottom:1px solid var(--bdr)"><div style="font-weight:600;font-size:13px">'+c.name+'</div><div style="font-size:11px;color:var(--t2)">'+(c.channel==='whatsapp'?'💬 WhatsApp':'📧 E-mail')+' · '+c.segment+' · '+fmtDatePT((c.date||'').slice(0,10))+'</div><div style="font-size:11px;color:var(--t3)">Alcance: '+c.reach+' clientes</div></div>';}).join(''):'<div style="padding:16px;text-align:center;color:var(--t3);font-size:13px">Nenhuma campanha enviada</div>';
+}
+
+function updateMktReach(){
+  var seg=document.getElementById('mkt-segment')&&document.getElementById('mkt-segment').value||'all';
+  var targets=getMarketingSegment(seg);
+  var reachEl=document.getElementById('mkt-reach');if(reachEl)reachEl.textContent=targets.length+' clientes';
+  var listEl=document.getElementById('mkt-reach-list');
+  if(listEl)listEl.innerHTML=targets.slice(0,5).map(function(c){return '<div style="font-size:12px;color:var(--t2);padding:4px 0">'+c.name+' · '+c.phone+'</div>';}).join('')+(targets.length>5?'<div style="font-size:11px;color:var(--t3)">+ '+(targets.length-5)+' outros...</div>':'');
+}
+
+function previewMarketing(){
+  var seg=document.getElementById('mkt-segment')&&document.getElementById('mkt-segment').value||'all';
+  var targets=getMarketingSegment(seg);
+  var msg=document.getElementById('mkt-message')&&document.getElementById('mkt-message').value||'';
+  if(!targets.length){toast('Nenhum cliente nesse segmento','warn');return;}
+  var preview=msg.replace(/{nome}/g,targets[0].name||'Nome').replace(/{pontos}/g,targets[0].points||0).replace(/{link}/g,location.origin);
+  showModal('Preview da Mensagem','<div style="background:var(--s3);border-radius:var(--r);padding:16px;font-size:14px;line-height:1.6;white-space:pre-wrap">'+preview+'</div>');
+}
+
+function sendMarketing(){
+  var name=document.getElementById('mkt-name')&&document.getElementById('mkt-name').value;
+  var seg=document.getElementById('mkt-segment')&&document.getElementById('mkt-segment').value||'all';
+  var channel=document.getElementById('mkt-channel')&&document.getElementById('mkt-channel').value||'whatsapp';
+  var msg=document.getElementById('mkt-message')&&document.getElementById('mkt-message').value;
+  if(!name||!msg){toast('Preencha nome e mensagem','warn');return;}
+  var targets=getMarketingSegment(seg);
+  if(!targets.length){toast('Nenhum cliente neste segmento','warn');return;}
+  var campaigns=load('campaigns')||[];
+  campaigns.push({id:'cmp'+Date.now(),name:name,segment:seg,channel:channel,message:msg,date:new Date().toISOString(),reach:targets.length});
+  save('campaigns',campaigns);
+  if(channel==='whatsapp'){var first=targets[0];var finalMsg=msg.replace(/{nome}/g,first.name).replace(/{pontos}/g,first.points||0).replace(/{link}/g,location.origin);window.open('https://wa.me/55'+first.phone.replace(/\D/g,'')+'?text='+encodeURIComponent(finalMsg),'_blank');toast('Campanha criada! Enviando para '+targets.length+' clientes via WhatsApp...','ok');}
+  else{toast('Campanha salva para '+targets.length+' clientes.','info');}
+  renderMarketing();
+}
+
+/* ═══ FINANCIAL ═══ */
+function renderFinancial(){
+  var period=document.getElementById('fin-period')&&document.getElementById('fin-period').value||'month';
+  var appts=getData('appointments');
+  var m=getMonthKey();
+  var filterFn;
+  if(period==='month')filterFn=function(a){return a.date.slice(0,7)===m;};
+  else if(period==='last3'){var d3=getMonthKey(new Date(Date.now()-90*86400000));filterFn=function(a){return a.date.slice(0,7)>=d3;};}
+  else filterFn=function(a){return a.date.slice(0,4)===String(new Date().getFullYear());};
+  var filtered=appts.filter(function(a){return (a.status==='done'||a.status==='confirmed')&&filterFn(a);});
+  var revenue=filtered.reduce(function(s,a){return s+(parseFloat(a.amount)||0);},0);
+  var doneAppts=filtered.filter(function(a){return a.status==='done';});
+  var doneRevenue=doneAppts.reduce(function(s,a){return s+(parseFloat(a.amount)||0);},0);
+  var avgTicket=doneAppts.length?doneRevenue/doneAppts.length:0;
+  var statsEl=document.getElementById('fin-stats');
+  if(statsEl)statsEl.innerHTML=[['Receita Total',fmtCurrency(revenue),'var(--ok)'],['Confirmados',filtered.length,'var(--a2)'],['Concluídos',doneAppts.length,'var(--info)'],['Ticket Médio',fmtCurrency(avgTicket),'var(--warn)']].map(function(x){return '<div class="stat-card"><div class="stat-label">'+x[0]+'</div><div class="stat-val" style="color:'+x[2]+';font-size:24px">'+x[1]+'</div></div>';}).join('');
+  var dreEl=document.getElementById('fin-dre');
+  if(dreEl)dreEl.innerHTML='<div style="display:grid;gap:8px;margin-top:12px">'+[['(+) Receita Bruta',revenue,'var(--ok)'],['(-) Comissões (est.)',revenue*0.3,'var(--err)'],['(=) Receita Líquida',revenue*0.7,'var(--a2)']].map(function(x){return '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--s3);border-radius:var(--r-s)"><span style="font-size:13px;color:var(--t2)">'+x[0]+'</span><strong style="color:'+x[2]+'">'+fmtCurrency(x[1])+'</strong></div>';}).join('')+'</div>';
+  var services=getData('services');
+  var byService={};filtered.forEach(function(a){byService[a.serviceId]=(byService[a.serviceId]||0)+(parseFloat(a.amount)||0);});
+  var svcEl=document.getElementById('fin-by-service');
+  if(svcEl)svcEl.innerHTML='<div style="margin-top:12px;display:grid;gap:8px">'+Object.entries(byService).sort(function(a,b){return b[1]-a[1];}).slice(0,8).map(function(x){var svc=services.find(function(s){return s.id===x[0];})||{name:x[0]};var pct=revenue?((x[1]/revenue)*100).toFixed(0):0;return '<div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>'+svc.name+'</span><strong>'+fmtCurrency(x[1])+'</strong></div><div style="background:var(--s4);border-radius:var(--r-f);height:5px;overflow:hidden"><div style="height:100%;background:var(--a1);border-radius:var(--r-f);width:'+pct+'%"></div></div></div>';}).join('')+(Object.keys(byService).length?'':'<div style="color:var(--t3);font-size:13px;padding:16px 0">Sem dados</div>')+'</div>';
+  var cfEl=document.getElementById('fin-cashflow');
+  if(cfEl){
+    var days=[];for(var i=29;i>=0;i--){var d=fmtDate(new Date(Date.now()-i*86400000));var dayRev=appts.filter(function(a){return a.date===d&&a.status==='done';}).reduce(function(s,a){return s+(parseFloat(a.amount)||0);},0);days.push({d:d,rev:dayRev});}
+    var maxRev=Math.max.apply(null,days.map(function(d){return d.rev;}))||1;
+    cfEl.innerHTML='<div style="display:flex;gap:2px;height:80px;align-items:flex-end">'+days.map(function(d){return '<div style="flex:1;background:'+(d.rev>0?'var(--a1)':'var(--s4)')+';border-radius:2px 2px 0 0;height:'+(d.rev>0?Math.max(8,(d.rev/maxRev)*80):4)+'px;min-width:2px" title="'+fmtDatePT(d.d)+': '+fmtCurrency(d.rev)+'"></div>';}).join('')+'</div><div style="display:flex;justify-content:space-between;font-size:10px;color:var(--t3);margin-top:6px"><span>'+fmtDatePT(days[0].d)+'</span><span>Hoje</span></div>';
+  }
+}
+
+/* ═══ EXPORTS ═══ */
+function renderExports(){
+  var reports=[
+    {icon:'📊',title:'Agendamentos (CSV)',desc:'Todos os agendamentos com detalhes',fn:'exportAppointmentsCSV'},
+    {icon:'👥',title:'Clientes (CSV)',desc:'Lista completa de clientes e dados',fn:'exportClientsCSV'},
+    {icon:'💰',title:'Financeiro (CSV)',desc:'Receita por período e barbeiro',fn:'exportFinancialCSV'},
+    {icon:'⭐',title:'Avaliações (CSV)',desc:'Todas as avaliações dos clientes',fn:'exportReviewsCSV'},
+    {icon:'🖨️',title:'Relatório Mensal (PDF)',desc:'Resumo do mês para impressão',fn:'printMonthlyReport'},
+    {icon:'📈',title:'Relatório de Barbeiros',desc:'Performance individual por barbeiro',fn:'exportProsCSV'},
+  ];
+  var el=document.getElementById('exports-list');
+  if(!el)return;
+  el.innerHTML=reports.map(function(r){return '<div class="card" style="cursor:pointer;transition:all .2s" onclick="'+r.fn+'()" onmouseover="this.style.borderColor=\'var(--a1)\'" onmouseout="this.style.borderColor=\'\'"><div style="font-size:36px;margin-bottom:12px">'+r.icon+'</div><div style="font-size:16px;font-weight:700;margin-bottom:4px">'+r.title+'</div><div style="font-size:13px;color:var(--t2);margin-bottom:16px">'+r.desc+'</div><button class="btn btn-primary btn-sm">⬇ Exportar</button></div>';}).join('');
+}
+
+function downloadCSV(filename,rows,headers){
+  var csv=[headers.join(',')].concat(rows.map(function(r){return r.map(function(v){return '"'+String(v||'').replace(/"/g,'""')+'"';}).join(',');})).join('\n');
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=filename;a.click();
+}
+
+function exportAppointmentsCSV(){
+  var appts=getData('appointments');var svcs=getData('services');var pros=getData('professionals');
+  downloadCSV('agendamentos.csv',appts.map(function(a){return [a.id,a.date,a.time,a.clientName,a.clientPhone,(svcs.find(function(s){return s.id===a.serviceId;})||{name:a.serviceId}).name,(pros.find(function(p){return p.id===a.professionalId;})||{name:a.professionalId}).name,a.amount,a.status,a.bookingCode];}),['ID','Data','Hora','Cliente','Telefone','Serviço','Barbeiro','Valor','Status','Código']);
+  toast('Exportado com sucesso','ok');
+}
+
+function exportClientsCSV(){
+  var clients=enrichClients();
+  downloadCSV('clientes.csv',clients.map(function(c){return [c.id,c.name,c.phone,c.email||'',c.birthDate||'',c.visitCount,c.totalSpent.toFixed(2),c.points,c.ticketAvg.toFixed(2),c.lastVisit||'',c.daysAgo,c.favPro];}),['ID','Nome','Telefone','Email','Nascimento','Visitas','Total Gasto','Pontos','Ticket Médio','Última Visita','Dias Ausente','Favorito']);
+  toast('Exportado com sucesso','ok');
+}
+
+function exportFinancialCSV(){
+  var appts=getData('appointments').filter(function(a){return a.status==='done';});var svcs=getData('services');var pros=getData('professionals');
+  downloadCSV('financeiro.csv',appts.map(function(a){return [a.date,a.time,a.clientName,(svcs.find(function(s){return s.id===a.serviceId;})||{name:''}).name,(pros.find(function(p){return p.id===a.professionalId;})||{name:''}).name,a.amount];}),['Data','Hora','Cliente','Serviço','Barbeiro','Valor']);
+  toast('Exportado com sucesso','ok');
+}
+
+function exportReviewsCSV(){
+  var reviews=getData('reviews')||[];var pros=getData('professionals');
+  downloadCSV('avaliacoes.csv',reviews.map(function(r){return [(r.date||'').slice(0,10),r.clientName,(pros.find(function(p){return p.id===r.proId;})||{name:''}).name,r.rating,r.comment||''];}),['Data','Cliente','Barbeiro','Nota','Comentário']);
+  toast('Exportado com sucesso','ok');
+}
+
+function exportProsCSV(){
+  var pros=getData('professionals');var appts=getData('appointments');var m=getMonthKey();
+  downloadCSV('barbeiros.csv',pros.map(function(p){var pA=appts.filter(function(a){return a.professionalId===p.id&&a.date.slice(0,7)===m&&a.status==='done';});var rev=pA.reduce(function(s,a){return s+(parseFloat(a.amount)||0);},0);return [p.name,p.specialty||'',pA.length,rev.toFixed(2),(pA.length?rev/pA.length:0).toFixed(2)];}),['Nome','Especialidade','Atendimentos','Receita','Ticket Médio']);
+  toast('Exportado com sucesso','ok');
+}
+
+function printMonthlyReport(){
+  var m=getMonthKey();var appts=getData('appointments').filter(function(a){return a.date.slice(0,7)===m;});
+  var done=appts.filter(function(a){return a.status==='done';});var revenue=done.reduce(function(s,a){return s+(parseFloat(a.amount)||0);},0);
+  var settings=getData('settings');var svcs=getData('services');var pros=getData('professionals');
+  var w=window.open('','_blank');
+  w.document.write('<!DOCTYPE html><html><head><title>Relatório '+m+'</title><style>body{font-family:Arial,sans-serif;padding:32px;color:#111}h1{font-size:24px;border-bottom:2px solid #1E3825;padding-bottom:8px}table{width:100%;border-collapse:collapse;margin-top:16px}th,td{border:1px solid #ddd;padding:8px;font-size:13px}th{background:#f5f5f5}</style></head><body>'+
+    '<h1>'+(settings&&settings.name||'AutoBarber')+' — Relatório '+m+'</h1>'+
+    '<div style="display:flex;gap:24px;margin:16px 0"><div><strong>Receita:</strong> '+fmtCurrency(revenue)+'</div><div><strong>Atendimentos:</strong> '+done.length+'</div><div><strong>Agendamentos:</strong> '+appts.length+'</div></div>'+
+    '<table><thead><tr><th>Data</th><th>Cliente</th><th>Serviço</th><th>Barbeiro</th><th>Valor</th><th>Status</th></tr></thead><tbody>'+
+    appts.map(function(a){return '<tr><td>'+fmtDatePT(a.date)+'</td><td>'+a.clientName+'</td><td>'+(svcs.find(function(s){return s.id===a.serviceId;})||{name:''}).name+'</td><td>'+(pros.find(function(p){return p.id===a.professionalId;})||{name:''}).name+'</td><td>'+fmtCurrency(a.amount)+'</td><td>'+a.status+'</td></tr>';}).join('')+
+    '</tbody></table></body></html>');
+  w.print();
+}
+
+/* ═══ REVIEW INTERCEPT ═══ */
+(function hookReviewOnDone(){
+  var _origSave=window.save;
+  if(!_origSave)return;
+  window.save=function(k,v){
+    if(k==='appointments'&&Array.isArray(v)){
+      var prev=getData('appointments')||[];
+      v.forEach(function(a){
+        var old=prev.find(function(p){return p.id===a.id;});
+        if(old&&old.status!=='done'&&a.status==='done'){
+          setTimeout(function(){
+            var reviews=getData('reviews')||[];
+            if(!reviews.find(function(r){return r.appointmentId===a.id;})&&a.clientId){promptReview(a);}
+          },1200);
+        }
+      });
+    }
+    return _origSave(k,v);
+  };
 })();
 
 </script>
