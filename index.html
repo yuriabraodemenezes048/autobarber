@@ -244,7 +244,7 @@ input:checked+.toggle-slider:before{transform:translateX(18px)}
 @keyframes float-particle{0%{transform:translateY(105vh) rotate(0deg);opacity:0}8%{opacity:.06}88%{opacity:.06}100%{transform:translateY(-20vh) rotate(360deg);opacity:0}}
 
 /* ─── MODE TOGGLE ─── */
-
+#mode-toggle{position:fixed;bottom:20px;right:20px;z-index:999;background:var(--bg2);border:1px solid var(--border);color:var(--text2);border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:.2s;box-shadow:var(--sh)}
 #mode-toggle:hover{border-color:var(--gold);background:var(--bg4)}
 
 /* ─── MOBILE MODE ─── */
@@ -1002,7 +1002,7 @@ input:focus,select:focus,textarea:focus{
 ═══════════════════════════════════════════ -->
 <div id="view-home" class="view active fade">
 <div class="bg-particles" id="bg-particles"></div>
-
+<button id="mode-toggle" onclick="toggleViewMode()" title="Alternar Mobile/Desktop">📱</button>
 
   <!-- NAV -->
   <nav class="nav">
