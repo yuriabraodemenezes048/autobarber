@@ -244,7 +244,7 @@ input:checked+.toggle-slider:before{transform:translateX(18px)}
 @keyframes float-particle{0%{transform:translateY(105vh) rotate(0deg);opacity:0}8%{opacity:.06}88%{opacity:.06}100%{transform:translateY(-20vh) rotate(360deg);opacity:0}}
 
 /* ─── MODE TOGGLE ─── */
-#mode-toggle{position:fixed;bottom:20px;right:20px;z-index:999;background:var(--bg2);border:1px solid var(--border);color:var(--text2);border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:.2s;box-shadow:var(--sh)}
+#mode-toggle{position:fixed;bottom:20px;right:20px;z-index:9998;background:var(--bg3);border:1px solid var(--border);color:var(--text);width:46px;height:46px;border-radius:50%;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--sh);transition:.2s}
 #mode-toggle:hover{border-color:var(--gold);background:var(--bg4)}
 
 /* ─── MOBILE MODE ─── */
@@ -976,6 +976,173 @@ input:focus,select:focus,textarea:focus{
   .lp-hero .btn-gold{padding:15px 28px!important;font-size:14px!important}
 }
 
+
+/* ─── CHROME / METAL CROMADO POLIDO ─── */
+@keyframes chrome-sweep{
+  0%{background-position:200% center}
+  100%{background-position:-200% center}
+}
+
+/* Palavras em script — efeito texto cromado prateado */
+.script-word{
+  background:linear-gradient(180deg,
+    #ffffff 0%,
+    #e8f0ec 15%,
+    #9db5a8 38%,
+    #d4e4da 52%,
+    #b8cec4 65%,
+    #f2f8f4 80%,
+    #a4bdb4 100%
+  )!important;
+  -webkit-background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  background-clip:text!important;
+  color:transparent!important;
+  filter:drop-shadow(0 2px 8px rgba(180,215,195,.45))!important;
+}
+
+/* Badge hero — aro cromado com lustre */
+.lp-hero-badge{
+  background:linear-gradient(135deg,
+    rgba(255,255,255,.16) 0%,
+    rgba(200,220,212,.07) 50%,
+    rgba(255,255,255,.14) 100%
+  )!important;
+  border-top:1px solid rgba(255,255,255,.55)!important;
+  border-left:1px solid rgba(255,255,255,.4)!important;
+  border-right:1px solid rgba(200,210,205,.25)!important;
+  border-bottom:1px solid rgba(160,180,172,.2)!important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.25) inset,
+    0 -1px 0 rgba(0,0,0,.18) inset,
+    0 4px 24px rgba(0,0,0,.35),
+    0 0 0 .5px rgba(255,255,255,.15)!important;
+}
+
+/* Botão CTA principal — chrome polido brilhante */
+.btn-gold{
+  background:linear-gradient(135deg,
+    #d6e8dc 0%,
+    #f4faf6 18%,
+    #bcd2c6 34%,
+    #eef8f2 50%,
+    #a8c4b8 65%,
+    #d0e4d8 80%,
+    #c0d8cc 100%
+  )!important;
+  background-size:300% 100%!important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.7) inset,
+    0 -2px 0 rgba(0,0,0,.18) inset,
+    0 5px 22px rgba(160,200,180,.45),
+    0 2px 8px rgba(0,0,0,.3)!important;
+  text-shadow:0 1px 1px rgba(255,255,255,.35)!important;
+  transition:all .35s ease!important;
+  animation:chrome-sweep 6s linear infinite!important;
+}
+.btn-gold:hover{
+  animation-duration:2s!important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.8) inset,
+    0 -2px 0 rgba(0,0,0,.22) inset,
+    0 8px 32px rgba(160,200,180,.65),
+    0 3px 14px rgba(0,0,0,.35)!important;
+  transform:translateY(-2px) scale(1.02)!important;
+}
+
+/* Card plano destacado — borda cromada metálica */
+.lp-plan.featured{
+  position:relative!important;
+  border:2px solid transparent!important;
+  background-clip:padding-box!important;
+  box-shadow:
+    0 8px 48px rgba(180,210,195,.18),
+    0 2px 12px rgba(0,0,0,.45)!important;
+}
+.lp-plan.featured::before{
+  content:'';
+  position:absolute;
+  inset:-2px;
+  border-radius:22px;
+  background:linear-gradient(135deg,
+    rgba(255,255,255,.75) 0%,
+    rgba(192,214,204,.4) 20%,
+    rgba(90,120,108,.5) 40%,
+    rgba(160,192,178,.35) 55%,
+    rgba(80,110,98,.45) 70%,
+    rgba(200,220,210,.4) 85%,
+    rgba(255,255,255,.7) 100%
+  );
+  z-index:-1;
+  animation:chrome-sweep 8s linear infinite;
+  background-size:400% 100%;
+}
+
+/* Badge "MAIS POPULAR" — cromado prateado */
+.lp-plan-badge{
+  background:linear-gradient(135deg,
+    #eaf4ee 0%,
+    #c4d8ce 28%,
+    #8aa89e 50%,
+    #b4cac4 72%,
+    #e4f0ea 100%
+  )!important;
+  color:#162d1f!important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.65) inset,
+    0 -1px 0 rgba(0,0,0,.18) inset,
+    0 4px 14px rgba(0,0,0,.45)!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.45)!important;
+}
+
+/* Labels de seção — texto cromado animado */
+.lp-section-label{
+  background:linear-gradient(90deg,
+    #8aab9e 0%,
+    #d0e4da 35%,
+    #f4faf6 50%,
+    #c4dcd2 65%,
+    #88a89c 100%
+  )!important;
+  background-size:300% 100%!important;
+  -webkit-background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  background-clip:text!important;
+  color:transparent!important;
+  animation:chrome-sweep 7s linear infinite!important;
+}
+
+/* Cards de feature — brilho cromado ao hover */
+.lp-feature:hover{
+  border-color:rgba(220,235,228,.5)!important;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.12),
+    0 8px 36px rgba(180,210,195,.18),
+    0 1px 0 rgba(255,255,255,.12) inset!important;
+  transform:translateY(-4px)!important;
+}
+
+/* Linha separadora nav — lustre cromado */
+.lp-nav{
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.12) inset,
+    0 2px 16px rgba(0,0,0,.12),
+    0 1px 0 rgba(200,220,210,.25)!important;
+}
+
+/* Trust dots — prateado brilhante */
+.trust-dot{
+  background:linear-gradient(135deg,rgba(255,255,255,.75),rgba(190,215,205,.5))!important;
+  box-shadow:0 0 4px rgba(255,255,255,.4)!important;
+}
+
+/* Separador horizontal — linha cromada */
+.lp-plan-features li{
+  border-bottom:1px solid rgba(255,255,255,.06)!important;
+}
+.lp-plan-features li::before{
+  filter:drop-shadow(0 0 3px rgba(74,222,128,.6))!important;
+}
 </style>
 </head>
 <body>
@@ -2405,13 +2572,6 @@ ${a.obs?'📝 *Obs:* '+a.obs+'\n\n':''}Te esperamos! Em caso de imprevisto, avis
 _${shopName}_ 💈`;
 }
 
-
-function sendWhatsApp(){
-  // Fallback stub — o onclick real é injetado em confirmApptWithNotify()
-  const btn=document.getElementById('notify-wa-btn');
-  if(btn&&btn._waUrl){window.open(btn._waUrl,'_blank');}
-  else{toast('Abra a notificação pelo agendamento confirmado','warn');}
-}
 function closeNotify(){
   document.getElementById('notify-modal').classList.remove('open');
 }
@@ -3394,7 +3554,7 @@ function initSupabase(){
   return _sb;
 }
 
-async async function sbPush(key,value){
+async function sbPush(key,value){
   const sb=_sb||initSupabase();if(!sb)return;
   try{await sb.from('ab_store').upsert({key,value,updated_at:new Date().toISOString()});}
   catch(e){console.warn('sbPush',key,e);}
@@ -5370,12 +5530,6 @@ function generateSlots(pro,dateStr){
   try{
     initSupabase();
     const n=await sbLoadAll();
-    // If Supabase was empty but local has data, sbLoadAll already called sbForcePush.
-    // If n>0 but local has newer/extra data, push updates.
-    if(n>0){
-      // Re-push all local keys to keep Supabase in sync (safe: uses upsert)
-      setTimeout(()=>sbForcePush().catch(()=>{}), 2000);
-    }
     updateSbStatusUI(true,'Conectado · '+n+' registros carregados');
   }catch(e){
     console.warn('Supabase init failed:',e);
@@ -5402,14 +5556,10 @@ document.getElementById('sch-week').value=fmtDate(new Date());
 function shouldShowLanding(){
   var p=new URLSearchParams(location.search);
   if(p.get('shop')||p.get('subscribed')||p.get('admin'))return false;
-  // Check if this instance has been configured (use correct ab_ prefix keys)
-  var s=load('settings');
+  var s=load('autobarber_settings');
   if(s&&s.name&&s.name!=='AutoBarber')return false;
-  var sv=load('services');
+  var sv=load('autobarber_services');
   if(sv&&sv.length>0)return false;
-  // Also check if there's an admin session (user is managing this barbershop)
-  var sess=load('adminSession')||load('currentUser');
-  if(sess)return false;
   return true;
 }
 
@@ -5543,8 +5693,8 @@ async function checkTrialNotification(email){
     bar.style.display='flex';document.body.style.paddingTop='50px';
   }
 }
-async function closeTrialBar(){var b=document.getElementById('trial-bar');if(b){b.style.display='none';document.body.style.paddingTop='';}}
-async function trialBarCta(){closeTrialBar();showView('view-plans');renderPlans();}
+function closeTrialBar(){var b=document.getElementById('trial-bar');if(b){b.style.display='none';document.body.style.paddingTop='';}}
+function trialBarCta(){closeTrialBar();showView('view-plans');renderPlans();}
 
 async function sendEmail(to,subject,body){
   try{
@@ -5587,7 +5737,7 @@ async function sendBookingConfirmEmail(booking,client,pro,service){
 
     <!-- SIDEBAR -->
     <aside class="emp-sidebar">
-      <div class="emp-sidebar-logo"><img id="sidebar-logo-img" src="" alt="" style="display:none;width:36px;height:36px;object-fit:contain;border-radius:6px">
+      <div class="emp-sidebar-logo">
         💈 <span id="emp-sb-shop">AutoBarber</span>
         <span id="emp-sb-name" style="color:var(--gold);font-size:13px">Funcionário</span>
       </div>
@@ -5911,7 +6061,7 @@ async function sendBookingConfirmEmail(booking,client,pro,service){
   <!-- Hero -->
   <section class="lp-hero">
     <div class="lp-hero-badge">7 dias gr&aacute;tis &mdash; sem cart&atilde;o</div>
-    <h1>Gerencie sua <span class="script-word">barbearia</span><br>como um <span class="script-word">profissional</span>.</h1>
+    <h1>Gerencie sua <span class="script-word">barbearia</span><br>como um <span class="script-word">profissional</span></h1>
     <p class="lp-hero-sub">Agendamento online, gest&atilde;o de funcion&aacute;rios,<br>comiss&otilde;es autom&aacute;ticas e relat&oacute;rios completos.<br><span style="opacity:.7">Tudo em um s&oacute; lugar.</span></p>
     <div class="lp-cta-wrap">
       <button class="btn btn-gold" style="font-size:16px;padding:14px 32px" onclick="showView('view-plans');renderPlans()">Come&ccedil;ar com 7 dias GR&Aacute;TIS</button>
