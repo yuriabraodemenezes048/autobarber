@@ -244,7 +244,7 @@ input:checked+.toggle-slider:before{transform:translateX(18px)}
 @keyframes float-particle{0%{transform:translateY(105vh) rotate(0deg);opacity:0}8%{opacity:.06}88%{opacity:.06}100%{transform:translateY(-20vh) rotate(360deg);opacity:0}}
 
 /* ─── MODE TOGGLE ─── */
-#mode-toggle{position:fixed;bottom:20px;right:20px;z-index:9998;background:var(--bg3);border:1px solid var(--border);color:var(--text);width:46px;height:46px;border-radius:50%;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--sh);transition:.2s}
+
 #mode-toggle:hover{border-color:var(--gold);background:var(--bg4)}
 
 /* ─── MOBILE MODE ─── */
@@ -1002,7 +1002,7 @@ input:focus,select:focus,textarea:focus{
 ═══════════════════════════════════════════ -->
 <div id="view-home" class="view active fade">
 <div class="bg-particles" id="bg-particles"></div>
-<button id="mode-toggle" onclick="toggleViewMode()" title="Alternar Mobile/Desktop">📱</button>
+
 
   <!-- NAV -->
   <nav class="nav">
@@ -2405,6 +2405,13 @@ ${a.obs?'📝 *Obs:* '+a.obs+'\n\n':''}Te esperamos! Em caso de imprevisto, avis
 _${shopName}_ 💈`;
 }
 
+
+function sendWhatsApp(){
+  // Fallback stub — o onclick real é injetado em confirmApptWithNotify()
+  const btn=document.getElementById('notify-wa-btn');
+  if(btn&&btn._waUrl){window.open(btn._waUrl,'_blank');}
+  else{toast('Abra a notificação pelo agendamento confirmado','warn');}
+}
 function closeNotify(){
   document.getElementById('notify-modal').classList.remove('open');
 }
@@ -3387,7 +3394,7 @@ function initSupabase(){
   return _sb;
 }
 
-async function sbPush(key,value){
+async async function sbPush(key,value){
   const sb=_sb||initSupabase();if(!sb)return;
   try{await sb.from('ab_store').upsert({key,value,updated_at:new Date().toISOString()});}
   catch(e){console.warn('sbPush',key,e);}
@@ -5526,8 +5533,8 @@ async function checkTrialNotification(email){
     bar.style.display='flex';document.body.style.paddingTop='50px';
   }
 }
-function closeTrialBar(){var b=document.getElementById('trial-bar');if(b){b.style.display='none';document.body.style.paddingTop='';}}
-function trialBarCta(){closeTrialBar();showView('view-plans');renderPlans();}
+async function closeTrialBar(){var b=document.getElementById('trial-bar');if(b){b.style.display='none';document.body.style.paddingTop='';}}
+async function trialBarCta(){closeTrialBar();showView('view-plans');renderPlans();}
 
 async function sendEmail(to,subject,body){
   try{
@@ -5570,7 +5577,7 @@ async function sendBookingConfirmEmail(booking,client,pro,service){
 
     <!-- SIDEBAR -->
     <aside class="emp-sidebar">
-      <div class="emp-sidebar-logo">
+      <div class="emp-sidebar-logo"><img id="sidebar-logo-img" src="" alt="" style="display:none;width:36px;height:36px;object-fit:contain;border-radius:6px">
         💈 <span id="emp-sb-shop">AutoBarber</span>
         <span id="emp-sb-name" style="color:var(--gold);font-size:13px">Funcionário</span>
       </div>
